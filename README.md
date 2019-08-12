@@ -4,8 +4,8 @@ https://imgur.com/a/jRcOoPw
 
 # Addon list:
 
-Atlas
-AtlasLootClassic
+# Atlas
+# AtlasLootClassic
 AutoEquipQuestItem
 BigWigs
 Capping
