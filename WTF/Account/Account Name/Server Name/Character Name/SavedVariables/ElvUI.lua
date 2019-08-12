@@ -1,138 +1,28 @@
 
 ElvCharacterDB = {
 	["ChatEditHistory"] = {
-		"/cw Wisker-ThandolSpan stalka gärna vår discord", -- [1]
-		"/cw Wisker-ThandolSpan ja men vi tar in allt", -- [2]
-		"/cw Wisker-ThandolSpan litar inte på vem som tar 60 och inte av trials", -- [3]
-		"/cw Wisker-ThandolSpan så det är bara in och visa framfötterna", -- [4]
-		"/cw Karatespark-ThandolSpan gå in på discorden :D", -- [5]
-		"/cw Karatespark-ThandolSpan skriv %apply i #ansökan", -- [6]
-		"/cw Karatespark-ThandolSpan svara på frågorna i DM som botten ställer till dig", -- [7]
-		"/cw Starcat-ThandolSpan ignore me", -- [8]
-		"/cw Starcat-ThandolSpan 100+ 2 weeks", -- [9]
-		"/cw Starcat-ThandolSpan spam is toxic but so productive", -- [10]
-		"/cw Starcat-ThandolSpan sorry to bother you lol", -- [11]
-		"/cw Jey gör så!", -- [12]
-		"/cw Jey-ThandolSpan absolut", -- [13]
-		"/cw Jey-ThandolSpan joina discorden :p", -- [14]
-		"/s gd", -- [15]
-		"/atlas loot", -- [16]
-		"/atlas", -- [17]
-		"/reload", -- [18]
-		"/bw", -- [19]
-		"/lime", -- [20]
+		"/cw Wisker-ThandolSpan litar inte på vem som tar 60 och inte av trials", -- [1]
+		"/cw Wisker-ThandolSpan så det är bara in och visa framfötterna", -- [2]
+		"/cw Karatespark-ThandolSpan gå in på discorden :D", -- [3]
+		"/cw Karatespark-ThandolSpan skriv %apply i #ansökan", -- [4]
+		"/cw Karatespark-ThandolSpan svara på frågorna i DM som botten ställer till dig", -- [5]
+		"/cw Starcat-ThandolSpan ignore me", -- [6]
+		"/cw Starcat-ThandolSpan 100+ 2 weeks", -- [7]
+		"/cw Starcat-ThandolSpan spam is toxic but so productive", -- [8]
+		"/cw Starcat-ThandolSpan sorry to bother you lol", -- [9]
+		"/cw Jey gör så!", -- [10]
+		"/cw Jey-ThandolSpan absolut", -- [11]
+		"/cw Jey-ThandolSpan joina discorden :p", -- [12]
+		"/s gd", -- [13]
+		"/atlas loot", -- [14]
+		"/atlas", -- [15]
+		"/reload", -- [16]
+		"/bw", -- [17]
+		"/lime", -- [18]
+		"/bigwigs", -- [19]
+		"/s h", -- [20]
 	},
 	["ChatHistoryLog"] = {
-		{
-			"Kommer definitvt spela där.", -- [1]
-			"Bigpoppa-ThandolSpan", -- [2]
-			"", -- [3]
-			"", -- [4]
-			"Bigpoppa", -- [5]
-			"", -- [6]
-			0, -- [7]
-			0, -- [8]
-			"", -- [9]
-			0, -- [10]
-			377, -- [11]
-			"Player-4442-00022D20", -- [12]
-			0, -- [13]
-			false, -- [14]
-			false, -- [15]
-			false, -- [16]
-			false, -- [17]
-			[52] = "Bigpoppa",
-			[51] = 1565546503,
-			[50] = "CHAT_MSG_WHISPER",
-		}, -- [1]
-		{
-			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
-			"Evilor-ThandolSpan", -- [2]
-			"", -- [3]
-			"2. Trade - City", -- [4]
-			"Evilor", -- [5]
-			"", -- [6]
-			2, -- [7]
-			2, -- [8]
-			"Trade - City", -- [9]
-			0, -- [10]
-			380, -- [11]
-			"Player-4442-000827D2", -- [12]
-			0, -- [13]
-			false, -- [14]
-			false, -- [15]
-			false, -- [16]
-			false, -- [17]
-			[52] = "Evilor",
-			[51] = 1565546531,
-			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [2]
-		{
-			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
-			"Evilor-ThandolSpan", -- [2]
-			"", -- [3]
-			"1. General - Ironforge", -- [4]
-			"Evilor", -- [5]
-			"", -- [6]
-			1, -- [7]
-			1, -- [8]
-			"General - Ironforge", -- [9]
-			0, -- [10]
-			381, -- [11]
-			"Player-4442-000827D2", -- [12]
-			0, -- [13]
-			false, -- [14]
-			false, -- [15]
-			false, -- [16]
-			false, -- [17]
-			[52] = "Evilor",
-			[51] = 1565546531,
-			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [3]
-		{
-			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
-			"Evilor-ThandolSpan", -- [2]
-			"", -- [3]
-			"1. General - Ironforge", -- [4]
-			"Evilor", -- [5]
-			"", -- [6]
-			1, -- [7]
-			1, -- [8]
-			"General - Ironforge", -- [9]
-			0, -- [10]
-			386, -- [11]
-			"Player-4442-000827D2", -- [12]
-			0, -- [13]
-			false, -- [14]
-			false, -- [15]
-			false, -- [16]
-			false, -- [17]
-			[52] = "Evilor",
-			[51] = 1565546631,
-			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [4]
-		{
-			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
-			"Evilor-ThandolSpan", -- [2]
-			"", -- [3]
-			"1. General - Ironforge", -- [4]
-			"Evilor", -- [5]
-			"", -- [6]
-			1, -- [7]
-			1, -- [8]
-			"General - Ironforge", -- [9]
-			0, -- [10]
-			387, -- [11]
-			"Player-4442-000827D2", -- [12]
-			0, -- [13]
-			false, -- [14]
-			false, -- [15]
-			false, -- [16]
-			false, -- [17]
-			[52] = "Evilor",
-			[51] = 1565546631,
-			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [5]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -154,7 +44,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565546633,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [6]
+		}, -- [1]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -176,7 +66,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565546822,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [7]
+		}, -- [2]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -198,7 +88,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565546822,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [8]
+		}, -- [3]
 		{
 			"Vilken realm tänker ni spela på?", -- [1]
 			"Swanson", -- [2]
@@ -220,7 +110,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565546918,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [9]
+		}, -- [4]
 		{
 			"ska bestämmas innan 00:00 ikv", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -242,7 +132,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565546928,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [10]
+		}, -- [5]
 		{
 			"med 20 andra nordiska guilder", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -264,7 +154,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565546935,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [11]
+		}, -- [6]
 		{
 			"alla gms är i en discord", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -286,7 +176,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565546941,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [12]
+		}, -- [7]
 		{
 			"ok, tack! ska hålla utkik", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -308,7 +198,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565546977,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [13]
+		}, -- [8]
 		{
 			"kommer spamma det på vår discord och hemsida", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -330,7 +220,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565546998,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [14]
+		}, -- [9]
 		{
 			"så gå in där om inte annat", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -352,7 +242,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565547002,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [15]
+		}, -- [10]
 		{
 			"yes, hittade en länk från redditposten", -- [1]
 			"Swanson-ThandolSpan", -- [2]
@@ -374,7 +264,7 @@ ElvCharacterDB = {
 			[52] = "Swanson",
 			[51] = 1565547016,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [16]
+		}, -- [11]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -396,7 +286,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565547033,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [17]
+		}, -- [12]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -418,7 +308,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565547033,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [18]
+		}, -- [13]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -440,7 +330,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565547295,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [19]
+		}, -- [14]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -462,7 +352,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565547295,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [20]
+		}, -- [15]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -484,7 +374,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565547608,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [21]
+		}, -- [16]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -506,7 +396,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565547609,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [22]
+		}, -- [17]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -528,7 +418,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565548213,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [23]
+		}, -- [18]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -550,7 +440,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565548213,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [24]
+		}, -- [19]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -572,7 +462,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565548322,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [25]
+		}, -- [20]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -594,7 +484,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565548322,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [26]
+		}, -- [21]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -616,7 +506,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565548793,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [27]
+		}, -- [22]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -638,7 +528,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565548793,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [28]
+		}, -- [23]
 		{
 			"Ehh, tänker ni inte börja raida MC förrän 40 pers alla har full Pre-raid bis? Står det på hemsidan. ", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -660,7 +550,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549024,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [29]
+		}, -- [24]
 		{
 			"Jo vi kommer försöka gå in så fort som möjligt med en annan guilds snabbaste 60s ", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -682,7 +572,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549056,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [30]
+		}, -- [25]
 		{
 			"många kommer ha pre raid bis från dungeon farm metan", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -704,7 +594,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549069,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [31]
+		}, -- [26]
 		{
 			"men du blir inte utesluten om du saknar lite gear", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -726,7 +616,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549095,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [32]
+		}, -- [27]
 		{
 			"ser kanske inte så snyggt ut om du varit mycket offline och inte försökt göra något åt saken", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -748,7 +638,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549111,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [33]
+		}, -- [28]
 		{
 			"Alright, ja det låter lite mer vettigt. ", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -770,7 +660,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549154,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [34]
+		}, -- [29]
 		{
 			"får kanske skriva om den där texten", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -792,7 +682,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549175,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [35]
+		}, -- [30]
 		{
 			"haha", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -814,7 +704,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549179,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [36]
+		}, -- [31]
 		{
 			"Haha, det lät som att det skulle kunna dröja ett bra tag innan man ens får se MC, men alla tolkar väl inte som jag. ", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -836,7 +726,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549229,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [37]
+		}, -- [32]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -858,7 +748,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565549367,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [38]
+		}, -- [33]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -880,7 +770,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565549368,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [39]
+		}, -- [34]
 		{
 			"nej vi kommer försöka så fort vi har 60s till att göra det", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -902,7 +792,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549386,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [40]
+		}, -- [35]
 		{
 			"och vi kommer sammarbeta med en annan guild så länge det behövs för att cleara", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -924,7 +814,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549399,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [41]
+		}, -- [36]
 		{
 			"Alright, tack för svar!", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -946,7 +836,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549530,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [42]
+		}, -- [37]
 		{
 			"vi är i behov av många spelare då vanilla kräver stor roster, så vi kan lätt ta in ett kompisgäng så du vet det", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -968,7 +858,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549572,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [43]
+		}, -- [38]
 		{
 			"stalka gärna vår discord", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -990,7 +880,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549579,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [44]
+		}, -- [39]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1012,7 +902,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565549579,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [45]
+		}, -- [40]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1034,7 +924,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565549580,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [46]
+		}, -- [41]
 		{
 			"Hehe, satt precis och tänkte på det. Har redan planer på att lira med ett gäng men det kan möjligtvis bli aktuellt för oss att bli \"absorberade\" av ett gille :) ", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -1056,7 +946,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549607,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [47]
+		}, -- [42]
 		{
 			"Hur ser det ut med rostern än så länge? Ser att ni främst letar efter DPS", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -1078,7 +968,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549631,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [48]
+		}, -- [43]
 		{
 			"ja men vi tar in allt", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -1100,7 +990,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549691,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [49]
+		}, -- [44]
 		{
 			"litar inte på vem som tar 60 och inte av trials", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -1122,7 +1012,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549710,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [50]
+		}, -- [45]
 		{
 			"så det är bara in och visa framfötterna", -- [1]
 			"Wisker-ThandolSpan", -- [2]
@@ -1144,7 +1034,7 @@ ElvCharacterDB = {
 			[52] = "Wisker",
 			[51] = 1565549717,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [51]
+		}, -- [46]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1166,7 +1056,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551031,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [52]
+		}, -- [47]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1188,7 +1078,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551031,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [53]
+		}, -- [48]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1210,7 +1100,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551452,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [54]
+		}, -- [49]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1232,7 +1122,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551452,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [55]
+		}, -- [50]
 		{
 			"Jag är på", -- [1]
 			"Karatespark-ThandolSpan", -- [2]
@@ -1254,7 +1144,7 @@ ElvCharacterDB = {
 			[52] = "Karatespark",
 			[51] = 1565551520,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [56]
+		}, -- [51]
 		{
 			"gå in på discorden :D", -- [1]
 			"Karatespark-ThandolSpan", -- [2]
@@ -1276,7 +1166,7 @@ ElvCharacterDB = {
 			[52] = "Karatespark",
 			[51] = 1565551542,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [57]
+		}, -- [52]
 		{
 			"skriv %apply i #ansökan", -- [1]
 			"Karatespark-ThandolSpan", -- [2]
@@ -1298,7 +1188,7 @@ ElvCharacterDB = {
 			[52] = "Karatespark",
 			[51] = 1565551562,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [58]
+		}, -- [53]
 		{
 			"svara på frågorna i DM som botten ställer till dig", -- [1]
 			"Karatespark-ThandolSpan", -- [2]
@@ -1320,7 +1210,7 @@ ElvCharacterDB = {
 			[52] = "Karatespark",
 			[51] = 1565551571,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [59]
+		}, -- [54]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1342,7 +1232,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551788,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [60]
+		}, -- [55]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1364,7 +1254,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551788,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [61]
+		}, -- [56]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1386,7 +1276,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551963,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [62]
+		}, -- [57]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1408,7 +1298,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565551964,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [63]
+		}, -- [58]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1430,7 +1320,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565552236,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [64]
+		}, -- [59]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1452,7 +1342,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565552236,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [65]
+		}, -- [60]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1474,7 +1364,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565553831,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [66]
+		}, -- [61]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1496,7 +1386,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565553831,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [67]
+		}, -- [62]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1518,7 +1408,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565554119,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [68]
+		}, -- [63]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1540,7 +1430,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565554119,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [69]
+		}, -- [64]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1562,7 +1452,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565554628,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [70]
+		}, -- [65]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1584,7 +1474,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565554628,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [71]
+		}, -- [66]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1606,7 +1496,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565554806,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [72]
+		}, -- [67]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1628,7 +1518,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565554807,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [73]
+		}, -- [68]
 		{
 			"stop the spam ffs", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1650,7 +1540,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554830,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [74]
+		}, -- [69]
 		{
 			"ignore me", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1672,7 +1562,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554853,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [75]
+		}, -- [70]
 		{
 			"are you getting any memmebers? lol", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1694,7 +1584,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554870,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [76]
+		}, -- [71]
 		{
 			"100+ 2 weeks", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1716,7 +1606,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554913,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [77]
+		}, -- [72]
 		{
 			"spam is toxic but so productive", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1738,7 +1628,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554923,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [78]
+		}, -- [73]
 		{
 			"sorry to bother you lol", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1760,7 +1650,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554930,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [79]
+		}, -- [74]
 		{
 			"hahaha lol xD", -- [1]
 			"Starcat-ThandolSpan", -- [2]
@@ -1782,7 +1672,7 @@ ElvCharacterDB = {
 			[52] = "Starcat",
 			[51] = 1565554934,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [80]
+		}, -- [75]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1804,7 +1694,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565555510,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [81]
+		}, -- [76]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1826,7 +1716,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565555510,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [82]
+		}, -- [77]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1848,7 +1738,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565555895,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [83]
+		}, -- [78]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1870,7 +1760,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565555895,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [84]
+		}, -- [79]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1892,7 +1782,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565556966,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [85]
+		}, -- [80]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1914,7 +1804,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565556966,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [86]
+		}, -- [81]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1936,7 +1826,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565558648,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [87]
+		}, -- [82]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1958,7 +1848,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565558648,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [88]
+		}, -- [83]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -1980,7 +1870,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565559999,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [89]
+		}, -- [84]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2002,7 +1892,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565560191,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [90]
+		}, -- [85]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2024,7 +1914,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565560563,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [91]
+		}, -- [86]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2046,7 +1936,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565560717,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [92]
+		}, -- [87]
 		{
 			"Hej där du din lilla luring. Jag kommer whispra dig igen den 27.", -- [1]
 			"Jey", -- [2]
@@ -2068,7 +1958,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565560836,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [93]
+		}, -- [88]
 		{
 			"gör så!", -- [1]
 			"Jey-ThandolSpan", -- [2]
@@ -2090,7 +1980,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565561042,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [94]
+		}, -- [89]
 		{
 			"ska vi ha något hemligt kodord? Typ Leverpastej?!", -- [1]
 			"Jey-ThandolSpan", -- [2]
@@ -2112,7 +2002,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565561078,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [95]
+		}, -- [90]
 		{
 			"absolut", -- [1]
 			"Jey-ThandolSpan", -- [2]
@@ -2134,7 +2024,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565561088,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [96]
+		}, -- [91]
 		{
 			"okej då kommer jag spamma dig med ordet leverpastej tills du ger mig en invite.", -- [1]
 			"Jey-ThandolSpan", -- [2]
@@ -2156,7 +2046,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565561111,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [97]
+		}, -- [92]
 		{
 			"joina discorden :p", -- [1]
 			"Jey-ThandolSpan", -- [2]
@@ -2178,7 +2068,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565561125,
 			[50] = "CHAT_MSG_WHISPER_INFORM",
-		}, -- [98]
+		}, -- [93]
 		{
 			"nä nu ska vi inte ta ut segern i förskott. Jag är en blyg liten pojke..", -- [1]
 			"Jey-ThandolSpan", -- [2]
@@ -2200,7 +2090,7 @@ ElvCharacterDB = {
 			[52] = "Jey",
 			[51] = 1565561149,
 			[50] = "CHAT_MSG_WHISPER",
-		}, -- [99]
+		}, -- [94]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2222,7 +2112,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565563255,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [100]
+		}, -- [95]
 		{
 			"gd", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2244,7 +2134,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565563385,
 			[50] = "CHAT_MSG_SAY",
-		}, -- [101]
+		}, -- [96]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2266,7 +2156,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565563839,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [102]
+		}, -- [97]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2288,7 +2178,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565572534,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [103]
+		}, -- [98]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2310,7 +2200,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565573172,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [104]
+		}, -- [99]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2332,7 +2222,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565598773,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [105]
+		}, -- [100]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2354,7 +2244,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565599919,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [106]
+		}, -- [101]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2376,7 +2266,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565601151,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [107]
+		}, -- [102]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2398,7 +2288,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565601326,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [108]
+		}, -- [103]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2420,7 +2310,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565601326,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [109]
+		}, -- [104]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2442,7 +2332,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565601636,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [110]
+		}, -- [105]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2464,7 +2354,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565601637,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [111]
+		}, -- [106]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2486,7 +2376,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565602933,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [112]
+		}, -- [107]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2508,7 +2398,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565602934,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [113]
+		}, -- [108]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2530,7 +2420,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565603274,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [114]
+		}, -- [109]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2552,7 +2442,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565603274,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [115]
+		}, -- [110]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2574,7 +2464,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565604531,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [116]
+		}, -- [111]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2596,7 +2486,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565604531,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [117]
+		}, -- [112]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2618,7 +2508,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565605320,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [118]
+		}, -- [113]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2640,7 +2530,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565605320,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [119]
+		}, -- [114]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2662,7 +2552,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565606390,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [120]
+		}, -- [115]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2684,7 +2574,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565606391,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [121]
+		}, -- [116]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2706,7 +2596,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565607102,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [122]
+		}, -- [117]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2728,7 +2618,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565607102,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [123]
+		}, -- [118]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2750,7 +2640,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565607884,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [124]
+		}, -- [119]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2772,7 +2662,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565607884,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [125]
+		}, -- [120]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2794,7 +2684,7 @@ ElvCharacterDB = {
 			[52] = "Evilor",
 			[51] = 1565608309,
 			[50] = "CHAT_MSG_CHANNEL",
-		}, -- [126]
+		}, -- [121]
 		{
 			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
 			"Evilor-ThandolSpan", -- [2]
@@ -2815,6 +2705,116 @@ ElvCharacterDB = {
 			false, -- [17]
 			[52] = "Evilor",
 			[51] = 1565608309,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [122]
+		{
+			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
+			"Evilor-ThandolSpan", -- [2]
+			"", -- [3]
+			"1. General - Ironforge", -- [4]
+			"Evilor", -- [5]
+			"", -- [6]
+			1, -- [7]
+			1, -- [8]
+			"General - Ironforge", -- [9]
+			0, -- [10]
+			6, -- [11]
+			"Player-4442-000827D2", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Evilor",
+			[51] = 1565609298,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [123]
+		{
+			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
+			"Evilor-ThandolSpan", -- [2]
+			"", -- [3]
+			"2. Trade - City", -- [4]
+			"Evilor", -- [5]
+			"", -- [6]
+			2, -- [7]
+			2, -- [8]
+			"Trade - City", -- [9]
+			0, -- [10]
+			7, -- [11]
+			"Player-4442-000827D2", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Evilor",
+			[51] = 1565609299,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [124]
+		{
+			"h", -- [1]
+			"Evilor-ThandolSpan", -- [2]
+			"Common", -- [3]
+			"", -- [4]
+			"Evilor", -- [5]
+			"", -- [6]
+			0, -- [7]
+			0, -- [8]
+			"", -- [9]
+			0, -- [10]
+			43, -- [11]
+			"Player-4442-000827D2", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Evilor",
+			[51] = 1565609942,
+			[50] = "CHAT_MSG_SAY",
+		}, -- [125]
+		{
+			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
+			"Evilor-ThandolSpan", -- [2]
+			"", -- [3]
+			"1. General - Ironforge", -- [4]
+			"Evilor", -- [5]
+			"", -- [6]
+			1, -- [7]
+			1, -- [8]
+			"General - Ironforge", -- [9]
+			0, -- [10]
+			192, -- [11]
+			"Player-4442-000827D2", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Evilor",
+			[51] = 1565611631,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [126]
+		{
+			"<Datorspel> (Nordic) [HC 2d/w] Recruits for Blizzard Classic. Information @ https://www.datorspel.com/ or https://discord.gg/dSHY5xS", -- [1]
+			"Evilor-ThandolSpan", -- [2]
+			"", -- [3]
+			"2. Trade - City", -- [4]
+			"Evilor", -- [5]
+			"", -- [6]
+			2, -- [7]
+			2, -- [8]
+			"Trade - City", -- [9]
+			0, -- [10]
+			193, -- [11]
+			"Player-4442-000827D2", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Evilor",
+			[51] = 1565611631,
 			[50] = "CHAT_MSG_CHANNEL",
 		}, -- [127]
 	},

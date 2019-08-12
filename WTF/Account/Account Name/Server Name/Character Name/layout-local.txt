@@ -6,13 +6,6 @@ X: 255
 Y: 0
 W: 365
 H: 240
-Frame: Samuel
-FrameLevel: 1
-Anchor: BOTTOM
-X: 0
-Y: 262
-W: 300
-H: 18
 Frame: AtlasLoot_GUI-Frame
 FrameLevel: 1
 Anchor: CENTER
@@ -20,3 +13,10 @@ X: 0
 Y: 0
 W: 920
 H: 600
+Frame: Samuel
+FrameLevel: 1
+Anchor: BOTTOM
+X: 0
+Y: 262
+W: 300
+H: 18
