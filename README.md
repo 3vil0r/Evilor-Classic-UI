@@ -1,6 +1,6 @@
 # Evilor-Classic-UI
 
-![Screenshot](https://imgur.com/a/jRcOoPw)
+![Screenshot](https://i.imgur.com/qVON9OH.jpg)
 
 # Addon list:
 
