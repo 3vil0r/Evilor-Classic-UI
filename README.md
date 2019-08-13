@@ -1,11 +1,8 @@
 # Evilor-Classic-UI
+![Screenshot](https://i.imgur.com/qVON9OH.jpg)
 # How to install:
 # Replace interface and wtf then open wtf and dive deeper in that map, you will find maps where you will need to add your name/server etc. You can look in your original wtf how it is constructed before you make the replace.
-
-![Screenshot](https://i.imgur.com/qVON9OH.jpg)
-
 # Addon list:
-
 # Atlas
 # AtlasLootClassic
 # AutoEquipQuestItem
