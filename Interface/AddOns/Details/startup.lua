@@ -1879,9 +1879,10 @@ function _G._detalhes:Start()
 	--show warning message about classic beta
 	
 	if (not DetailsFramework.IsClassicWow()) then
-		print ("|CFFFFFF00[Details!]: this version of Details! is being ported to Classic WoW, bugs may appear here on BfA, report at Discord (/details discord).")
+		print ("|CFFFFFF00[Details!]: you're using the classic version of Details! on the 8.2.0 patch. If you need help, see our Discord (/details discord)")
 	else
-		print ("|CFFFFFF00[Details!]: thanks for testing Details! Damage Meter for Classic WoW, report bugs at Discord (/details discord).")
+		print ("|CFFFFFF00[Details!]: Tiny Threat (aggro meter) plugin is updated to classic (cogwheel > raid plugins > Tiny Thread).")
+		print ("|CFFFFFF00[Details!]: Show users which has their Details! updated.")
 	end
 
 end

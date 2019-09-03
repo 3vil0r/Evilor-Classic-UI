@@ -1,13 +1,6 @@
 local ElvUI = select(2, ...)
 
-local gameLocale
-do -- Locale doesn't exist yet, make it exist.
-	local convert = {enGB = 'enUS', esES = 'esMX', itIT = 'enUS'}
-	local lang = GetLocale()
-
-	gameLocale = convert[lang] or lang or 'enUS'
-	ElvUI[2] = ElvUI[1].Libs.ACL:GetLocale('ElvUI', gameLocale)
-end
+ElvUI[2] = ElvUI[1].Libs.ACL:GetLocale('ElvUI', ElvUI[1]:GetLocale())
 
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
@@ -72,6 +65,7 @@ E.screenwidth, E.screenheight = GetPhysicalScreenSize()
 E.isMacClient = IsMacClient()
 E.NewSign = '|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t' -- not used by ElvUI yet, but plugins like BenikUI and MerathilisUI use it.
 E.InfoColor = '|cfffe7b2c'
+E.TexturePath = [[Interface\\AddOns\\ElvUI_Classic\\Media\\Textures\\]]
 
 --Tables
 E.media = {}
@@ -1254,10 +1248,6 @@ function E:DBConversions()
 		E.global.general.UIScale = G.general.UIScale
 	end
 
-	if gameLocale and E.global.general.locale == 'auto' then
-		E.global.general.locale = gameLocale
-	end
-
 	--Combat & Resting Icon options update
 	if E.db.unitframe.units.player.combatIcon ~= nil then
 		E.db.unitframe.units.player.CombatIcon.enable = E.db.unitframe.units.player.combatIcon
@@ -1288,7 +1278,7 @@ function E:DBConversions()
 			E.db.unitframe.OORAlpha = nil
 		end
 
-		local rangeCheckUnits = { 'target', 'targettarget', 'targettargettarget', 'focus', 'focustarget', 'pet', 'pettarget', 'boss', 'arena', 'party', 'raid', 'raid40', 'raidpet', 'tank', 'assist' }
+		local rangeCheckUnits = { 'target', 'targettarget', 'targettargettarget', 'pet', 'pettarget', 'party', 'raid', 'raid40', 'raidpet', 'tank', 'assist' }
 		for _, unit in pairs(rangeCheckUnits) do
 			if E.db.unitframe.units[unit].rangeCheck ~= nil then
 				local enabled = E.db.unitframe.units[unit].rangeCheck
@@ -1359,7 +1349,7 @@ function E:DBConversions()
 	end
 
 	--Heal Prediction is now a table instead of a bool
-	local healPredictionUnits = {'player','target','focus','pet','arena','party','raid','raid40','raidpet'}
+	local healPredictionUnits = {'player','target','pet','party','raid','raid40','raidpet'}
 	for _, unit in pairs(healPredictionUnits) do
 		if type(E.db.unitframe.units[unit].healPrediction) ~= 'table' then
 			local enabled = E.db.unitframe.units[unit].healPrediction

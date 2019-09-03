@@ -21,7 +21,8 @@ function UF:Construct_TargetTargetTargetFrame(frame)
 	frame.InfoPanel = self:Construct_InfoPanel(frame)
 	frame.MouseGlow = self:Construct_MouseGlow(frame)
 	frame.TargetGlow = self:Construct_TargetGlow(frame)
-	frame.Fader = self:Construct_Fader()
+	frame.Cutaway = self:Construct_Cutaway(frame)
+	--frame.Fader = self:Construct_Fader()
 	frame.customTexts = {}
 
 	frame:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 160) --Set to default position
@@ -87,10 +88,13 @@ function UF:Update_TargetTargetTargetFrame(frame, db)
 	UF:Configure_Auras(frame, 'Debuffs')
 
 	--Fader
-	UF:Configure_Fader(frame)
+	--UF:Configure_Fader(frame)
 
 	--Raid Icon
 	UF:Configure_RaidIcon(frame)
+
+	--Cutaway
+	UF:Configure_Cutaway(frame)
 
 	UF:Configure_CustomTexts(frame)
 

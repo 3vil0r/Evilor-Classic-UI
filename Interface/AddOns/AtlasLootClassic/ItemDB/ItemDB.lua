@@ -257,6 +257,10 @@ function ItemDB:GetModuleList(addonName)
 	return contentList[addonName]
 end
 
+function ItemDB:GetNameData_UNSAFE(addonName, contentName, boss)
+	if not ItemDB.Storage[addonName] then return end
+	return ItemDB.Storage[addonName][contentName]:GetName(true), ItemDB.Storage[addonName][contentName]:GetNameForItemTable(boss, true)
+end
 
 -- ##################################################
 --	TableProto
@@ -407,6 +411,12 @@ end
 -- ##################################################
 --	ContentProto
 -- ##################################################
+local ATLAS_TEXTURE, PATH_TEXTURE = "|A:%s:0:0|a ","|T%s:0|t "
+local SpecialMobList = {
+	rare = format(ATLAS_TEXTURE, "nameplates-icon-elite-silver"),
+	elite = format(ATLAS_TEXTURE, "nameplates-icon-elite-gold"),
+}
+
 --- Get the content Type
 -- @return ContentName, ContentIndex
 function ItemDB.ContentProto:GetContentType()
@@ -418,27 +428,29 @@ function ItemDB.ContentProto:GetContentType()
 	return content_types[self.__atlaslootdata.addonName][self.ContentType][1], self.ContentType, content_types[self.__atlaslootdata.addonName][self.ContentType][2]
 end
 
-function ItemDB.ContentProto:GetName()
+function ItemDB.ContentProto:GetName(raw)
 	if self.AreaID and not self.MapID then
 		self.MapID = self.AreaID
 	end
-	local add = ""
-	if AtlasLoot.db.showLvlRange and self.LevelRange then
-		if AtlasLoot.db.showMinEnterLvl then
-			add = format(LEVEL_RANGE_FORMAT, self.LevelRange[1] or 0, self.LevelRange[2] or 0, self.LevelRange[3] or 0 )
-		else
-			add = format(LEVEL_RANGE_FORMAT2, self.LevelRange[2] or 0, self.LevelRange[3] or 0 )
+	local addEnd = ""
+	if not raw then
+		if AtlasLoot.db.showLvlRange and self.LevelRange then
+			if AtlasLoot.db.showMinEnterLvl then
+				addEnd = format(LEVEL_RANGE_FORMAT, self.LevelRange[1] or 0, self.LevelRange[2] or 0, self.LevelRange[3] or 0 )
+			else
+				addEnd = format(LEVEL_RANGE_FORMAT2, self.LevelRange[2] or 0, self.LevelRange[3] or 0 )
+			end
+		end
+		if AtlasLoot.db.ContentPhase.enableOnLootTable and self.ContentPhase and not ContentPhase:IsActive(self.ContentPhase) then
+			addEnd = addEnd.."  "..format(CONTENT_PHASE_FORMAT, self.ContentPhase)
 		end
 	end
-	if AtlasLoot.db.ContentPhase.enableOnLootTable and self.ContentPhase and not ContentPhase:IsActive(self.ContentPhase) then
-		add = add.."  "..format(CONTENT_PHASE_FORMAT, self.ContentPhase)
-	end
 	if self.name then
-		return self.name..add
+		return self.name..addEnd
 	elseif self.MapID then
-		return C_Map.GetAreaInfo(self.MapID)..add or "MapID:"..self.MapID
+		return C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID
 	elseif self.FactionID then
-		return AtlasLoot:Faction_GetFactionName(self.FactionID)..add
+		return AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd
 	else
 		return UNKNOWN
 	end
@@ -452,13 +464,24 @@ function ItemDB.ContentProto:GetInfo()
 	end
 end
 
-function ItemDB.ContentProto:GetNameForItemTable(index)
+function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 	assert(self.items, "items table not found.")
+	if raw and not self.items[index] then return end
 	assert(index and self.items[index], "index not found.")
-	if self.items[index].name then
-		return self.items[index].name
-	elseif self.items[index].FactionID then
-		return GetFactionInfoByID(self.items[index].FactionID) --or "Faction "..self.items[index].FactionID
+	index = self.items[index]
+	local addStart, addEnd = "", ""
+	if not raw then
+		if AtlasLoot.db.ContentPhase.enableOnLootTable and index.ContentPhase and not ContentPhase:IsActive(index.ContentPhase) then
+			addEnd = addEnd.." "..format(CONTENT_PHASE_FORMAT, index.ContentPhase)
+		end
+		if index.specialType and SpecialMobList[index.specialType] then
+			addStart = SpecialMobList[index.specialType]
+		end
+	end
+	if index.name then
+		return addStart..index.name..addEnd
+	elseif index.FactionID then
+		return addStart..GetFactionInfoByID(index.FactionID)..addEnd --or "Faction "..self.items[index].FactionID
 	else
 		return UNKNOWN
 	end

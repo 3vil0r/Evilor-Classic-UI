@@ -1,21 +1,68 @@
 
 AtlasLootClassicDB = {
+	["global"] = {
+		["__addonrevision"] = 1010008,
+	},
 	["profileKeys"] = {
+		["Evilor - Gehennas"] = "Evilor - Gehennas",
+		["Oliver - Gehennas"] = "Oliver - Gehennas",
+		["Datorspel - Gehennas"] = "Datorspel - Gehennas",
 		["Evilor - Thandol Span"] = "Evilor - Thandol Span",
 	},
-	["global"] = {
-		["__addonrevision"] = 99999999,
-	},
 	["profiles"] = {
+		["Evilor - Gehennas"] = {
+			["minimap"] = {
+				["minimapPos"] = 120.963658966705,
+			},
+			["GUI"] = {
+				["selected"] = {
+					nil, -- [1]
+					"Gnomeregan", -- [2]
+					7, -- [3]
+					1, -- [4]
+					0, -- [5]
+				},
+			},
+		},
+		["Oliver - Gehennas"] = {
+			["minimap"] = {
+				["minimapPos"] = 52.5945029807215,
+			},
+			["GUI"] = {
+				["point"] = {
+					nil, -- [1]
+					nil, -- [2]
+					"CENTER", -- [3]
+					6.565186049556360e-05, -- [4]
+					0, -- [5]
+				},
+				["selected"] = {
+					nil, -- [1]
+					"Zul'Farrak", -- [2]
+					nil, -- [3]
+					1, -- [4]
+					0, -- [5]
+				},
+			},
+		},
+		["Datorspel - Gehennas"] = {
+		},
 		["Evilor - Thandol Span"] = {
 			["minimap"] = {
 				["minimapPos"] = 53.6605311111255,
 			},
 			["GUI"] = {
+				["point"] = {
+					nil, -- [1]
+					nil, -- [2]
+					"CENTER", -- [3]
+					6.565186049556360e-05, -- [4]
+					0, -- [5]
+				},
 				["selected"] = {
 					nil, -- [1]
-					"Ragefire", -- [2]
-					nil, -- [3]
+					"TheStockade", -- [2]
+					2, -- [3]
 					1, -- [4]
 					0, -- [5]
 				},

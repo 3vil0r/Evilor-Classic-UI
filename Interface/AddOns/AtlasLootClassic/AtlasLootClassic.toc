@@ -1,17 +1,41 @@
 ﻿## Interface: 11302
-## Author: Lag, Arith
-## Version: v1.1.2-beta
+## Author: Lag
+## Version: v1.1.8-beta
 ## SavedVariables: AtlasLootClassicDB
-## OptionalDeps: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibDBIcon-1.0, LibClassicItemSets-1.0, AceDB-3.0
+## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, LibDBIcon-1.0, LibDataBroker-1.1, LibClassicItemSets-1.0
+## DefaultState: Enabled
+## LoadOnDemand: 0
 
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
 
-## X-Credits: Daviesh, Lag, Cellelach, Asurn, Pernicus, Dynaletik and many others
+## Title-deDE: AtlasLoot Classic |cFF22B14C[Kern]|r
+## Title-esES: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-esMX: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-frFR: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-itIT: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-koKR: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-ptBR: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-ruRU: AtlasLoot Classic |cFF22B14C[Ядро]|r
+## Title-zhCN: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-zhTW: AtlasLoot Classic |cFF22B14C[Core]|r
+## Notes-deDE: Shows the possible loot from the bosses
+## Notes-esES: Shows the possible loot from the bosses
+## Notes-esMX: Shows the possible loot from the bosses
+## Notes-frFR: Shows the possible loot from the bosses
+## Notes-itIT: Shows the possible loot from the bosses
+## Notes-koKR: Shows the possible loot from the bosses
+## Notes-ptBR: Shows the possible loot from the bosses
+## Notes-ruRU: Показывает возможную добычу с боссов
+## Notes-zhCN: 显示首领可能的掉落物品
+## Notes-zhTW: Shows the possible loot from the bosses
+
+## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik and many others
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 ## X-Curse-Project-ID: 326516
+## X-WoWI-ID: 25185
 
 embeds.xml
 
@@ -32,6 +56,7 @@ Core\ItemInfo.lua
 Core\TooltipScan.lua
 Core\ItemQuery.lua
 Core\ItemString.lua
+Core\TargetScan.lua
 #Core\AtlasIntegration.lua
 #Core\WorldMapIntegration.xml
 
@@ -55,9 +80,7 @@ Button\Dummy_type.lua
 Button\Faction_type.lua
 Button\Set_type.lua
 Button\Extra_Price_type.lua
-Button\Extra_Quest_type.lua
-Button\Extra_PvP_type.lua
-Button\Extra_Location_type.lua
+#Button\Extra_Quest_type.lua
 
 GUI\GUI.xml
 GUI\GUI.lua
@@ -73,3 +96,5 @@ GUI\SoundFrame.lua
 
 Addons\Addons.lua
 Addons\Favourites.lua
+Addons\Favourites_GUI.lua
+#Addons\Reagents.lua

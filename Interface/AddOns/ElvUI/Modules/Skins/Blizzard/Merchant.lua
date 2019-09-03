@@ -13,47 +13,42 @@ local function LoadSkin()
 	local MerchantFrame = _G.MerchantFrame
 	S:HandlePortraitFrame(MerchantFrame, true)
 
-	MerchantFrame.backdrop:Point("TOPLEFT", 6, 2)
-	MerchantFrame.backdrop:Point("BOTTOMRIGHT", 2, -1)
+	MerchantFrame.backdrop:Point('TOPLEFT', 6, 2)
+	MerchantFrame.backdrop:Point('BOTTOMRIGHT', 2, -1)
 
 	MerchantFrame:Width(360)
 
 	_G.MerchantBuyBackItem:StripTextures(true)
-	_G.MerchantBuyBackItem:CreateBackdrop("Transparent")
-
-	_G.MerchantExtraCurrencyInset:StripTextures()
-	_G.MerchantExtraCurrencyBg:StripTextures()
+	_G.MerchantBuyBackItem:CreateBackdrop('Transparent')
 
 	_G.MerchantMoneyBg:StripTextures()
 	_G.MerchantMoneyInset:StripTextures()
-	_G.MerchantBuyBackItem.backdrop:Point("TOPLEFT", -6, 6)
-	_G.MerchantBuyBackItem.backdrop:Point("BOTTOMRIGHT", 6, -6)
-
-	S:HandleDropDownBox(_G.MerchantFrameLootFilter)
+	_G.MerchantBuyBackItem.backdrop:Point('TOPLEFT', -6, 6)
+	_G.MerchantBuyBackItem.backdrop:Point('BOTTOMRIGHT', 6, -6)
 
 	-- skin tabs
 	for i= 1, 2 do
-		S:HandleTab(_G["MerchantFrameTab"..i])
+		S:HandleTab(_G['MerchantFrameTab'..i])
 	end
 
 	-- skin icons / merchant slots
 	for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
-		local button = _G["MerchantItem"..i.."ItemButton"]
+		local button = _G['MerchantItem'..i..'ItemButton']
 		local icon = button.icon
 		local iconBorder = button.IconBorder
-		local item = _G["MerchantItem"..i]
+		local item = _G['MerchantItem'..i]
 		item:StripTextures(true)
 		item:CreateBackdrop()
 
 		button:StripTextures()
 		button:StyleButton(false)
 		button:SetTemplate(nil, true)
-		button:Point("TOPLEFT", item, "TOPLEFT", 4, -4)
+		button:Point('TOPLEFT', item, 'TOPLEFT', 4, -4)
 
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:ClearAllPoints()
-		icon:Point("TOPLEFT", E.mult, -E.mult)
-		icon:Point("BOTTOMRIGHT", -E.mult, E.mult)
+		icon:Point('TOPLEFT', E.mult, -E.mult)
+		icon:Point('BOTTOMRIGHT', -E.mult, E.mult)
 
 		iconBorder:SetAlpha(0)
 		hooksecurefunc(iconBorder, 'SetVertexColor', function(self, r, g, b)
@@ -64,8 +59,8 @@ local function LoadSkin()
 			self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
 		end)
 
-		_G["MerchantItem"..i.."MoneyFrame"]:ClearAllPoints()
-		_G["MerchantItem"..i.."MoneyFrame"]:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
+		_G['MerchantItem'..i..'MoneyFrame']:ClearAllPoints()
+		_G['MerchantItem'..i..'MoneyFrame']:Point('BOTTOMLEFT', button, 'BOTTOMRIGHT', 3, 0)
 	end
 
 	-- Skin buyback item frame + icon
@@ -75,8 +70,8 @@ local function LoadSkin()
 
 	_G.MerchantBuyBackItemItemButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
 	_G.MerchantBuyBackItemItemButtonIconTexture:ClearAllPoints()
-	_G.MerchantBuyBackItemItemButtonIconTexture:Point("TOPLEFT", E.mult, -E.mult)
-	_G.MerchantBuyBackItemItemButtonIconTexture:Point("BOTTOMRIGHT", -E.mult, E.mult)
+	_G.MerchantBuyBackItemItemButtonIconTexture:Point('TOPLEFT', E.mult, -E.mult)
+	_G.MerchantBuyBackItemItemButtonIconTexture:Point('BOTTOMRIGHT', -E.mult, E.mult)
 
 	_G.MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
 	hooksecurefunc(_G.MerchantBuyBackItemItemButton.IconBorder, 'SetVertexColor', function(self, r, g, b)
@@ -106,4 +101,4 @@ local function LoadSkin()
 	S:HandleNextPrevButton(_G.MerchantPrevPageButton, nil, nil, true, true)
 end
 
-S:AddCallback("Merchant", LoadSkin)
+S:AddCallback('Merchant', LoadSkin)

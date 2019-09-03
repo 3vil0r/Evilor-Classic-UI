@@ -1,44 +1,45 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
 --Lua functions
 local _G = _G
 --WoW API / Variables
+local SetDressUpBackground = SetDressUpBackground
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true then return end
 
 	local DressUpFrame = _G.DressUpFrame
-	S:HandlePortraitFrame(DressUpFrame, true)
+	DressUpFrame:StripTextures()
+	DressUpFrame:CreateBackdrop('Transparent')
+	DressUpFrame.backdrop:Point('TOPLEFT', 10, -12)
+	DressUpFrame.backdrop:Point('BOTTOMRIGHT', -33, 73)
 
-	S:HandleButton(_G.DressUpFrameResetButton)
-	S:HandleButton(_G.DressUpFrameCancelButton)
+	DressUpFramePortrait:Kill()
 
-	local DressUpFrameOutfitDropDown = _G.DressUpFrameOutfitDropDown
-	S:HandleButton(DressUpFrameOutfitDropDown.SaveButton)
-	DressUpFrameOutfitDropDown.SaveButton:ClearAllPoints()
-	DressUpFrameOutfitDropDown.SaveButton:Point("LEFT", DressUpFrameOutfitDropDown, "RIGHT", -8, 0)
-	S:HandleDropDownBox(DressUpFrameOutfitDropDown)
-	DressUpFrameOutfitDropDown:Size(195, 32)
+	-- SetDressUpBackground()
+	DressUpFrameBackgroundTopLeft:SetDesaturated(true)
+	DressUpFrameBackgroundTopRight:SetDesaturated(true)
+	DressUpFrameBackgroundBot:SetDesaturated(true)
 
-	S:HandleMaxMinFrame(_G.MaximizeMinimizeFrame)
-	_G.DressUpFrameResetButton:Point("RIGHT", _G.DressUpFrameCancelButton, "LEFT", -2, 0)
+	DressUpFrameDescriptionText:Point('CENTER', DressUpFrameTitleText, 'BOTTOM', -5, -22)
 
-	-- Wardrobe edit frame
-	local WardrobeOutfitFrame = _G.WardrobeOutfitFrame
-	WardrobeOutfitFrame:StripTextures(true)
-	WardrobeOutfitFrame:SetTemplate("Transparent")
+	S:HandleCloseButton(DressUpFrameCloseButton)
 
-	local WardrobeOutfitEditFrame = _G.WardrobeOutfitEditFrame
-	WardrobeOutfitEditFrame:StripTextures(true)
-	WardrobeOutfitEditFrame:SetTemplate("Transparent")
-	WardrobeOutfitEditFrame.EditBox:StripTextures()
-	S:HandleEditBox(WardrobeOutfitEditFrame.EditBox)
-	WardrobeOutfitEditFrame.EditBox.backdrop:Point("TOPLEFT", WardrobeOutfitEditFrame.EditBox, "TOPLEFT", -5, -5)
-	WardrobeOutfitEditFrame.EditBox.backdrop:Point("BOTTOMRIGHT", WardrobeOutfitEditFrame.EditBox, "BOTTOMRIGHT", 0, 5)
-	S:HandleButton(WardrobeOutfitEditFrame.AcceptButton)
-	S:HandleButton(WardrobeOutfitEditFrame.CancelButton)
-	S:HandleButton(WardrobeOutfitEditFrame.DeleteButton)
+	S:HandleRotateButton(DressUpModelFrameRotateLeftButton)
+	DressUpModelFrameRotateLeftButton:Point('TOPLEFT', DressUpFrame, 25, -79)
+	S:HandleRotateButton(DressUpModelFrameRotateRightButton)
+	DressUpModelFrameRotateRightButton:Point('TOPLEFT', DressUpModelFrameRotateLeftButton, 'TOPRIGHT', 3, 0)
+
+	S:HandleButton(DressUpFrameCancelButton)
+	DressUpFrameCancelButton:Point('CENTER', DressUpFrame, 'TOPLEFT', 306, -423)
+	S:HandleButton(DressUpFrameResetButton)
+	DressUpFrameResetButton:Point('RIGHT', DressUpFrameCancelButton, 'LEFT', -3, 0)
+
+	DressUpModelFrame:CreateBackdrop('Default')
+	DressUpModelFrame.backdrop:Point('TOPLEFT', -2, 1)
+	DressUpModelFrame.backdrop:Point('BOTTOMRIGHT', 0, 19)
 end
 
-S:AddCallback("DressingRoom", LoadSkin)
+S:AddCallback('DressingRoom', LoadSkin)

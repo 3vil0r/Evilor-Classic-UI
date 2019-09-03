@@ -17,26 +17,22 @@ local GetNumGroupMembers = GetNumGroupMembers
 local GetRaidRosterInfo = GetRaidRosterInfo
 local GetRepairAllCost = GetRepairAllCost
 local InCombatLockdown = InCombatLockdown
-local IsActiveBattlefieldArena = IsActiveBattlefieldArena
 local IsAddOnLoaded = IsAddOnLoaded
-local IsArenaSkirmish = IsArenaSkirmish
 local IsGuildMember = IsGuildMember
-local IsCharacterFriend = IsCharacterFriend
+local IsCharacterFriend = C_FriendList.IsFriend
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
-local IsPartyLFG = IsPartyLFG
 local IsShiftKeyDown = IsShiftKeyDown
 local LeaveParty = LeaveParty
 local RaidNotice_AddMessage = RaidNotice_AddMessage
 local RepairAllItems = RepairAllItems
 local SendChatMessage = SendChatMessage
-local StaticPopup_Hide = StaticPopup_Hide
-local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
 local UninviteUnit = UninviteUnit
 local UnitExists = UnitExists
 local UnitGUID = UnitGUID
 local UnitInRaid = UnitInRaid
 local UnitName = UnitName
+local IsInGuild = IsInGuild
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local LE_GAME_ERR_GUILD_NOT_ENOUGH_MONEY = LE_GAME_ERR_GUILD_NOT_ENOUGH_MONEY
@@ -56,7 +52,7 @@ function M:ErrorFrameToggle(event)
 end
 
 function M:COMBAT_LOG_EVENT_UNFILTERED()
-	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
+	local inGroup, inRaid = IsInGroup(), IsInRaid()
 	if not inGroup then return end -- not in group, exit.
 
 	local _, event, _, sourceGUID, _, _, _, _, destName, _, _, _, _, _, spellID, spellName = CombatLogGetCurrentEventInfo()
@@ -64,11 +60,11 @@ function M:COMBAT_LOG_EVENT_UNFILTERED()
 
 	local interruptAnnounce, msg = E.db.general.interruptAnnounce, format(INTERRUPT_MSG, destName, spellID, spellName)
 	if interruptAnnounce == "PARTY" then
-		SendChatMessage(msg, inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+		SendChatMessage(msg, "PARTY")
 	elseif interruptAnnounce == "RAID" then
-		SendChatMessage(msg, inPartyLFG and "INSTANCE_CHAT" or (inRaid and "RAID" or "PARTY"))
+		SendChatMessage(msg, (inRaid and "RAID" or "PARTY"))
 	elseif interruptAnnounce == "RAID_ONLY" and inRaid then
-		SendChatMessage(msg, inPartyLFG and "INSTANCE_CHAT" or "RAID")
+		SendChatMessage(msg, "RAID")
 	elseif interruptAnnounce == "SAY" then
 		SendChatMessage(msg, "SAY")
 	elseif interruptAnnounce == "EMOTE" then
@@ -83,7 +79,7 @@ do -- Auto Repair Functions
 
 		if POSS and COST > 0 then
 			--This check evaluates to true even if the guild bank has 0 gold, so we add an override
-			if TYPE == 'GUILD' and (playerOverride or (not CanGuildBankRepair() or COST > GetGuildBankWithdrawMoney())) then
+			if TYPE == 'GUILD' and (playerOverride or (IsInGuild() and (not CanGuildBankRepair() or COST > GetGuildBankWithdrawMoney()))) then
 				TYPE = 'PLAYER'
 			end
 
@@ -167,22 +163,13 @@ function M:PVPMessageEnhancement(_, msg)
 	end
 end
 
-local hideStatic
 function M:AutoInvite(event, _, _, _, _, _, _, inviterGUID)
 	if not E.db.general.autoAcceptInvite then return end
 
 	if event == "PARTY_INVITE_REQUEST" then
-		-- Prevent losing que inside LFD if someone invites you to group
-		if _G.QueueStatusMinimapButton:IsShown() or IsInGroup() or (not inviterGUID or inviterGUID == "") then return end
-
 		if BNGetGameAccountInfoByGUID(inviterGUID) or IsCharacterFriend(inviterGUID) or IsGuildMember(inviterGUID) then
-			hideStatic = true
 			AcceptGroup()
 		end
-	elseif event == "GROUP_ROSTER_UPDATE" and hideStatic then
-		StaticPopupSpecial_Hide(_G.LFGInvitePopup) --New LFD popup when invited in custom created group
-		StaticPopup_Hide("PARTY_INVITE")
-		hideStatic = nil
 	end
 end
 
@@ -264,11 +251,11 @@ function M:Initialize()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 
 	--local blizzTracker = IsAddOnLoaded("Blizzard_ObjectiveTracker")
-	local inspectUI = IsAddOnLoaded("Blizzard_InspectUI")
+	--local inspectUI = IsAddOnLoaded("Blizzard_InspectUI")
 
-	if inspectUI then
-		M:SetupInspectPageInfo()
-	end
+	--if inspectUI then
+	--	M:SetupInspectPageInfo()
+	--end
 
 	--[[if blizzTracker then
 		M:SetupChallengeTimer()
@@ -278,9 +265,9 @@ function M:Initialize()
 		self:RegisterEvent("ADDON_LOADED")
 	end]]
 
-	if not inspectUI then
-		self:RegisterEvent("ADDON_LOADED")
-	end
+	--if not inspectUI then
+	--	self:RegisterEvent("ADDON_LOADED")
+	--end
 end
 
 E:RegisterModule(M:GetName())

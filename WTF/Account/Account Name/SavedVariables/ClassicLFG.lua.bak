@@ -1,13 +1,30 @@
 
 ClassicLFG_DB = {
 	["profileKeys"] = {
+		["Evilor - Gehennas"] = "Evilor - Gehennas",
+		["Oliver - Gehennas"] = "Oliver - Gehennas",
 		["Evilor - Thandol Span"] = "Evilor - Thandol Span",
+		["Datorspel - Gehennas"] = "Datorspel - Gehennas",
 	},
 	["profiles"] = {
+		["Evilor - Gehennas"] = {
+			["minimap"] = {
+				["minimapPos"] = 233.732714904454,
+			},
+		},
+		["Oliver - Gehennas"] = {
+			["minimap"] = {
+				["minimapPos"] = 17.8349792053828,
+			},
+			["BroadcastDungeonGroupChannel"] = 0,
+		},
 		["Evilor - Thandol Span"] = {
 			["minimap"] = {
 				["minimapPos"] = 17.2065469215998,
 			},
+			["BroadcastDungeonGroupChannel"] = 1,
+		},
+		["Datorspel - Gehennas"] = {
 		},
 	},
 }

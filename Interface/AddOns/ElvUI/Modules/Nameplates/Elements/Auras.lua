@@ -32,7 +32,24 @@ function NP:Buffs_PostCreateIcon(button)
 	NP:Construct_AuraIcon(button)
 end
 
-function NP:Buffs_PostUpdateIcon(unit, button)
+function NP:Buffs_PostUpdateIcon(unit, button, index)
+	local Name, _, _, _, Duration, ExpirationTime, UnitCaster, _, _, SpellID = UnitAura(unit, index, button.filter)
+
+	if Duration == 0 and ExpirationTime == 0 then
+		Duration, ExpirationTime = E.Libs.LCD:GetAuraDurationByUnit(unit, SpellID, UnitCaster, Name)
+
+		button.IsLibClassicDuration = true
+	end
+
+	if (button.cd) and (button.IsLibClassicDuration) then
+		if (Duration and Duration > 0) then
+			button.cd:SetCooldown(ExpirationTime - Duration, Duration)
+			button.cd:Show()
+		else
+			button.cd:Hide()
+		end
+	end
+
 	NP:PostUpdateAura(unit, button)
 end
 
@@ -46,6 +63,23 @@ function NP:Debuffs_PostCreateIcon(button)
 end
 
 function NP:Debuffs_PostUpdateIcon(unit, button, index, position, duration, expiration, debuffType, isStealable)
+	local Name, _, _, _, Duration, ExpirationTime, UnitCaster, _, _, SpellID = UnitAura(unit, index, button.filter)
+
+	if Duration == 0 and ExpirationTime == 0 then
+		Duration, ExpirationTime = E.Libs.LCD:GetAuraDurationByUnit(unit, SpellID, UnitCaster, Name)
+
+		button.IsLibClassicDuration = true
+	end
+
+	if (button.cd) and (button.IsLibClassicDuration) then
+		if (Duration and Duration > 0) then
+			button.cd:SetCooldown(ExpirationTime - Duration, Duration)
+			button.cd:Show()
+		else
+			button.cd:Hide()
+		end
+	end
+
 	NP:PostUpdateAura(unit, button, index, position, duration, expiration, debuffType, isStealable)
 end
 
@@ -238,7 +272,7 @@ function NP:PostUpdateAura(unit, button)
 	if button.isDebuff then
 		if (not button.isFriend and not button.isPlayer) then --[[and (not E.isDebuffWhiteList[name])]]
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
-			button.icon:SetDesaturated((unit and not strfind(unit, 'arena%d')) and true or false)
+			button.icon:SetDesaturated(unit and true or false)
 		else
 			local color = (button.dtype and DebuffTypeColor[button.dtype]) or DebuffTypeColor.none
 			if button.name and (button.name == 'Unstable Affliction' or button.name == 'Vampiric Touch') and E.myclass ~= 'WARLOCK' then

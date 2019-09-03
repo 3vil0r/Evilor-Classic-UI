@@ -23,16 +23,6 @@ local ClickHandler = AtlasLoot.ClickHandler
 	-- if rep index is in between 11 and 16, means it has friendship reputation
 ]]
 
---[[
-	1 => 11 - Stranger
-	2 => 12 - Acquaintance
-	3 => 13 - Buddy
-	4 => 14 - Friend
-	5 => 15 - Good Friend
-	6 => 16 - Best Friend
-]]
-
-
 local FactionClickHandler
 local PlayerSex
 
@@ -99,13 +89,16 @@ local FACTION_KEY = {
 ClickHandler:Add(
 	"Faction",
 	{
+		WoWHeadLink = { "RightButton", "Shift" },
 		--ChatLink = { "LeftButton", "Shift" },
 		types = {
 			--ChatLink = true,
+			WoWHeadLink = true,
 		},
 	},
 	{
 		--{ "ChatLink", 	AL["Chat Link"], 	AL["Add item into chat"] },
+		{ "WoWHeadLink", 	AL["Show WowHead link"], 	AL["Shows a copyable link for WoWHead"] },
 	}
 )
 
@@ -167,9 +160,9 @@ end
 function Faction.OnMouseAction(button, mouseButton)
 	if not mouseButton then return end
 	mouseButton = FactionClickHandler:Get(mouseButton)
-	--if mouseButton == "ChatLink" then
-
-	--end
+	if mouseButton == "WoWHeadLink" then
+		AtlasLoot.Button:OpenWoWHeadLink(button, "faction", button.FactionID)
+	end
 end
 
 function Faction.OnEnter(button, owner)

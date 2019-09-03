@@ -1,15 +1,15 @@
 
 GuidelimeData = {
-	["showQuestLevels"] = false,
+	["showQuestLevels"] = true,
 	["skipCutscenes"] = true,
 	["autoAddCoordinates"] = true,
-	["dataSourceQuestie"] = false,
-	["debugging"] = false,
 	["maxNumOfStepsGOTO"] = 0,
+	["debugging"] = false,
+	["dataSourceQuestie"] = false,
 	["version"] = "0.027-Beta",
 	["maxNumOfSteps"] = 0,
-	["maxNumOfStepsLOC"] = 1,
 	["showTooltips"] = true,
-	["showMinimumQuestLevels"] = false,
+	["maxNumOfStepsLOC"] = 1,
+	["showMinimumQuestLevels"] = true,
 	["arrowStyle"] = 1,
 }

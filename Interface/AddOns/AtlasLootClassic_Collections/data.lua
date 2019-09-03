@@ -40,6 +40,7 @@ local SET_EXTRA_ITTYPE = data:AddExtraItemTableType("Set")
 
 local SET_CONTENT = data:AddContentType(AL["Sets"], ATLASLOOT_PVP_COLOR)
 local WORLD_BOSS_CONTENT = data:AddContentType(AL["World Bosses"], ATLASLOOT_WORLD_BOSS_COLOR)
+local COLLECTIONS_CONTENT = data:AddContentType(AL["Collections"], ATLASLOOT_COLLECTIONS_COLOR)
 local WORLD_EVENT_CONTENT = data:AddContentType(AL["World Events"], ATLASLOOT_SEASONALEVENTS_COLOR)
 
 data["TierSets"] = {
@@ -69,6 +70,7 @@ data["TierSets"] = {
 		},
 		{ -- T0.5
 			name = format(AL["Tier %s Sets"], "0.5"),
+			ContentPhase = 5,
 			[ALLIANCE_DIFF] = {
 				{ 1, 518 }, -- Warlock
 				{ 3, 514 }, -- Priest
@@ -107,6 +109,7 @@ data["TierSets"] = {
 		},
 		{ -- T2
 			name = format(AL["Tier %s Sets"], "2"),
+			ContentPhase = 3,
 			[ALLIANCE_DIFF] = {
 				{ 1, 212 }, -- Warlock
 				{ 3, 211 }, -- Priest
@@ -126,6 +129,7 @@ data["TierSets"] = {
 		},
 		{ -- T3
 			name = format(AL["Tier %s Sets"], "3"),
+			ContentPhase = 6,
 			[ALLIANCE_DIFF] = {
 				{ 1, 529 }, -- Warlock
 				{ 3, 525 }, -- Priest
@@ -151,6 +155,7 @@ data["ZGSets"] = {
 	ContentType = SET_CONTENT,
 	LoadDifficulty = LOAD_DIFF,
 	TableType = SET_ITTYPE,
+	ContentPhase = 4,
 	items = {
 		{
 			name = format(AL["%s Sets"], C_Map_GetAreaInfo(1977)),
@@ -170,6 +175,19 @@ data["ZGSets"] = {
 				{ 24 }, -- Paladin
 			},
 		},
+		{ -- Misc
+			name = format(AL["%s Sets"], AL["Misc"]),
+			[NORMAL_DIFF] = {
+				-- Swords
+				{ 1,  461 }, -- Warblade of the Hakkari
+				{ 3,  463 }, -- Primal Blessing
+				-- Rings
+				{ 16,  466 }, -- Major Mojo Infusion
+				{ 17,  462 }, -- Zanzil's Concentration
+				{ 18,  465 }, -- Prayer of the Primal
+				{ 19,  464 }, -- Overlord's Resolution
+			},
+		},
 	},
 }
 
@@ -178,6 +196,7 @@ data["AQSets"] = {
 	ContentType = SET_CONTENT,
 	LoadDifficulty = LOAD_DIFF,
 	TableType = SET_ITTYPE,
+	ContentPhase = 5,
 	items = {
 		{ -- AQ20
 			name = format(AL["%s Sets"], C_Map_GetAreaInfo(3428).." 20"),
@@ -213,6 +232,77 @@ data["AQSets"] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,
 				{ 22, 501 }, -- Shaman
 				{ 24 }, -- Paladin
+			},
+		},
+	},
+}
+
+data["MiscSets"] = {
+	name = format(AL["%s Sets"], AL["Misc"]),
+	ContentType = SET_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	TableType = SET_ITTYPE,
+	items = {
+		{ -- Cloth
+			name = ALIL["Cloth"],
+			[NORMAL_DIFF] = {
+				{ 1,  421 }, -- Bloodvine Garb / 65
+				{ 2,  520 }, -- Ironweave Battlesuit / 61-63
+				{ 3,  122 }, -- Necropile Raiment / 61
+				{ 4,  81 }, -- Twilight Trappings / 61
+				{ 5,  492 }, -- Twilight Trappings / 60
+				{ 16,  536 }, -- Regalia of Undead Cleansing / 63
+			},
+		},
+		{ -- Leather
+			name = ALIL["Leather"],
+			[NORMAL_DIFF] = {
+				{ 1,  442 }, -- Blood Tiger Harness / 65
+				{ 2,  441 }, -- Primal Batskin / 65
+				{ 3,  121 }, -- Cadaverous Garb / 61
+				{ 4,  142 }, -- Stormshroud Armor / 55-62
+				{ 5,  141 }, -- Volcanic Armor / 54-61
+				{ 6,  143 }, -- Devilsaur Armor / 58-60
+				{ 7,  144 }, -- Ironfeather Armor / 54-58
+				{ 8,  221 }, -- Garb of Thero-shan / 32-42
+				{ 9,  161 }, -- Defias Leather / 18-24
+				{ 10,  162 }, -- Embrace of the Viper / 19-23
+				{ 16,  534 }, -- Undead Slayer's Armor / 63
+			},
+		},
+		{ -- Mail
+			name = ALIL["Mail"],
+			[NORMAL_DIFF] = {
+				{ 1,  443 }, -- Bloodsoul Embrace / 65
+				{ 2,  123 }, -- Bloodmail Regalia / 61
+				{ 3,  489 }, -- Black Dragon Mail / 58-62
+				{ 4,  491 }, -- Blue Dragon Mail / 57-60
+				{ 5,  1 }, -- The Gladiator / 57
+				{ 6,  490 }, -- Green Dragon Mail / 52-56
+				{ 7,  163 }, -- Chain of the Scarlet Crusade / 35-43
+				{ 16,  535 }, -- Garb of the Undead Slayer / 63
+			},
+		},
+		{ -- Plate
+			name = ALIL["Plate"],
+			[NORMAL_DIFF] = {
+				{ 1,  444 }, -- The Darksoul / 65
+				{ 2,  124 }, -- Deathbone Guardian / 61
+				{ 3,  321 }, -- Imperial Plate / 53-61
+				{ 16,  533 }, -- Battlegear of Undead Slaying / 63
+			},
+		},
+		{ -- Misc
+			name = format(AL["%s Sets"], AL["Misc"]),
+			[NORMAL_DIFF] = {
+				-- Fist weapons
+				{ 1,  261 }, -- Spirit of Eskhandar
+				-- Swords
+				{ 3,  41 }, -- Dal'Rend's Arms
+				-- Dagger / Mace
+				{ 5,  65 }, -- Spider's Kiss
+				-- Trinket
+				{ 16,  444 }, -- Shard of the Gods / 60
 			},
 		},
 	},
@@ -398,6 +488,208 @@ data["DragonsOfNightmare"] = {
 	},
 }
 
+data["WorldEpics"] = {
+	name = AL["World Epics"],
+	ContentType = COLLECTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	TableType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = AL["One-Handed Weapons"],
+			[NORMAL_ITTYPE] = {
+				-- Mace
+				{ 1, 2243 }, -- Hand of Edward the Odd
+				{ 2, 810 }, -- Hammer of the Northern Wind
+				{ 3, 868 }, -- Ardent Custodian
+				-- Axe
+				{ 7, 811 }, -- Axe of the Deep Woods
+				{ 8, 871 }, -- Flurry Axe
+				-- Sword
+				{ 16, 1728 }, -- Teebu's Blazing Longsword
+				{ 17, 20698 }, -- Elemental Attuned Blade
+				{ 18, 2244 }, -- Krol Blade
+				{ 19, 809 }, -- Bloodrazor
+				{ 20, 869 }, -- Dazzling Longsword
+				-- Dagger
+				{ 22, 14555 }, -- Alcor's Sunrazor
+				{ 23, 2163 }, -- Shadowblade
+				{ 24, 2164 }, -- Gut Ripper
+			},
+		},
+		{
+			name = AL["Two-Handed Weapons"],
+			[NORMAL_ITTYPE] = {
+				-- Axe
+				{ 1, 2801 }, -- Blade of Hanna
+				{ 2, 647 }, -- Destiny
+				{ 3, 2291 }, -- Kang the Decapitator
+				{ 4, 870 }, -- Fiery War Axe
+				-- Mace
+				{ 6, 2915 }, -- Taran Icebreaker
+				-- Sword
+				{ 16, 1263 }, -- Brain Hacker
+				{ 17, 1982 }, -- Nightblade
+				-- Staff
+				{ 21, 944 }, -- Elemental Mage Staff
+				{ 22, 812 }, -- Glowing Brightwood Staff
+				{ 23, 943 }, -- Warden Staff
+				{ 24, 873 }, -- Staff of Jordan
+			},
+		},
+		{
+			name = AL["Ranged Weapons"].." & "..ALIL["Shield"],
+			[NORMAL_ITTYPE] = {
+				-- Bow
+				{ 1, 2824 }, -- Hurricane
+				{ 2, 2825 }, -- Bow of Searing Arrows
+				-- Gun
+				{ 4, 2099 }, -- Dwarven Hand Cannon
+				{ 5, 2100 }, -- Precisely Calibrated Boomstick
+				-- Shield
+				{ 16, 1168 }, -- Skullflame Shield
+				{ 17, 1979 }, -- Wall of the Dead
+				{ 18, 1169 }, -- Blackskull Shield
+				{ 19, 1204 }, -- The Green Tower
+			},
+		},
+		{
+			name = ALIL["Trinket"].." & "..ALIL["Finger"].." & "..ALIL["Neck"],
+			[NORMAL_ITTYPE] = {
+				-- Trinket
+				{ 1, 14557 }, -- The Lion Horn of Stormwind
+				{ 2, 833 }, -- Lifestone
+				-- Neck
+				{ 6,  14558 }, -- Lady Maye's Pendant
+				{ 7,  1443 }, -- Jeweled Amulet of Cainwyn
+				{ 8,  1315 }, -- Lei of Lilies
+				--Finger
+				{ 16,  2246 }, -- Myrmidon's Signet
+				{ 17,  942 }, -- Freezing Band
+				{ 18,  1447 }, -- Ring of Saviors
+				{ 19,  1980 }, -- Underworld Band
+			},
+		},
+		{
+			name = AL["Equip"],
+			[NORMAL_ITTYPE] = {
+				-- Cloth
+				{ 1,  3075 }, -- Eye of Flame
+				{ 2,  940 }, -- Robes of Insight
+				-- Mail
+				{ 4,  2245 }, -- Helm of Narv
+				{ 5,  17007 }, -- Stonerender Gauntlets
+				{ 6,  14551 }, -- Edgemaster's Handguards
+				{ 7,  1981 }, -- Icemail Jerkin
+				-- Back
+				{ 9,  3475 }, -- Cloak of Flames
+				-- Leather
+				{ 16,  14553 }, -- Sash of Mercy
+				{ 17,  867 }, -- Gloves of Holy Might
+				-- Plate
+				{ 19,  14554 }, -- Cloudkeeper Legplates
+				{ 20,  14552 }, -- Stockade Pauldrons
+				{ 21,  14549 }, -- Boots of Avoidance
+			},
+		},
+	},
+}
+
+data["Mounts"] = {
+	name = ALIL["Mounts"],
+	ContentType = COLLECTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	TableType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = AL["Faction Mounts"],
+			[ALLIANCE_DIFF] = {
+				{ 1,  18785 }, -- Swift White Ram
+				{ 2,  18786 }, -- Swift Brown Ram
+				{ 3,  18787 }, -- Swift Gray Ram
+				{ 16,  5873 }, -- White Ram
+				{ 17,  5872 }, -- Brown Ram
+				{ 18,  5864 }, -- Gray Ram
+				{ 5,  18772 }, -- Swift Green Mechanostrider
+				{ 6,  18773 }, -- Swift White Mechanostrider
+				{ 7,  18774 }, -- Swift Yellow Mechanostrider
+				{ 20,  13321 }, -- Green Mechanostrider
+				{ 21,  13322 }, -- Unpainted Mechanostrider
+				{ 22,  8563 }, -- Red Mechanostrider
+				{ 23,  8595 }, -- Blue Mechanostrider
+				{ 9,  18776 }, -- Swift Palomino
+				{ 10,  18777 }, -- Swift Brown Steed
+				{ 11,  18778 }, -- Swift White Steed
+				{ 24,  2414 }, -- Pinto Bridle
+				{ 25,  5656 }, -- Brown Horse Bridle
+				{ 26,  5655 }, -- Chestnut Mare Bridle
+				{ 13,  18902 }, -- Reins of the Swift Stormsaber
+				{ 14,  18767 }, -- Reins of the Swift Mistsaber
+				{ 15,  18766 }, -- Reins of the Swift Frostsaber
+				{ 28,  8632 }, -- Reins of the Spotted Frostsaber
+				{ 29,  8631 }, -- Reins of the Striped Frostsaber
+				{ 30,  8629 }, -- Reins of the Striped Nightsaber
+			},
+			[HORDE_DIFF] = {
+				{ 1,  18798 }, -- Horn of the Swift Gray Wolf
+				{ 2,  18797 }, -- Horn of the Swift Timber Wolf
+				{ 3,  18796 }, -- Horn of the Swift Brown Wolf
+				{ 16,  5668 }, -- Horn of the Brown Wolf
+				{ 17,  5665 }, -- Horn of the Dire Wolf
+				{ 18,  1132 }, -- Horn of the Timber Wolf
+				{ 5,  18795 }, -- Great Gray Kodo
+				{ 6,  18794 }, -- Great Brown Kodo
+				{ 7,  18793 }, -- Great White Kodo
+				{ 20,  15290 }, -- Brown Kodo
+				{ 21,  15277 }, -- Gray Kodo
+				{ 9,  18790 }, -- Swift Orange Raptor
+				{ 10,  18789 }, -- Swift Olive Raptor
+				{ 11,  18788 }, -- Swift Blue Raptor
+				{ 24,  8592 }, -- Whistle of the Violet Raptor
+				{ 25,  8591 }, -- Whistle of the Turquoise Raptor
+				{ 26,  8588 }, -- Whistle of the Emerald Raptor
+				{ 13,  18791 }, -- Purple Skeletal Warhorse
+				{ 14,  13334 }, -- Green Skeletal Warhorse
+				{ 28,  13333 }, -- Brown Skeletal Horse
+				{ 29,  13332 }, -- Blue Skeletal Horse
+				{ 30,  13331 }, -- Red Skeletal Horse
+			},
+		},
+	},
+}
+
+data["Tabards"] = {
+	name = ALIL["Tabard"],
+	ContentType = COLLECTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	TableType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = ALIL["Tabard"],
+			[ALLIANCE_DIFF] = {
+				{ 1,  15196 }, -- Private's Tabard
+				{ 2,  15198 }, -- Knight's Colors
+				{ 3,  19506 }, -- Silverwing Battle Tabard
+				{ 4,  20132 }, -- Arathor Battle Tabard
+				{ 5,  19032 }, -- Stormpike Battle Tabard
+				{ 16,  19160 }, -- Contest Winner's Tabard
+				{ 17,  22999 }, -- Tabard of the Agent Dawn
+				{ 18, 23192 }, -- Tabard of the Scarlet Crusade
+				{ 19, 23705 }, -- Tabard of Flame
+				{ 20, 23709 }, -- Tabard of Frost
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 15197 }, -- Scout's Tabard
+				{ 2, 15199 }, -- Stone Guard's Herald
+				{ 3, 19505 }, -- Warsong Battle Tabard
+				{ 4, 20131 }, -- Battle Tabard of the Defilers
+				{ 5, 19031 }, -- Frostwolf Battle Tabard
+			},
+		},
+	},
+}
+
+
 data["GurubashiArena"] = {
 	name = AL["Gurubashi Arena"],
 	ContentType = WORLD_EVENT_CONTENT,
@@ -462,13 +754,13 @@ data["ChildrensWeek"] = {
 }
 
 data["Valentineday"] = {
-	name = AL["Valentineday"],
+	name = AL["Love is in the Air"],
 	ContentType = WORLD_EVENT_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
 	TableType = NORMAL_ITTYPE,
 	items = {
 		{ -- Valentineday
-			name = AL["Valentineday"],
+			name = AL["Love is in the Air"],
 			[NORMAL_DIFF] = {
 				{ 1,  22206 }, -- Bouquet of Red Roses
 				{ 3, "INV_ValentinesBoxOfChocolates02", nil, AL["Gift of Adoration"] },

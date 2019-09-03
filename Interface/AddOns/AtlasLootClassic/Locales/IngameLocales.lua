@@ -48,7 +48,27 @@ local function AtlasLoot_GetClassName(class)
 	end
 end
 
+local function GetLocRepStanding(id)
+	if (id > 10) then
+		return FACTION_STANDING_LABEL4_FEMALE
+	else
+		return UnitSex("player")==3 and _G["FACTION_STANDING_LABEL"..(id or 4).."_FEMALE"] or _G["FACTION_STANDING_LABEL"..(id or 4)]
+	end
+end
+
 local IngameLocales = {
+	-- ######################################################################
+	-- Faction standing
+	-- ######################################################################
+	["Hated"] = GetLocRepStanding(1),
+	["Hostile"] = GetLocRepStanding(2),
+	["Unfriendly"] = GetLocRepStanding(3),
+	["Neutral"] = GetLocRepStanding(4),
+	["Friendly"] = GetLocRepStanding(5),
+	["Honored"] = GetLocRepStanding(6),
+	["Revered"] = GetLocRepStanding(7),
+	["Exalted"] = GetLocRepStanding(8),
+
 	-- ######################################################################
 	-- Professions
 	-- ######################################################################
@@ -65,6 +85,7 @@ local IngameLocales = {
 	["Enchanting"] = GetSpellInfo(7411),
 	["Fishing"] = GetSpellInfo(7732),
 	["Skinning"] = GetSpellInfo(8618),
+	["Poisons"] = GetSpellInfo(2842),
 
 	-- ######################################################################
 	-- Months
@@ -226,11 +247,29 @@ local IngameLocales = {
 	["WARLOCK"] 	= AtlasLoot_GetClassName("WARLOCK"),
 	["WARRIOR"] 	= AtlasLoot_GetClassName("WARRIOR"),
 
+
+	-- ######################################################################
+	-- Item Quality
+	-- ######################################################################
+	["Poor"]	 	= _G["ITEM_QUALITY0_DESC"],
+	["Common"] 		= _G["ITEM_QUALITY1_DESC"],
+	["Uncommon"] 	= _G["ITEM_QUALITY2_DESC"],
+	["Rare"] 		= _G["ITEM_QUALITY3_DESC"],
+	["Epic"]		= _G["ITEM_QUALITY4_DESC"],
+	["Legendary"] 	= _G["ITEM_QUALITY5_DESC"],
+	["Artifact"] 	= _G["ITEM_QUALITY6_DESC"],
+	["Heirloom"] 	= _G["ITEM_QUALITY7_DESC"],
+
 	-- ######################################################################
 	-- Misc
 	-- ######################################################################
 	["Food"] = _G["POWER_TYPE_FOOD"],
 	["Special"] = _G["SPECIAL"],
+	["Mounts"] = _G["MOUNTS"],
+	["Mount"] = _G["MOUNT"],
+	["Default"] = _G["DEFAULT"],
+	["Settings"] = _G["SETTINGS"],
+	["Dressing Room"] = _G["DRESSUP_FRAME"],
 }
 AtlasLoot.IngameLocales = IngameLocales
 

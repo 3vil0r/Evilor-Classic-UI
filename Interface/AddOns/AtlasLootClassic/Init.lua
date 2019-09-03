@@ -3,16 +3,15 @@
 -----------------------------------------------------------------------
 local _G = getfenv(0)
 local tonumber = _G.tonumber
+local ipairs = _G.ipairs
 
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------
 local addonname = ...
 
-_G.AtlasLoot = { }
-
 local addonVersion = GetAddOnMetadata(addonname, "Version")
-if addonVersion == "v1.1.2-beta" then addonVersion = "v99.99.9999-dev" end
+if addonVersion == string.format("@%s@", "project-version") then addonVersion = "v99.99.9999-dev" end
 local versionT = { string.match(addonVersion, "v(%d+)%.(%d+)%.(%d+)%-?(%a*)(%d*)") }
 local addonRevision = ""
 for k,v in ipairs(versionT) do
@@ -27,7 +26,7 @@ end
 
 _G.AtlasLoot = {
 	__addonrevision = tonumber(addonRevision),
-	__addonversion = addonVersion,
+	__addonversion = versionT[4] == "dev" and "dev-"..(GetServerTime() or 0) or addonVersion,
 	IsDevVersion = versionT[4] == "dev" and true or nil,
 	IsTestVersion = (versionT[4] == "beta" or versionT[4] == "alpha") and true or nil,
 }

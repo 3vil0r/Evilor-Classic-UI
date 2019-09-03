@@ -150,6 +150,7 @@ function B:LoadBagBar()
 		tinsert(ElvUIBags.buttons, b)
 	end
 
+--[=[
 	--Item assignment
 	for i = 1, #ElvUIBags.buttons do
 		local bagButton = ElvUIBags.buttons[i]
@@ -162,7 +163,7 @@ function B:LoadBagBar()
 						_G.ToggleDropDownMenu(1, nil, ElvUIAssignBagDropdown, "cursor")
 					end
 				else
-					_G.MainMenuBarBackpackButton_OnClick(holder)
+					_G.BackpackButton_OnClick(holder)
 				end
 			end)
 		else
@@ -181,6 +182,7 @@ function B:LoadBagBar()
 
 		bagButton.id = (i - 1)
 	end
+]=]
 
 	--Hide and show to update assignment textures on first load
 	ElvUIBags:Hide()

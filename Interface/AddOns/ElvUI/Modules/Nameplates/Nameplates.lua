@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(select(2, ...)) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local NP = E:GetModule("NamePlates")
 local oUF = E.oUF
 
@@ -10,8 +10,6 @@ local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local GetCVarDefault = GetCVarDefault
 local GetInstanceInfo = GetInstanceInfo
-local GetNumGroupMembers = GetNumGroupMembers
-local GetNumSubgroupMembers = GetNumSubgroupMembers
 local IsInGroup, IsInRaid = IsInGroup, IsInRaid
 local SetCVar = SetCVar
 local UnitClass = UnitClass
@@ -19,7 +17,6 @@ local UnitClassification = UnitClassification
 local UnitCreatureType = UnitCreatureType
 local UnitExists = UnitExists
 local UnitFactionGroup = UnitFactionGroup
-local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitGUID = UnitGUID
 local UnitIsFriend = UnitIsFriend
 local UnitIsPlayer = UnitIsPlayer
@@ -108,7 +105,6 @@ function NP:SetCVars()
 		SetCVar("nameplateOtherBottomInset", -1)
 	end
 
-	SetCVar("nameplateMaxDistance", NP.db.loadDistance)
 	SetCVar("nameplateMotion", NP.db.motionType == "STACKED" and 1 or 0)
 
 	SetCVar("NameplatePersonalShowAlways", NP.db.units.PLAYER.visibility.showAlways and 1 or 0)

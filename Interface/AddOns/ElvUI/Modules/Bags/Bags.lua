@@ -6,9 +6,9 @@ local Search = E.Libs.ItemSearch
 
 --Lua functions
 local _G = _G
-local type, ipairs, pairs, unpack, select, assert, pcall = type, ipairs, pairs, unpack, select, assert, pcall
+local type, ipairs, pairs, unpack, select, pcall = type, ipairs, pairs, unpack, select, pcall
 local tinsert, tremove, twipe, tmaxn = tinsert, tremove, wipe, table.maxn
-local floor, ceil, abs = floor, ceil, abs
+local floor, abs = floor, abs
 local format, sub = format, strsub
 local tonumber = tonumber
 --WoW API / Variables
@@ -20,10 +20,7 @@ local CooldownFrame_Set = CooldownFrame_Set
 local CreateFrame = CreateFrame
 local DeleteCursorItem = DeleteCursorItem
 local GameTooltip_Hide = GameTooltip_Hide
-local GetBackpackAutosortDisabled = GetBackpackAutosortDisabled
-local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo
 local GetBagSlotFlag = GetBagSlotFlag
-local GetBankAutosortDisabled = GetBankAutosortDisabled
 local GetBankBagSlotFlag = GetBankBagSlotFlag
 local GetContainerItemCooldown = GetContainerItemCooldown
 local GetContainerItemID = GetContainerItemID
@@ -31,46 +28,35 @@ local GetContainerItemInfo = GetContainerItemInfo
 local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetContainerNumSlots = GetContainerNumSlots
-local GetCurrencyLink = GetCurrencyLink
 local GetCVarBool = GetCVarBool
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
 local GetMoney = GetMoney
 local GetNumBankSlots = GetNumBankSlots
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
-local HandleModifiedItemClick = HandleModifiedItemClick
 local IsBagOpen, IsOptionFrameOpen = IsBagOpen, IsOptionFrameOpen
 local IsInventoryItemProfessionBag = IsInventoryItemProfessionBag
-local IsModifiedClick = IsModifiedClick
 local IsShiftKeyDown, IsControlKeyDown = IsShiftKeyDown, IsControlKeyDown
 local PickupContainerItem = PickupContainerItem
 local PlaySound = PlaySound
 local PutItemInBackpack = PutItemInBackpack
 local PutItemInBag = PutItemInBag
-local SetBackpackAutosortDisabled = SetBackpackAutosortDisabled
 local SetBagSlotFlag = SetBagSlotFlag
-local SetBankAutosortDisabled = SetBankAutosortDisabled
 local SetBankBagSlotFlag = SetBankBagSlotFlag
 local SetInsertItemsLeftToRight = SetInsertItemsLeftToRight
 local SetItemButtonCount = SetItemButtonCount
 local SetItemButtonDesaturated = SetItemButtonDesaturated
 local SetItemButtonTexture = SetItemButtonTexture
 local SetItemButtonTextureVertexColor = SetItemButtonTextureVertexColor
-local SortBags = SortBags
-local SortBankBags = SortBankBags
-local StaticPopup_Show = StaticPopup_Show
 local ToggleFrame = ToggleFrame
 local UseContainerItem = UseContainerItem
 
-local C_Item_DoesItemExist = C_Item.DoesItemExist
 local C_NewItems_IsNewItem = C_NewItems.IsNewItem
 local C_NewItems_RemoveNewItem = C_NewItems.RemoveNewItem
-local hooksecurefunc = hooksecurefunc
 
 local BAG_FILTER_ASSIGN_TO = BAG_FILTER_ASSIGN_TO
 local BAG_FILTER_CLEANUP = BAG_FILTER_CLEANUP
 local BAG_FILTER_IGNORE = BAG_FILTER_IGNORE
-local BAG_FILTER_LABELS = BAG_FILTER_LABELS
 local CONTAINER_OFFSET_X, CONTAINER_OFFSET_Y = CONTAINER_OFFSET_X, CONTAINER_OFFSET_Y
 local CONTAINER_SCALE = CONTAINER_SCALE
 local CONTAINER_SPACING, VISIBLE_CONTAINER_SPACING = CONTAINER_SPACING, VISIBLE_CONTAINER_SPACING
@@ -83,7 +69,6 @@ local LE_BAG_FILTER_FLAG_JUNK = LE_BAG_FILTER_FLAG_JUNK
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
 local LE_ITEM_QUALITY_POOR = LE_ITEM_QUALITY_POOR
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
-local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS
 local NUM_BAG_FRAMES = NUM_BAG_FRAMES
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKGENERIC_SLOTS = NUM_BANKGENERIC_SLOTS
@@ -175,7 +160,6 @@ function B:UpdateSearch()
 		end
 	end
 
-	--Keep active search term when switching between bank and reagent bank
 	if search == SEARCH and prevSearch ~= "" then
 		search = prevSearch
 	elseif search == SEARCH then
@@ -266,18 +250,6 @@ function B:UpdateCountDisplay()
 		end
 
 		B:UpdateAllSlots(bagFrame)
-	end
-
-	--Reagent Bank
-	if B.BankFrame and B.BankFrame.reagentFrame then
-		for i = 1, B.REAGENTBANK_SIZE do
-			local slot = B.BankFrame.reagentFrame.slots[i]
-			if slot then
-				slot.Count:FontTemplate(E.Libs.LSM:Fetch("font", E.db.bags.countFont), E.db.bags.countFontSize, E.db.bags.countFontOutline)
-				slot.Count:SetTextColor(color.r, color.g, color.b)
-				B:UpdateReagentSlot(i)
-			end
-		end
 	end
 end
 
@@ -544,14 +516,8 @@ function B:UpdateSlot(frame, bagID, slotID)
 end
 
 function B:UpdateBagSlots(frame, bagID)
-	if bagID == REAGENTBANK_CONTAINER then
-		for i=1, B.REAGENTBANK_SIZE do
-			B:UpdateReagentSlot(i)
-		end
-	else
-		for slotID = 1, GetContainerNumSlots(bagID) do
-			B:UpdateSlot(frame, bagID, slotID)
-		end
+	for slotID = 1, GetContainerNumSlots(bagID) do
+		B:UpdateSlot(frame, bagID, slotID)
 	end
 end
 
@@ -699,21 +665,13 @@ function B:AssignBagFlagMenu()
 
 	info.text = BAG_FILTER_IGNORE
 	info.func = function(_, _, _, value)
-		if holder.id == -1 then
-			SetBankAutosortDisabled(not value)
-		elseif holder.id == 0 then
-			SetBackpackAutosortDisabled(not value)
-		elseif holder.id > NUM_BAG_SLOTS then
+		if holder.id > NUM_BAG_SLOTS then
 			SetBankBagSlotFlag(holder.id - NUM_BAG_SLOTS, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP, not value)
 		else
 			SetBagSlotFlag(holder.id, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP, not value)
 		end
 	end
-	if (holder.id == -1) then
-		info.checked = GetBankAutosortDisabled()
-	elseif (holder.id == 0) then
-		info.checked = GetBackpackAutosortDisabled()
-	elseif (holder.id > NUM_BAG_SLOTS) then
+	if (holder.id > NUM_BAG_SLOTS) then
 		info.checked = GetBankBagSlotFlag(holder.id - NUM_BAG_SLOTS, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP)
 	else
 		info.checked = GetBagSlotFlag(holder.id, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP)
@@ -837,9 +795,6 @@ function B:Layout(isBank)
 	local isSplit = B.db.split[isBank and 'bank' or 'player']
 
 	f.holderFrame:Width(holderWidth)
-	if isBank then
-		f.reagentFrame:Width(holderWidth)
-	end
 
 	f.totalSlots = 0
 	local lastButton
@@ -1112,11 +1067,7 @@ end
 function B:OnEvent(event, ...)
 	if event == 'ITEM_LOCK_CHANGED' or event == 'ITEM_UNLOCKED' then
 		local bag, slot = ...
-		if bag == REAGENTBANK_CONTAINER then
-			B:UpdateReagentSlot(slot)
-		else
-			B:UpdateSlot(self, bag, slot)
-		end
+		B:UpdateSlot(self, bag, slot)
 	elseif event == 'BAG_UPDATE' then
 		for _, bagID in ipairs(self.BagIDs) do
 			local numSlots = GetContainerNumSlots(bagID)
@@ -1140,80 +1091,10 @@ function B:OnEvent(event, ...)
 		else
 			B:UpdateBagSlots(self, -1)
 		end
-	elseif event == 'PLAYERREAGENTBANKSLOTS_CHANGED' then
-		B:UpdateReagentSlot(...)
 	elseif (event == "QUEST_ACCEPTED" or event == "QUEST_REMOVED") and self:IsShown() then
 		B:UpdateAllSlots(self)
 	elseif (event == "BANK_BAG_SLOT_FLAGS_UPDATED" or event == "BAG_SLOT_FLAGS_UPDATED") then
 		B:Layout(self.isBank)
-	end
-end
-
-function B:UpdateTokens()
-	local f = B.BagFrame
-	local numTokens = 0
-	for i = 1, MAX_WATCHED_TOKENS do
-		local name, count, icon, currencyID = GetBackpackCurrencyInfo(i)
-		local button = f.currencyButton[i]
-
-		button:ClearAllPoints()
-		if name then
-			button.icon:SetTexture(icon)
-
-			if B.db.currencyFormat == 'ICON_TEXT' then
-				button.text:SetText(name..': '..count)
-			elseif B.db.currencyFormat == "ICON_TEXT_ABBR" then
-				button.text:SetText(E:AbbreviateString(name)..': '..count)
-			elseif B.db.currencyFormat == 'ICON' then
-				button.text:SetText(count)
-			end
-
-			button.currencyID = currencyID
-			button:Show()
-			numTokens = numTokens + 1
-		else
-			button:Hide()
-		end
-	end
-
-	if numTokens == 0 then
-		f.bottomOffset = 8
-
-		if f.currencyButton:IsShown() then
-			f.currencyButton:Hide()
-			B:Layout()
-		end
-
-		return
-	elseif not f.currencyButton:IsShown() then
-		f.bottomOffset = 28
-		f.currencyButton:Show()
-		B:Layout()
-	end
-
-	f.bottomOffset = 28
-
-	if numTokens == 1 then
-		f.currencyButton[1]:Point('BOTTOM', f.currencyButton, 'BOTTOM', -(f.currencyButton[1].text:GetWidth() / 2), 3)
-	elseif numTokens == 2 then
-		f.currencyButton[1]:Point('BOTTOM', f.currencyButton, 'BOTTOM', -(f.currencyButton[1].text:GetWidth()) - (f.currencyButton[1]:GetWidth() / 2), 3)
-		f.currencyButton[2]:Point('BOTTOMLEFT', f.currencyButton, 'BOTTOM', f.currencyButton[2]:GetWidth() / 2, 3)
-	else
-		f.currencyButton[1]:Point('BOTTOMLEFT', f.currencyButton, 'BOTTOMLEFT', 3, 3)
-		f.currencyButton[2]:Point('BOTTOM', f.currencyButton, 'BOTTOM', -(f.currencyButton[2].text:GetWidth() / 3), 3)
-		f.currencyButton[3]:Point('BOTTOMRIGHT', f.currencyButton, 'BOTTOMRIGHT', -(f.currencyButton[3].text:GetWidth()) - (f.currencyButton[3]:GetWidth() / 2), 3)
-	end
-end
-
-function B:Token_OnEnter()
-	local GameTooltip = _G.GameTooltip
-	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-	GameTooltip:SetBackpackToken(self:GetID())
-end
-
-function B:Token_OnClick()
-	if IsModifiedClick("CHATLINK") then
-		HandleModifiedItemClick(GetCurrencyLink(self.currencyID))
 	end
 end
 
@@ -1323,7 +1204,7 @@ function B:ContructContainerFrame(name, isBank)
 	f:SetFrameStrata(strata)
 	f:RegisterEvent("BAG_UPDATE") -- Has to be on both frames
 	f:RegisterEvent("BAG_UPDATE_COOLDOWN") -- Has to be on both frames
-	f.events = isBank and { "PLAYERREAGENTBANKSLOTS_CHANGED", "BANK_BAG_SLOT_FLAGS_UPDATED", "PLAYERBANKSLOTS_CHANGED" } or { "ITEM_LOCK_CHANGED", "ITEM_UNLOCKED", "BAG_SLOT_FLAGS_UPDATED", "QUEST_ACCEPTED", "QUEST_REMOVED" }
+	f.events = isBank and { "BANK_BAG_SLOT_FLAGS_UPDATED", "PLAYERBANKSLOTS_CHANGED" } or { "ITEM_LOCK_CHANGED", "ITEM_UNLOCKED", "BAG_SLOT_FLAGS_UPDATED", "QUEST_ACCEPTED", "QUEST_REMOVED" }
 
 	for _, event in pairs(f.events) do
 		f:RegisterEvent(event)
@@ -1483,13 +1364,9 @@ function B:ContructContainerFrame(name, isBank)
 		f.sortButton:GetDisabledTexture():SetDesaturated(1)
 		f.sortButton:StyleButton(nil, true)
 		f.sortButton:SetScript('OnClick', function()
-			if B.db.useBlizzardCleanup then
-				SortBags()
-			else
-				f:UnregisterAllEvents() --Unregister to prevent unnecessary updates
-				if not f.registerUpdate then B:SortingFadeBags(f, true) end
-				B:CommandDecorator(B.SortBags, 'bags')()
-			end
+			f:UnregisterAllEvents() --Unregister to prevent unnecessary updates
+			if not f.registerUpdate then B:SortingFadeBags(f, true) end
+			B:CommandDecorator(B.SortBags, 'bags')()
 		end)
 		if E.db.bags.disableBagSort then
 			f.sortButton:Disable()
@@ -1630,20 +1507,10 @@ function B:CloseBags()
 	TT:GameTooltip_SetDefaultAnchor(_G.GameTooltip)
 end
 
-function B:ShowBankTab(f, showReagent)
-	if showReagent then
-		_G.BankFrame.selectedTab = 2
-		f.holderFrame:Hide()
-		f.reagentFrame:Show()
-		f.editBox:Point('RIGHT', f.depositButton, 'LEFT', -5, 0)
-		f.bagText:SetText(L["Reagent Bank"])
-	else
-		_G.BankFrame.selectedTab = 1
-		f.reagentFrame:Hide()
-		f.holderFrame:Show()
-		f.editBox:Point('RIGHT', f.purchaseBagButton, 'LEFT', -5, 0)
-		f.bagText:SetText(L["Bank"])
-	end
+function B:ShowBankTab(f)
+	f.holderFrame:Show()
+	f.editBox:Point('RIGHT', f.purchaseBagButton, 'LEFT', -5, 0)
+	f.bagText:SetText(L["Bank"])
 end
 
 function B:ItemGlowOnFinished()
@@ -1694,7 +1561,6 @@ function B:OpenBank()
 	B:Layout(true)
 
 	B:OpenBags()
-	B:UpdateTokens()
 
 	_G.BankFrame:Show()
 	B.BankFrame:Show()
@@ -1980,12 +1846,14 @@ function B:Initialize()
 	BagFrameHolder:Height(22)
 	BagFrameHolder:SetFrameLevel(BagFrameHolder:GetFrameLevel() + 400)
 
+--[=[
 	--Bag Assignment Dropdown Menu (also used by BagBar)
 	ElvUIAssignBagDropdown = CreateFrame("Frame", "ElvUIAssignBagDropdown", E.UIParent, "UIDropDownMenuTemplate")
 	ElvUIAssignBagDropdown:SetID(1)
 	ElvUIAssignBagDropdown:SetClampedToScreen(true)
 	ElvUIAssignBagDropdown:Hide()
 	_G.UIDropDownMenu_Initialize(ElvUIAssignBagDropdown, B.AssignBagFlagMenu, "MENU")
+]=]
 
 	if not E.private.bags.enable then
 		-- Set a different default anchor
@@ -1998,7 +1866,6 @@ function B:Initialize()
 	B.Initialized = true
 	B.db = E.db.bags
 	B.BagFrames = {}
-	B.REAGENTBANK_SIZE = 98 -- numRow (7) * numColumn (7) * numSubColumn (2) = size = 98
 	B.ProfessionColors = {
 		[0x0008]   = { B.db.colors.profession.leatherworking.r, B.db.colors.profession.leatherworking.g, B.db.colors.profession.leatherworking.b },
 		[0x0010]   = { B.db.colors.profession.inscription.r, B.db.colors.profession.inscription.g, B.db.colors.profession.inscription.b },

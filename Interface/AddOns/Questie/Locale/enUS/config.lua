@@ -17,7 +17,19 @@ QuestieLocale.locale['enUS'] = {
     ['LOWLEVEL_ABOVE_DESC'] = "How many levels above your character to show. ( Default: %s )",
     ['CLUSTER'] = "Objective icon cluster amount  (Not yet implemented)",
     ['CLUSTER_DESC'] = "How much objective icons should cluster.",
-
+    ['ENABLE_OBJECTIVES'] = "Enable Objective Icons",
+    ['ENABLE_OBJECTIVES_DESC'] = "When this is enabled, quest objective icons will be shown on the map/minimap",
+    ['ENABLE_TURNINS'] = "Enable Completed Quest Icons",
+    ['ENABLE_TURNINS_DESC'] = "When this is enabled, the quest turn-in locations will be shown on the map/minimap",
+    ['ENABLE_AVAILABLE'] = "Enable Available Quest Icons",
+    ['ENABLE_AVAILABLE_DESC'] = "When this is enabled, the available quest locations will be shown on the map/minimap",
+    ['ENABLE_TOOLTIPS'] = "Enable Tooltips",
+    ['ENABLE_TOOLTIPS_DESC'] = "When this is enabled, quest info will be added to relevant mob/item tooltips",
+    ['ICON_TYPE_HEADER'] = "Icon Types",
+    ['ENABLE_MAP_ICONS'] = "Enable Map Icons",
+    ['ENABLE_MAP_ICONS_DESC'] = "Show/hide all icons from the main map",
+    ['ENABLE_MINIMAP_ICONS'] = "Enable Minimap Icons",
+    ['ENABLE_MINIMAP_ICONS_DESC'] = "Show/hide all icons from the minimap",
 
     ['MINIMAP_TAB'] = "Minimap Options",
     ['MINIMAP_HEADER'] = "Mini-Map Note Options",
@@ -53,7 +65,7 @@ QuestieLocale.locale['enUS'] = {
     ['MAP_ALWAYS_GLOW_TOGGLE_DESC'] = "Draw a glow texture behind map icons, colored unique to each quest",
 
     ['AVAILABLE_ICON_SCALE'] = "Scale for Available/Complete Icons",
-    ['AVAILABIE_ICON_SCALE_DESC'] = "How large the available/complete icons are.  ( Default: %s )",
+    ['AVAILABLE_ICON_SCALE_DESC'] = "How large the available/complete icons are.  ( Default: %s )",
     ['LOOT_ICON_SCALE'] = "Scale for Loot Icons",
     ['LOOT_ICON_SCALE_DESC'] = "How large the loot icons are.  ( Default: %s )",
     ['MONSTER_ICON_SCALE'] = "Scale for Slay Icons",
@@ -114,6 +126,7 @@ QuestieLocale.locale['enUS'] = {
     ['ICON_HIDE'] = "Hide Minimap Button",
     ['ICON_RIGHT_CLICK'] = "Right Click",
     ['ICON_JOURNEY'] = "Toggle My Journey",
+    ['CONFIRM_HIDE_QUEST'] = "Are you sure you want to hide the quest \"%s\"?\nIf this quest isn't actually available, please report it to us!",
 
 
     -- Slash Commands
@@ -178,10 +191,8 @@ QuestieLocale.locale['enUS'] = {
     ['JOURNEY_BEGIN'] = "It's about time you embark on your first Journey!",
     ['JOURNEY_SEARCH_HEAD'] = "Enter in your Search",
     ['JOURNEY_SEARCH_CRITERIA'] = "Select Search Criteria",
-    ['JOURNEY_SEARCH_QUESTS'] = "Search Quests By Name",
-    ['JOURNEY_SEARCH_QUESTS_ID'] = "Search Quest By Quest ID",
-    ['JOURNEY_SEARCH_NPCS'] = "Search for NPCs By Name",
-    ['JOURNEY_SEARCH_NPCS_ID'] = "Search for NPC By NPC ID",
+    ['JOURNEY_SEARCH_BY_NAME'] = "Search By Name",
+    ['JOURNEY_SEARCH_BY_ID'] = "Search By ID",
     ['JOURNEY_SEARCH_EXE'] = "Search",
     ['JOURNEY_SEARCH_RESULTS'] = "Search Results",
     ['JOURNEY_SEARCH_NOMATCH'] = "No Match for Search Results: %s",

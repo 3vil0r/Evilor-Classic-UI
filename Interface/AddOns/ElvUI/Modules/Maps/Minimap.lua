@@ -9,32 +9,17 @@ local utf8sub = string.utf8sub
 local CloseAllWindows = CloseAllWindows
 local CloseMenus = CloseMenus
 local CreateFrame = CreateFrame
-local GarrisonLandingPageMinimapButton_OnClick = GarrisonLandingPageMinimapButton_OnClick
 local GetMinimapZoneText = GetMinimapZoneText
 local GetZonePVPInfo = GetZonePVPInfo
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
-local IsShiftKeyDown = IsShiftKeyDown
 local MainMenuMicroButton_SetNormal = MainMenuMicroButton_SetNormal
 local PlaySound = PlaySound
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
-local ToggleAchievementFrame = ToggleAchievementFrame
 local ToggleCharacter = ToggleCharacter
-local ToggleCollectionsJournal = ToggleCollectionsJournal
-local ToggleFrame = ToggleFrame
 local ToggleFriendsFrame = ToggleFriendsFrame
 local ToggleGuildFrame = ToggleGuildFrame
-local ToggleHelpFrame = ToggleHelpFrame
-local ToggleLFDParentFrame = ToggleLFDParentFrame
 -- GLOBALS: GetMinimapShape
-
---Create the new minimap tracking dropdown frame and initialize it
--- local ElvUIMiniMapTrackingDropDown = CreateFrame("Frame", "ElvUIMiniMapTrackingDropDown", _G.UIParent, "UIDropDownMenuTemplate")
--- ElvUIMiniMapTrackingDropDown:SetID(1)
--- ElvUIMiniMapTrackingDropDown:SetClampedToScreen(true)
--- ElvUIMiniMapTrackingDropDown:Hide()
--- _G.UIDropDownMenu_Initialize(ElvUIMiniMapTrackingDropDown, _G.MiniMapTrackingDropDown_Initialize, "MENU");
--- ElvUIMiniMapTrackingDropDown.noResize = true
 
 --Create the minimap micro menu
 local menuFrame = CreateFrame("Frame", "MinimapRightClickMenu", E.UIParent)
@@ -49,45 +34,14 @@ local menuList = {
 			HideUIPanel(_G.SpellBookFrame)
 		end
 	end},
-	{text = _G.TALENTS_BUTTON,
-	func = function()
-		if not _G.PlayerTalentFrame then
-			_G.TalentFrame_LoadUI()
-		end
-
-		local PlayerTalentFrame = _G.PlayerTalentFrame
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
-		else
-			HideUIPanel(PlayerTalentFrame)
-		end
-	end},
-	{text = _G.COLLECTIONS,
-	func = ToggleCollectionsJournal},
 	{text = _G.CHAT_CHANNELS,
 	func = _G.ToggleChannelFrame},
-	{text = _G.TIMEMANAGER_TITLE,
-	func = function() ToggleFrame(_G.TimeManagerFrame) end},
-	{text = _G.ACHIEVEMENT_BUTTON,
-	func = ToggleAchievementFrame},
+--	{text = _G.TIMEMANAGER_TITLE,
+--	func = function() ToggleFrame(_G.TimeManagerFrame) end},
 	{text = _G.SOCIAL_BUTTON,
 	func = ToggleFriendsFrame},
-	{text = L["Calendar"],
-	func = function() _G.GameTimeFrame:Click() end},
-	{text = _G.GARRISON_TYPE_8_0_LANDING_PAGE_TITLE,
-	func = function() GarrisonLandingPageMinimapButton_OnClick() end},
 	{text = _G.ACHIEVEMENTS_GUILD_TAB,
 	func = ToggleGuildFrame},
-	{text = _G.LFG_TITLE,
-	func = ToggleLFDParentFrame},
-	{text = _G.ENCOUNTER_JOURNAL,
-	func = function()
-		if not IsAddOnLoaded('Blizzard_EncounterJournal') then
-			_G.EncounterJournal_LoadUI()
-		end
-
-		ToggleFrame(_G.EncounterJournal)
-	end},
 	{text = _G.MAINMENU_BUTTON,
 	func = function()
 		if not _G.GameMenuFrame:IsShown() then
@@ -111,16 +65,9 @@ local menuList = {
 	end}
 }
 
---if(C_StorePublic.IsEnabled()) then
-	tinsert(menuList, {text = _G.BLIZZARD_STORE, func = function() _G.StoreMicroButton:Click() end})
---end
-tinsert(menuList, 	{text = _G.HELP_BUTTON, func = ToggleHelpFrame})
-
 function M:GetLocTextColor()
 	local pvpType = GetZonePVPInfo()
-	if pvpType == "arena" then
-		return 0.84, 0.03, 0.03
-	elseif pvpType == "friendly" then
+	if pvpType == "friendly" then
 		return 0.05, 0.85, 0.03
 	elseif pvpType == "contested" then
 		return 0.9, 0.85, 0.05
@@ -144,18 +91,15 @@ function M:ADDON_LOADED(_, addon)
 end
 
 function M:Minimap_OnMouseDown(btn)
-	_G.HideDropDownMenu(1, nil, ElvUIMiniMapTrackingDropDown)
 	menuFrame:Hide()
 	local position = self:GetPoint()
-	if btn == "MiddleButton" or (btn == "RightButton" and IsShiftKeyDown()) then
+	if btn == "MiddleButton" or btn == "RightButton" then
 		if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 		if position:match("LEFT") then
 			E:DropDown(menuList, menuFrame)
 		else
 			E:DropDown(menuList, menuFrame, -160, 0)
 		end
-	elseif btn == "RightButton" then
-		_G.ToggleDropDownMenu(1, nil, ElvUIMiniMapTrackingDropDown, "cursor");
 	else
 		_G.Minimap_OnClick(self)
 	end
@@ -313,21 +257,6 @@ function M:UpdateSettings()
 		return;
 	end
 
-	local GarrisonLandingPageMinimapButton = _G.GarrisonLandingPageMinimapButton
-	if GarrisonLandingPageMinimapButton then
-		local pos = E.db.general.minimap.icons.classHall.position or "TOPLEFT"
-		local scale = E.db.general.minimap.icons.classHall.scale or 1
-		GarrisonLandingPageMinimapButton:ClearAllPoints()
-		GarrisonLandingPageMinimapButton:Point(pos, Minimap, pos, E.db.general.minimap.icons.classHall.xOffset or 0, E.db.general.minimap.icons.classHall.yOffset or 0)
-		GarrisonLandingPageMinimapButton:SetScale(scale)
-
-		local GarrisonLandingPageTutorialBox = _G.GarrisonLandingPageTutorialBox
-		if GarrisonLandingPageTutorialBox then
-			GarrisonLandingPageTutorialBox:SetScale(1/scale)
-			GarrisonLandingPageTutorialBox:SetClampedToScreen(true)
-		end
-	end
-
 	local GameTimeFrame = _G.GameTimeFrame
 	if GameTimeFrame then
 		if E.private.general.minimap.hideCalendar then
@@ -351,16 +280,6 @@ function M:UpdateSettings()
 		MiniMapMailFrame:SetScale(scale)
 	end
 
-	local QueueStatusMinimapButton = _G.QueueStatusMinimapButton
-	if QueueStatusMinimapButton then
-		local pos = E.db.general.minimap.icons.lfgEye.position or "BOTTOMRIGHT"
-		local scale = E.db.general.minimap.icons.lfgEye.scale or 1
-		QueueStatusMinimapButton:ClearAllPoints()
-		QueueStatusMinimapButton:Point(pos, Minimap, pos, E.db.general.minimap.icons.lfgEye.xOffset or 3, E.db.general.minimap.icons.lfgEye.yOffset or 0)
-		QueueStatusMinimapButton:SetScale(scale)
-		_G.QueueStatusFrame:SetScale(scale)
-	end
-
 	local MiniMapInstanceDifficulty = _G.MiniMapInstanceDifficulty
 	local GuildInstanceDifficulty = _G.GuildInstanceDifficulty
 	if MiniMapInstanceDifficulty and GuildInstanceDifficulty then
@@ -374,15 +293,6 @@ function M:UpdateSettings()
 		GuildInstanceDifficulty:ClearAllPoints()
 		GuildInstanceDifficulty:Point(pos, Minimap, pos, x, y)
 		GuildInstanceDifficulty:SetScale(scale)
-	end
-
-	local MiniMapChallengeMode = _G.MiniMapChallengeMode
-	if MiniMapChallengeMode then
-		local pos = E.db.general.minimap.icons.challengeMode.position or "TOPLEFT"
-		local scale = E.db.general.minimap.icons.challengeMode.scale or 1
-		MiniMapChallengeMode:ClearAllPoints()
-		MiniMapChallengeMode:Point(pos, Minimap, pos, E.db.general.minimap.icons.challengeMode.xOffset or 8, E.db.general.minimap.icons.challengeMode.yOffset or -8)
-		MiniMapChallengeMode:SetScale(scale)
 	end
 
 	if _G.HelpOpenTicketButton and _G.HelpOpenWebTicketButton then
@@ -458,6 +368,7 @@ function M:Initialize()
 	_G.MinimapZoneTextButton:Hide()
 	--_G.MiniMapTracking:Hide()
 	_G.MiniMapMailBorder:Hide()
+	_G.MinimapToggleButton:Hide()
 	_G.MiniMapMailIcon:SetTexture(E.Media.Textures.Mail)
 
 	_G.MiniMapWorldMapButton:Hide()

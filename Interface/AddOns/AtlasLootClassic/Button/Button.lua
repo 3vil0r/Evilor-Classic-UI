@@ -18,6 +18,7 @@ local API = {}
 AtlasLoot.Button = Button
 Button.Proto = Proto
 Button.API = API
+local AL = AtlasLoot.Locales
 
 local GetAlTooltip = AtlasLoot.Tooltip.GetTooltip
 
@@ -31,6 +32,8 @@ local CreateFrame = CreateFrame
 
 -- UnitFactionGroup("player")		"Alliance", "Horde", "Neutral" or nil.
 -- :SetAtlas()
+local WOW_HEAD_LINK, WOW_HEAD_LINK_LOC = "https://classic.wowhead.com/%s=%d", "https://%s.classic.wowhead.com/%s=%d"
+local WOW_HEAD_LOCALE
 local FACTION_INFO_IS_SET_ID = 998
 local IGNORE_THIS_BUTTON_ID = 999
 local FACTION_TEXTURES = {
@@ -38,6 +41,7 @@ local FACTION_TEXTURES = {
 	[1] = "MountJournalIcons-Alliance"
 }
 local PLAYER_FACTION_ID = 0
+local LOOT_BORDER_BY_QUALITY_AL = {}
 
 local BUTTON_COUNT = 0
 local SEC_BUTTON_COUNT = 0
@@ -48,8 +52,31 @@ for i = 1,#STANDART_TABLE do STANDART_FORMAT_TABLE[#STANDART_FORMAT_TABLE+1] = S
 
 function Button.Init()
 	PLAYER_FACTION_ID = UnitFactionGroup("player") == "Horde" and 0 or 1
+
+	for k, v in pairs(LOOT_BORDER_BY_QUALITY) do
+		LOOT_BORDER_BY_QUALITY_AL[k] = v
+	end
+	LOOT_BORDER_BY_QUALITY_AL[1] = ALPrivate.IMAGE_PATH.."loottoast-itemborder-white"
+	LOOT_BORDER_BY_QUALITY_AL["gold"] = "loottoast-itemborder-gold"
+
+	-- Setup WoW Head locale
+	local locale = GetLocale()
+	if locale == "deDE" then WOW_HEAD_LOCALE = "de"
+	elseif locale == "esMX" then WOW_HEAD_LOCALE = "es"
+	elseif locale == "esES" then WOW_HEAD_LOCALE = "es"
+	elseif locale == "frFR" then WOW_HEAD_LOCALE = "fr"
+	elseif locale == "itIT" then WOW_HEAD_LOCALE = "it"
+	elseif locale == "ptBR" then WOW_HEAD_LOCALE = "pt"
+	elseif locale == "ruRU" then WOW_HEAD_LOCALE = "ru"
+	elseif locale == "koKR" then WOW_HEAD_LOCALE = "ko"
+	elseif locale == "zhCN" then WOW_HEAD_LOCALE = "cn"
+	elseif locale == "zhTW" then WOW_HEAD_LOCALE = "cn" end
 end
 AtlasLoot:AddInitFunc(Button.Init)
+
+function Button:GetWoWHeadLocale()
+	return WOW_HEAD_LOCALE
+end
 
 function Button:CreateFormatTable(tab)
 	for i = 1,#STANDART_TABLE do tab[#tab+1] = STANDART_TABLE[i] end
@@ -61,6 +88,16 @@ function Button:AddChatLink(link)
 		ChatFrameEditBox:Insert(link)
 	else
 		ChatEdit_InsertLink(link)
+	end
+end
+
+function Button:OpenWoWHeadLink(button, type, id)
+	if id and type and AtlasLoot.db.enableWoWHeadIntegration and type then
+		if AtlasLoot.db.useEnglishWoWHead or not WOW_HEAD_LOCALE then
+			Button:CopyBox_Show(button, format(WOW_HEAD_LINK, type, id))
+		else
+			Button:CopyBox_Show(button, format(WOW_HEAD_LINK_LOC, WOW_HEAD_LOCALE, type, id))
+		end
 	end
 end
 
@@ -124,6 +161,20 @@ local function Button_ForceSetText(self, text, force)
 	end
 end
 
+local function Button_Overlay_SetQualityBorder(self, qualityID)
+	if qualityID ==  1 then
+		self:SetTexture(LOOT_BORDER_BY_QUALITY_AL[qualityID])
+	else
+		self:SetAtlas(LOOT_BORDER_BY_QUALITY_AL[qualityID] or LOOT_BORDER_BY_QUALITY_AL[LE_ITEM_QUALITY_UNCOMMON])
+	end
+	if not LOOT_BORDER_BY_QUALITY_AL[qualityID] then
+		self:SetDesaturated(true)
+	else
+		self:SetDesaturated(false)
+	end
+end
+Button.Button_Overlay_SetQualityBorder = Button_Overlay_SetQualityBorder
+
 --/run AtlasLoot.Button:Create():SetContentTable({ 1, 104939 })
 function Button:Create()
 	BUTTON_COUNT = BUTTON_COUNT + 1
@@ -175,10 +226,10 @@ function Button:Create()
 
 	-- secButtonTexture <texture>
 	button.overlay = button:CreateTexture(buttonName.."_overlay", "OVERLAY")
-	button.overlay:SetPoint("CENTER", button.icon, "CENTER")
-	button.overlay:SetHeight(26)
-	button.overlay:SetWidth(26)
+	button.overlay:SetPoint("TOPLEFT", button.icon, "TOPLEFT")
+	button.overlay:SetPoint("BOTTOMRIGHT", button.icon, "BOTTOMRIGHT")
 	button.overlay:Hide()
+	button.overlay.SetQualityBorder = Button_Overlay_SetQualityBorder
 
 	button.completed = button:CreateTexture(buttonName.."_completed", "OVERLAY")
 	button.completed:SetPoint("BOTTOMRIGHT", button.icon)
@@ -194,7 +245,7 @@ function Button:Create()
 	button.phaseIndicator:Hide()
 
 	button.favourite = button:CreateTexture(buttonName.."_favourite", "OVERLAY")
-	button.favourite:SetPoint("TOPLEFT", button.icon, -3, 3)
+	button.favourite:SetPoint("TOPLEFT", button.icon, -2, 2)
 	button.favourite:SetHeight(20)
 	button.favourite:SetWidth(20)
 	button.favourite:SetAtlas("VignetteKill")
@@ -245,6 +296,7 @@ function Button:Create()
 	button.secButton:SetScript("OnLeave", Button_OnLeave)
 	button.secButton:SetScript("OnClick", Button_OnClick)
 	button.secButton:SetScript("OnMouseWheel", Button_OnMouseWheel)
+	button.secButton:RegisterForClicks("AnyDown")
 
 	-- secButtonTexture <texture>
 	button.secButton.icon = button.secButton:CreateTexture(buttonName.."_secButtonIcon", button.secButton)
@@ -268,10 +320,10 @@ function Button:Create()
 
 	-- secButtonOverlay <texture>
 	button.secButton.overlay = button.secButton:CreateTexture(buttonName.."_secButtonOverlay", "OVERLAY")
-	button.secButton.overlay:SetPoint("CENTER", button.secButton.icon, "CENTER")
-	button.secButton.overlay:SetHeight(26)
-	button.secButton.overlay:SetWidth(26)
+	button.secButton.overlay:SetPoint("TOPLEFT", button.secButton.icon, "TOPLEFT")
+	button.secButton.overlay:SetPoint("BOTTOMRIGHT", button.secButton.icon, "BOTTOMRIGHT")
 	button.secButton.overlay:Hide()
+	button.secButton.overlay.SetQualityBorder = Button_Overlay_SetQualityBorder
 
 	button.secButton.completed = button.secButton:CreateTexture(buttonName.."_secCompleted", "OVERLAY")
 	button.secButton.completed:SetPoint("BOTTOMRIGHT", button.secButton.icon)
@@ -294,7 +346,7 @@ function Button:Create()
 	button.secButton.phaseIndicator:Hide()
 
 	button.secButton.favourite = button.secButton:CreateTexture(buttonName.."_favourite", "OVERLAY")
-	button.secButton.favourite:SetPoint("TOPLEFT", button.secButton.icon, -3, 3)
+	button.secButton.favourite:SetPoint("TOPLEFT", button.secButton.icon, -2, 2)
 	button.secButton.favourite:SetHeight(20)
 	button.secButton.favourite:SetWidth(20)
 	button.secButton.favourite:SetAtlas("VignetteKill")
@@ -337,6 +389,7 @@ function Button:CreateSecOnly(frame)
 	button.secButton:SetScript("OnLeave", Button_OnLeave)
 	button.secButton:SetScript("OnClick", Button_OnClick)
 	button.secButton:SetScript("OnMouseWheel", Button_OnMouseWheel)
+	button.secButton:RegisterForClicks("AnyDown")
 
 	-- secButtonTexture <texture>
 	button.secButton.icon = button.secButton:CreateTexture(buttonName.."_secButtonIcon", button.secButton)
@@ -360,8 +413,10 @@ function Button:CreateSecOnly(frame)
 
 	-- secButtonOverlay <texture>
 	button.secButton.overlay = button.secButton:CreateTexture(buttonName.."_secButtonOverlay", "OVERLAY")
-	button.secButton.overlay:SetAllPoints(button.secButton)
+	button.secButton.overlay:SetPoint("TOPLEFT", button.secButton.icon, "TOPLEFT")
+	button.secButton.overlay:SetPoint("BOTTOMRIGHT", button.secButton.icon, "BOTTOMRIGHT")
 	button.secButton.overlay:Hide()
+	button.secButton.overlay.SetQualityBorder = Button_Overlay_SetQualityBorder
 
 	button.secButton.count = button.secButton:CreateFontString(buttonName.."_secCount", "ARTWORK", "AtlasLoot_ItemAmountFont")
 	button.secButton.count:SetPoint("BOTTOMRIGHT", button.secButton.icon, "BOTTOMRIGHT", -1, 1)
@@ -427,16 +482,25 @@ function Proto:Clear()
 		if self.completed then self.completed:Hide() end
 		if self.favourite then self.favourite:Hide() end
 		if self.phaseIndicator then self.phaseIndicator:Hide() end
+		if self.overlay then
+			self.overlay:SetDesaturated(false)
+			self.overlay:Hide()
+		end
 		self:Hide()
 	end
 	if self.secButton then
-		self.secButton:SetNormalTexture(nil)
-		self.secButton.overlay:SetSize(self.secButton:GetWidth(), self.secButton:GetHeight())
-		if self.secButton.count then self.secButton.count:Hide() end
-		if self.secButton.completed then self.secButton.completed:Hide() end
-		if self.secButton.favourite then self.secButton.favourite:Hide() end
-		if self.secButton.phaseIndicator then self.secButton.phaseIndicator:Hide() end
-		self.secButton:Hide()
+		local secButton = self.secButton
+		secButton:SetNormalTexture(nil)
+		secButton.overlay:SetSize(secButton:GetWidth(), secButton:GetHeight())
+		if secButton.count then secButton.count:Hide() end
+		if secButton.completed then secButton.completed:Hide() end
+		if secButton.favourite then secButton.favourite:Hide() end
+		if secButton.phaseIndicator then secButton.phaseIndicator:Hide() end
+		if secButton.overlay then
+			secButton.overlay:SetDesaturated(false)
+			secButton.overlay:Hide()
+		end
+		secButton:Hide()
 	end
 
 	if self.highlightBg then
@@ -1003,4 +1067,107 @@ end
 function Button:ExtraItemFrame_ClearFrame()
 	if not ExtraItemFrame_Frame then return end
 	ExtraItemFrame_Frame:Clear()
+end
+
+
+--################################
+-- WowHead Copy Frame
+--################################
+local CopyBox_Frame
+local COPY_BOX_HIDE_AFTER, COPY_BOX_HIDE_AFTER_ENTER = 3, 0.5
+
+local function CopyBox_SetCopyText(self, text)
+	if not text or text == self.text then
+		self.text = nil
+		self:Hide()
+		return false
+	end
+
+	self:SetText(text)
+	self.tLenght:SetText(text)
+	self:SetWidth(self.tLenght:GetStringWidth() + 20)
+	self.text = text
+
+	self:Show()
+	return true
+end
+
+local function CopyBox_OnUpdate(self, elapsed)
+	if not self.time then return end
+	self.time = self.time - elapsed
+	if self.time <= 0 then
+		self:Hide()
+	end
+end
+
+local function CopyBox_Create()
+	local frame = CreateFrame("EditBox")
+	frame:ClearAllPoints()
+	frame:SetPoint("TOPLEFT", 70, 4)
+	frame:SetHeight(16)
+	frame:SetFontObject("GameFontNormal")
+	frame:SetBlinkSpeed(0)
+	frame:SetAutoFocus(false)
+	frame:EnableKeyboard(false)
+	frame:SetScript("OnKeyDown", function() end)
+	frame:SetScript("OnMouseUp", function()
+		if frame:IsMouseOver() then
+			frame:HighlightText()
+		else
+			frame:HighlightText(0, 0)
+		end
+	end)
+	frame:SetScript("OnEnter", function(self)
+		local tooltip = GetAlTooltip()
+		tooltip:SetOwner(self, "ANCHOR_BOTTOM", 0, -5)
+		tooltip:SetText(AL["Ctrl + C to copy"], nil, nil, nil, nil, true)
+		tooltip:Show()
+		self:HighlightText()
+		self:SetFocus()
+		self.time = nil
+	end)
+	frame:SetScript("OnLeave", function(self)
+		GetAlTooltip():Hide()
+		self:ClearFocus()
+		self.time = COPY_BOX_HIDE_AFTER_ENTER -- let it stay some time
+	end)
+	frame:SetScript("OnShow", function(self)
+		self.time = COPY_BOX_HIDE_AFTER
+	end)
+	frame:SetScript("OnHide", function(self)
+		if self:IsShown() then self:Hide() end -- fix for when the frame itself is not hidden
+		GetAlTooltip():Hide()
+		self:ClearFocus()
+		self.text = nil
+		self.time = nil
+	end)
+	frame:SetScript("OnUpdate", CopyBox_OnUpdate)
+
+	frame.bg = frame:CreateTexture(nil, "BACKGROUND")
+	frame.bg:SetAllPoints(frame)
+	frame.bg:SetColorTexture(0.1, 0.1, 0.1, 1.0)
+
+	frame.tLenght = frame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	frame.tLenght:Hide()
+
+	frame.SetCopyText = CopyBox_SetCopyText
+
+	return frame
+end
+
+function Button:CopyBox_Show(button, text)
+	if not CopyBox_Frame then
+		CopyBox_Frame = CopyBox_Create()
+	end
+	if CopyBox_Frame:SetCopyText(text) then
+		CopyBox_Frame:ClearAllPoints()
+		CopyBox_Frame:SetParent(button)
+		CopyBox_Frame:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -1)
+	end
+end
+
+function Button:CopyBox_Hide()
+	if CopyBox_Frame and CopyBox_Frame:IsShown() then
+		CopyBox_Frame:Hide()
+	end
 end

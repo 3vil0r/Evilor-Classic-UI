@@ -1,0 +1,11 @@
+## Interface: 11302
+## Title: |cff1784d1AddOnSkins|r Classic
+## Version: 0.03
+## Author: Azilroka, Whiro
+## SavedVariables: AddOnSkinsDB, AddOnSkinsDS
+## OptionalDeps: ElvUI, Tukui
+## X-Tukui-ProjectID: 3
+## X-Tukui-ProjectFolders: AddOnSkins
+
+Load_AddOnSkins.xml
+

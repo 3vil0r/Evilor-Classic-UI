@@ -17,27 +17,18 @@ local GetGuildInfo = GetGuildInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetPVPTimer = GetPVPTimer
 local GetQuestGreenRange = GetQuestGreenRange
-local GetRelativeDifficultyColor = GetRelativeDifficultyColor
-local GetSpecialization = GetSpecialization
-local GetThreatStatusColor = GetThreatStatusColor
 local GetTime = GetTime
 local GetUnitSpeed = GetUnitSpeed
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 local QuestDifficultyColors = QuestDifficultyColors
 local UnitAlternatePowerTextureInfo = UnitAlternatePowerTextureInfo
-local UnitBattlePetLevel = UnitBattlePetLevel
 local UnitClass = UnitClass
 local UnitClassification = UnitClassification
-local UnitDetailedThreatSituation = UnitDetailedThreatSituation
-local UnitExists = UnitExists
-local UnitGetIncomingHeals = UnitGetIncomingHeals
-local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
 local UnitGUID = UnitGUID
 local UnitHealth = UnitHealth
 local UnitHealthMax = UnitHealthMax
 local UnitIsAFK = UnitIsAFK
-local UnitIsBattlePetCompanion = UnitIsBattlePetCompanion
 local UnitIsConnected = UnitIsConnected
 local UnitIsDead = UnitIsDead
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost
@@ -82,92 +73,6 @@ local function UnitName(unit)
 		return name, realm
 	else
 		return name
-	end
-end
-
-ElvUF.Tags.Events['altpower:percent'] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
-ElvUF.Tags.Methods['altpower:percent'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		local max = UnitPowerMax(u, ALTERNATE_POWER_INDEX)
-
-		return E:GetFormattedText('PERCENT', cur, max)
-	else
-		return nil
-	end
-end
-
-ElvUF.Tags.Events['altpower:current'] = "UNIT_POWER_UPDATE"
-ElvUF.Tags.Methods['altpower:current'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		return cur
-	else
-		return nil
-	end
-end
-
-ElvUF.Tags.Events['altpower:current-percent'] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
-ElvUF.Tags.Methods['altpower:current-percent'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		local max = UnitPowerMax(u, ALTERNATE_POWER_INDEX)
-
-		return E:GetFormattedText('CURRENT_PERCENT', cur, max)
-	else
-		return nil
-	end
-end
-
-ElvUF.Tags.Events['altpower:deficit'] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
-ElvUF.Tags.Methods['altpower:deficit'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		local max = UnitPowerMax(u, ALTERNATE_POWER_INDEX)
-
-		return E:GetFormattedText('DEFICIT', cur, max)
-	else
-		return nil
-	end
-end
-
-ElvUF.Tags.Events['altpower:current-max'] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
-ElvUF.Tags.Methods['altpower:current-max'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		local max = UnitPowerMax(u, ALTERNATE_POWER_INDEX)
-
-		return E:GetFormattedText('CURRENT_MAX', cur, max)
-	else
-		return nil
-	end
-end
-
-ElvUF.Tags.Events['altpower:current-max-percent'] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
-ElvUF.Tags.Methods['altpower:current-max-percent'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		local max = UnitPowerMax(u, ALTERNATE_POWER_INDEX)
-
-		E:GetFormattedText('CURRENT_MAX_PERCENT', cur, max)
-	else
-		return nil
-	end
-end
-
-ElvUF.Tags.Events['altpowercolor'] = "UNIT_POWER_UPDATE UNIT_MAXPOWER"
-ElvUF.Tags.Methods['altpowercolor'] = function(u)
-	local cur = UnitPower(u, ALTERNATE_POWER_INDEX)
-	if cur > 0 then
-		local _, r, g, b = UnitAlternatePowerTextureInfo(u, 2)
-
-		if not r then
-			r, g, b = 1, 1, 1
-		end
-
-		return Hex(r,g,b)
-	else
-		return nil
 	end
 end
 
@@ -261,23 +166,6 @@ ElvUF.Tags.Methods['health:percent'] = function(unit)
 	else
 		return E:GetFormattedText('PERCENT', UnitHealth(unit), UnitHealthMax(unit))
 	end
-end
-
-ElvUF.Tags.Events['health:percent-with-absorbs'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
-ElvUF.Tags.Methods['health:percent-with-absorbs'] = function(unit)
-	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
-
-	if (status) then
-		return status
-	end
-
-	local absorb = UnitGetTotalAbsorbs(unit) or 0
-	if absorb == 0 then
-		return E:GetFormattedText('PERCENT', UnitHealth(unit), UnitHealthMax(unit))
-	end
-
-	local healthTotalIncludingAbsorbs = UnitHealth(unit) + absorb
-	return E:GetFormattedText('PERCENT', healthTotalIncludingAbsorbs, UnitHealthMax(unit))
 end
 
 ElvUF.Tags.Events['health:current-nostatus'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH'
@@ -523,15 +411,15 @@ ElvUF.Tags.Methods['difficultycolor'] = function(unit)
 	local r, g, b
 	local DiffColor = UnitLevel(unit) - UnitLevel('player')
 	if (DiffColor >= 5) then
-		r, g, b = 0.69, 0.31, 0.31
+		r, g, b = 0.77, 0.12 , 0.23
 	elseif (DiffColor >= 3) then
-		r, g, b = 0.71, 0.43, 0.27
+		r, g, b = 1.0, 0.49, 0.04
 	elseif (DiffColor >= -2) then
-		r, g, b = 0.84, 0.75, 0.65
+		r, g, b = 1.0, 0.96, 0.41
 	elseif (-DiffColor <= GetQuestGreenRange()) then
-		r, g, b = 0.33, 0.59, 0.33
+		r, g, b = .1, 1, .1
 	else
-		r, g, b = 0.55, 0.57, 0.61
+		r, g, b = 0.19, 0.19, 0.19
 	end
 
 	return Hex(r, g, b)
@@ -615,7 +503,7 @@ ElvUF.Tags.Methods['name:abbrev'] = function(unit)
 	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end
 
-ElvUF.Tags.Events['name:veryshort:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH'
+ElvUF.Tags.Events['name:veryshort:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH_FREQUENT'
 ElvUF.Tags.Methods['name:veryshort:status'] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	local name = UnitName(unit)
@@ -626,7 +514,7 @@ ElvUF.Tags.Methods['name:veryshort:status'] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events['name:short:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH'
+ElvUF.Tags.Events['name:short:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH_FREQUENT'
 ElvUF.Tags.Methods['name:short:status'] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	local name = UnitName(unit)
@@ -637,7 +525,7 @@ ElvUF.Tags.Methods['name:short:status'] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events['name:medium:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH'
+ElvUF.Tags.Events['name:medium:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH_FREQUENT'
 ElvUF.Tags.Methods['name:medium:status'] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	local name = UnitName(unit)
@@ -648,7 +536,7 @@ ElvUF.Tags.Methods['name:medium:status'] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events['name:long:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH'
+ElvUF.Tags.Events['name:long:status'] = 'UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED UNIT_HEALTH_FREQUENT'
 ElvUF.Tags.Methods['name:long:status'] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	local name = UnitName(unit)
@@ -732,33 +620,54 @@ ElvUF.Tags.Methods['realm:dash:translit'] = function(unit)
 end
 
 
-ElvUF.Tags.Events['threat:percent'] = 'UNIT_THREAT_LIST_UPDATE GROUP_ROSTER_UPDATE'
-ElvUF.Tags.Methods['threat:percent'] = function(unit)
-	local _, _, percent = UnitDetailedThreatSituation('player', unit)
-	if(percent and percent > 0) and (IsInGroup() or UnitExists('pet')) then
-		return format('%.0f%%', percent)
-	else
-		return nil
+ElvUF.Tags.Events['happiness:full'] = 'UNIT_HAPPINESS PET_UI_UPDATE'
+ElvUF.Tags.Methods['happiness:full'] = function(unit)
+    local hasPetUI, isHunterPet = HasPetUI()
+    if (unit == 'pet' and hasPetUI and isHunterPet) then
+		return _G['PET_HAPPINESS'..GetPetHappiness()]
 	end
 end
 
-ElvUF.Tags.Events['threat:current'] = 'UNIT_THREAT_LIST_UPDATE GROUP_ROSTER_UPDATE'
-ElvUF.Tags.Methods['threat:current'] = function(unit)
-	local _, _, percent, _, threatvalue = UnitDetailedThreatSituation('player', unit)
-	if(percent and percent > 0) and (IsInGroup() or UnitExists('pet')) then
-		return E:ShortValue(threatvalue)
-	else
-		return nil
+ElvUF.Tags.Events['happiness:icon'] = 'UNIT_HAPPINESS PET_UI_UPDATE'
+ElvUF.Tags.Methods['happiness:icon'] = function(unit)
+    local hasPetUI, isHunterPet = HasPetUI()
+    if (unit == 'pet' and hasPetUI and isHunterPet) then
+		local left, right, top, bottom
+		local happiness = GetPetHappiness()
+
+		if(happiness == 1) then
+			left, right, top, bottom = 0.375, 0.5625, 0, 0.359375
+		elseif(happiness == 2) then
+			left, right, top, bottom = 0.1875, 0.375, 0, 0.359375
+		elseif(happiness == 3) then
+			left, right, top, bottom = 0, 0.1875, 0, 0.359375
+		end
+
+		return CreateTextureMarkup([[Interface\PetPaperDollFrame\UI-PetHappiness]], 128, 64, 16, 16, left, right, top, bottom, 0, 0)
 	end
 end
 
-ElvUF.Tags.Events['threatcolor'] = 'UNIT_THREAT_LIST_UPDATE GROUP_ROSTER_UPDATE'
-ElvUF.Tags.Methods['threatcolor'] = function(unit)
-	local _, status = UnitDetailedThreatSituation('player', unit)
-	if (status) and (IsInGroup() or UnitExists('pet')) then
-		return Hex(GetThreatStatusColor(status))
-	else
-		return nil
+ElvUF.Tags.Events['happiness:discord'] = 'UNIT_HAPPINESS PET_UI_UPDATE'
+ElvUF.Tags.Methods['happiness:discord'] = function(unit)
+    local hasPetUI, isHunterPet = HasPetUI()
+    if (unit == 'pet' and hasPetUI and isHunterPet) then
+		local happiness = GetPetHappiness()
+
+		if(happiness == 1) then
+			return CreateTextureMarkup([[Interface\AddOns\ElvUI\Media\ChatEmojis\Rage]], 32, 32, 16, 16, 0, 1, 0, 1, 0, 0)
+		elseif(happiness == 2) then
+			return CreateTextureMarkup([[Interface\AddOns\ElvUI\Media\ChatEmojis\SlightFrown]], 32, 32, 16, 16, 0, 1, 0, 1, 0, 0)
+		elseif(happiness == 3) then
+			return CreateTextureMarkup([[Interface\AddOns\ElvUI\Media\ChatEmojis\HeartEyes]], 32, 32, 16, 16, 0, 1, 0, 1, 0, 0)
+		end
+	end
+end
+
+ElvUF.Tags.Events['happiness:color'] = 'UNIT_HAPPINESS PET_UI_UPDATE'
+ElvUF.Tags.Methods['happiness:color'] = function(unit)
+    local hasPetUI, isHunterPet = HasPetUI()
+    if (unit == 'pet' and hasPetUI and isHunterPet) then
+		return Hex(_COLORS.happiness[GetPetHappiness()])
 	end
 end
 
@@ -812,177 +721,6 @@ ElvUF.Tags.Methods['pvptimer'] = function(unit)
 		end
 	else
 		return nil
-	end
-end
-
-local Harmony = {
-	[0] = {1, 1, 1},
-	[1] = {.57, .63, .35, 1},
-	[2] = {.47, .63, .35, 1},
-	[3] = {.37, .63, .35, 1},
-	[4] = {.27, .63, .33, 1},
-	[5] = {.17, .63, .33, 1},
-	[6] = {.17, .63, .33, 1},
-}
-
-local StaggerColors = ElvUF.colors.power.STAGGER
--- percentages at which the bar should change color
-local STAGGER_YELLOW_TRANSITION = STAGGER_YELLOW_TRANSITION
-local STAGGER_RED_TRANSITION = STAGGER_RED_TRANSITION
--- table indices of bar colors
-local STAGGER_GREEN_INDEX = STAGGER_GREEN_INDEX or 1
-local STAGGER_YELLOW_INDEX = STAGGER_YELLOW_INDEX or 2
-local STAGGER_RED_INDEX = STAGGER_RED_INDEX or 3
-
-local function GetClassPower(class)
-	local min, max, r, g, b = 0, 0, 0, 0, 0
-
-	local spec = GetSpecialization()
-	if class == 'PALADIN' and spec == SPEC_PALADIN_RETRIBUTION then
-		min = UnitPower('player', SPELL_POWER_HOLY_POWER);
-		max = UnitPowerMax('player', SPELL_POWER_HOLY_POWER);
-		r, g, b = 228/255, 225/255, 16/255
-	elseif class == 'MONK' then
-		if spec == SPEC_MONK_BREWMASTER then
-			min = UnitStagger("player")
-			max = UnitHealthMax("player")
-			local staggerRatio = min / max
-			if (staggerRatio >= STAGGER_RED_TRANSITION) then
-				r, g, b = unpack(StaggerColors[STAGGER_RED_INDEX])
-			elseif (staggerRatio >= STAGGER_YELLOW_TRANSITION) then
-				r, g, b = unpack(StaggerColors[STAGGER_YELLOW_INDEX])
-			else
-				r, g, b = unpack(StaggerColors[STAGGER_GREEN_INDEX])
-			end
-		else
-			min = UnitPower("player", SPELL_POWER_CHI)
-			max = UnitPowerMax("player", SPELL_POWER_CHI)
-			r, g, b = unpack(Harmony[min])
-		end
-	elseif class == 'WARLOCK' then
-		min = UnitPower("player", SPELL_POWER_SOUL_SHARDS)
-		max = UnitPowerMax("player", SPELL_POWER_SOUL_SHARDS)
-		r, g, b = 148/255, 130/255, 201/255
-	end
-
-	return min, max, r, g, b
-end
-
-ElvUF.Tags.Events['classpowercolor'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpowercolor'] = function()
-	local _, _, r, g, b = GetClassPower(E.myclass)
-	return Hex(r, g, b)
-end
-
-ElvUF.Tags.Events['classpower:current'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpower:current'] = function()
-	local min, max = GetClassPower(E.myclass)
-	if min == 0 then
-		return nil
-	else
-		return E:GetFormattedText('CURRENT', min, max)
-	end
-end
-
-ElvUF.Tags.Events['classpower:deficit'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpower:deficit'] = function()
-	local min, max = GetClassPower(E.myclass)
-	if min == 0 then
-		return nil
-	else
-		return E:GetFormattedText('DEFICIT', min, max)
-	end
-end
-
-ElvUF.Tags.Events['classpower:current-percent'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpower:current-percent'] = function()
-	local min, max = GetClassPower(E.myclass)
-	if min == 0 then
-		return nil
-	else
-		return E:GetFormattedText('CURRENT_PERCENT', min, max)
-	end
-end
-
-ElvUF.Tags.Events['classpower:current-max'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpower:current-max'] = function()
-	local min, max = GetClassPower(E.myclass)
-	if min == 0 then
-		return nil
-	else
-		return E:GetFormattedText('CURRENT_MAX', min, max)
-	end
-end
-
-ElvUF.Tags.Events['classpower:current-max-percent'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpower:current-max-percent'] = function()
-	local min, max = GetClassPower(E.myclass)
-	if min == 0 then
-		return nil
-	else
-		return E:GetFormattedText('CURRENT_MAX_PERCENT', min, max)
-	end
-end
-
-ElvUF.Tags.Events['classpower:percent'] = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER'
-ElvUF.Tags.Methods['classpower:percent'] = function()
-	local min, max = GetClassPower(E.myclass)
-	if min == 0 then
-		return nil
-	else
-		return E:GetFormattedText('PERCENT', min, max)
-	end
-end
-
-if E.myclass == 'MONK' then
-	local events = 'UNIT_POWER_FREQUENT UNIT_DISPLAYPOWER UNIT_AURA'
-	ElvUF.Tags.Events['classpower:current'] = events
-	ElvUF.Tags.Events['classpower:deficit'] = events
-	ElvUF.Tags.Events['classpower:current-percent'] = events
-	ElvUF.Tags.Events['classpower:current-max'] = events
-	ElvUF.Tags.Events['classpower:current-max-percent'] = events
-	ElvUF.Tags.Events['classpower:percent'] = events
-end
-
-ElvUF.Tags.Events['absorbs'] = 'UNIT_ABSORB_AMOUNT_CHANGED'
-ElvUF.Tags.Methods['absorbs'] = function(unit)
-	local absorb = UnitGetTotalAbsorbs(unit) or 0
-	if absorb == 0 then
-		return nil
-	else
-		return E:ShortValue(absorb)
-	end
-end
-
-ElvUF.Tags.Events['incomingheals:personal'] = 'UNIT_HEAL_PREDICTION'
-ElvUF.Tags.Methods['incomingheals:personal'] = function(unit)
-	local heal = UnitGetIncomingHeals(unit, 'player') or 0
-	if heal == 0 then
-		return nil
-	else
-		return E:ShortValue(heal)
-	end
-end
-
-ElvUF.Tags.Events['incomingheals:others'] = 'UNIT_HEAL_PREDICTION'
-ElvUF.Tags.Methods['incomingheals:others'] = function(unit)
-	local personal = UnitGetIncomingHeals(unit, 'player') or 0
-	local heal = UnitGetIncomingHeals(unit) or 0
-	local others = heal - personal
-	if others == 0 then
-		return nil
-	else
-		return E:ShortValue(others)
-	end
-end
-
-ElvUF.Tags.Events['incomingheals'] = 'UNIT_HEAL_PREDICTION'
-ElvUF.Tags.Methods['incomingheals'] = function(unit)
-	local heal = UnitGetIncomingHeals(unit) or 0
-	if heal == 0 then
-		return nil
-	else
-		return E:ShortValue(heal)
 	end
 end
 

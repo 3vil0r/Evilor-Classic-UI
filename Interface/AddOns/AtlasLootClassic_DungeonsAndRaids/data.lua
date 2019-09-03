@@ -107,6 +107,7 @@ local T2_SET = {
 	ExtraList = true,
 	LoadDifficulty = LOAD_DIFF,
 	TableType = SET_ITTYPE,
+	ContentPhase = 3,
 	[ALLIANCE_DIFF] = {
 		{ 1, 212 }, -- Warlock
 		{ 3, 211 }, -- Priest
@@ -130,6 +131,7 @@ local T3_SET = {
 	ExtraList = true,
 	LoadDifficulty = LOAD_DIFF,
 	TableType = SET_ITTYPE,
+	ContentPhase = 6,
 	[ALLIANCE_DIFF] = {
 		{ 1, 529 }, -- Warlock
 		{ 3, 525 }, -- Priest
@@ -152,6 +154,7 @@ local AQ_OPENING = {	-- Keys
 	name = AL["AQ opening"],
 	TableType = NORMAL_ITTYPE,
 	ExtraList = true,
+	ContentPhase = 5,
 	[NORMAL_DIFF] = {
 		{ 1,  21138 }, -- Red Scepter Shard
 		{ 2,  21529 }, -- Amulet of Shadow Shielding
@@ -176,6 +179,7 @@ local AQ_OPENING = {	-- Keys
 local DM_BOOKS = { -- DMBooks
 	name = AL["Books"],
 	ExtraList = true,
+	ContentPhase = 2,
 	[NORMAL_DIFF] = {
 		{ 1,  18401 }, -- Foror's Compendium of Dragon Slaying
 		{ 3,  18362 }, -- Holy Bologna: What the Light Won't Tell You
@@ -269,6 +273,7 @@ data["WailingCaverns"] = {
 			name = AL["Deviate Faerie Dragon"],
 			npcId = 5912,
 			DisplayIDs = {{1267}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  5243 }, -- Firebelcher
 				{ 3,  6632 }, -- Feyscale Cloak
@@ -354,6 +359,7 @@ data["TheDeadmines"] = {
 			name = AL["Miner Johnson"],
 			npcId = 3586,
 			DisplayIDs = {{556}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1, 5443 },	-- Gold-plated Buckler
 				{ 3, 5444 },	-- Miner's Cape
@@ -429,6 +435,7 @@ data["TheDeadmines"] = {
 			name = AL["Cookie"],
 			npcId = 645,
 			DisplayIDs = {{1305}},
+			specialType = "elite",
 			[NORMAL_DIFF] = {
 				{ 1, 5198 },	-- Cookie's Stirring Rod
 				{ 3, 5197 },	-- Cookie's Tenderizer
@@ -465,6 +472,7 @@ data["ShadowfangKeep"] = {
 			name = AL["Sever"],
 			npcId = 14682,
 			DisplayIDs = {{1061}},
+			ContentPhase = 6,
 			[NORMAL_DIFF] = {
 				{ 1,  23173 }, -- Abomination Skin Leggings
 				{ 2,  23171 }, -- The Axe of Severing
@@ -520,6 +528,7 @@ data["ShadowfangKeep"] = {
 			name = AL["Deathsworn Captain"],
 			npcId = 3872,
 			DisplayIDs = {{3224}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  6642 }, -- Phantom Armor
 				{ 3,  6641 }, -- Haunting Blade
@@ -707,6 +716,7 @@ data["TheStockade"] = {
 			name = AL["Bruegal Ironknuckle"],
 			npcId = 1720,
 			DisplayIDs = {{2142}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  3228 }, -- Jimmied Handcuffs
 				{ 2,  2941 }, -- Prison Shank
@@ -799,6 +809,7 @@ data["Gnomeregan"] = {
 			name = AL["Dark Iron Ambassador"],
 			npcId = 6228,
 			DisplayIDs = {{6669}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  9455 }, -- Emissary Cuffs
 				{ 2,  9456 }, -- Glass Shooter
@@ -897,6 +908,7 @@ data["RazorfenKraul"] = {
 			name = AL["Blind Hunter"],
 			npcId = 4425,
 			DisplayIDs = {{4735}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  6695 }, -- Stygian Bone Amulet
 				{ 2,  6697 }, -- Batwing Mantle
@@ -933,6 +945,284 @@ data["RazorfenKraul"] = {
 	},
 }
 
+data["ScarletMonasteryGraveyard"] = {
+	MapID = 796,
+	name = C_Map.GetAreaInfo(796) .." - ".. AL["Graveyard"],
+	AtlasMapID = "ScarletMonastery",
+	ContentType = DUNGEON_CONTENT,
+	LoadDifficulty = NORMAL_DIFF,
+	LevelRange = {20, 26, 36},
+	items = {
+		-- Graveyard
+		{ -- SMVishas
+			name = AL["Interrogator Vishas"],
+			npcId = 3983,
+			DisplayIDs = {{2044}},
+			[NORMAL_DIFF] = {
+				{ 1,  7682 }, -- Torturing Poker
+				{ 3,  7683 }, -- Bloody Brass Knuckles
+			},
+		},
+		{ -- SMAzshir
+			name = AL["Azshir the Sleepless"],
+			npcId = 6490,
+			DisplayIDs = {{5534}},
+			specialType = "rare",
+			[NORMAL_DIFF] = {
+				{ 1,  7709 }, -- Blighted Leggings
+				{ 2,  7708 }, -- Necrotic Wand
+				{ 3,  7731 }, -- Ghostshard Talisman
+			},
+		},
+		{ -- SMFallenChampion
+			name = AL["Fallen Champion"],
+			npcId = 6488,
+			DisplayIDs = {{5230}},
+			specialType = "rare",
+			[NORMAL_DIFF] = {
+				{ 1,  7691 }, -- Embalmed Shroud
+				{ 2,  7690 }, -- Ebon Vise
+				{ 3,  7689 }, -- Morbid Dawn
+			},
+		},
+		{ -- SMIronspine
+			name = AL["Ironspine"],
+			npcId = 6489,
+			DisplayIDs = {{5231}},
+			specialType = "rare",
+			[NORMAL_DIFF] = {
+				{ 1,  7688 }, -- Ironspine's Ribcage
+				{ 2,  7687 }, -- Ironspine's Fist
+				{ 3,  7686 }, -- Ironspine's Eye
+			},
+		},
+		{ -- SMBloodmageThalnos
+			name = AL["Bloodmage Thalnos"],
+			npcId = 4543,
+			DisplayIDs = {{11396}},
+			[NORMAL_DIFF] = {
+				{ 1,  7685 }, -- Orb of the Forgotten Seer
+				{ 3,  7684 }, -- Bloodmage Mantle
+			},
+		},
+		{ -- SMGTrash
+			name = AL["Graveyard"] .." ".. AL["Trash"],
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  5819 }, -- Sunblaze Coif
+				{ 2,  7727 }, -- Watchman Pauldrons
+				{ 3,  7728 }, -- Beguiler Robes
+				{ 4,  7754 }, -- Harbinger Boots
+				{ 5,  10332 }, -- Scarlet Boots
+				{ 6,  2262 }, -- Mark of Kern
+				{ 7,  7787 }, -- Resplendent Guardian
+				{ 8,  7729 }, -- Chesterfall Musket
+				{ 9,  7761 }, -- Steelclaw Reaver
+				{ 10, 7752 }, -- Dreamslayer
+				{ 11, 8226 }, -- The Butcher
+				{ 12, 7786 }, -- Headsplitter
+				{ 13, 7753 }, -- Bloodspiller
+				{ 14, 7730 }, -- Cobalt Crusher
+			},
+		},
+		KEYS,
+	},
+}
+
+data["ScarletMonasteryLibrary"] = {
+	MapID = 796,
+	name = C_Map.GetAreaInfo(796) .." - ".. AL["Library"],
+	AtlasMapID = "ScarletMonastery",
+	ContentType = DUNGEON_CONTENT,
+	LoadDifficulty = NORMAL_DIFF,
+	LevelRange = {20, 29, 39},
+	items = {
+		-- Library
+		{ -- SMHoundmasterLoksey
+			name = AL["Houndmaster Loksey"],
+			npcId = 3974,
+			DisplayIDs = {{2040}},
+			[NORMAL_DIFF] = {
+				{ 1,  7710 }, -- Loksey's Training Stick
+				{ 3,  7756 }, -- Dog Training Gloves
+				{ 4,  3456 }, -- Dog Whistle
+			},
+		},
+		{ -- SMDoan
+			name = AL["Arcanist Doan"],
+			npcId = 6487,
+			DisplayIDs = {{5266}},
+			[NORMAL_DIFF] = {
+				{ 1,  7714 }, -- Hypnotic Blade
+				{ 2,  7713 }, -- Illusionary Rod
+				{ 4,  7712 }, -- Mantle of Doan
+				{ 5,  7711 }, -- Robe of Doan
+			},
+		},
+		{ -- SMLTrash
+			name = AL["Library"] .." ".. AL["Trash"],
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  5819 }, -- Sunblaze Coif
+				{ 2,  7755 }, -- Flintrock Shoulders
+				{ 3,  7727 }, -- Watchman Pauldrons
+				{ 4,  7728 }, -- Beguiler Robes
+				{ 5,  7759 }, -- Archon Chestpiece
+				{ 6,  7760 }, -- Warchief Kilt
+				{ 7,  7754 }, -- Harbinger Boots
+				{ 8,  10332 }, -- Scarlet Boots
+				{ 9,  1992 }, -- Swampchill Fetish
+				{ 10, 2262 }, -- Mark of Kern
+				{ 11, 7787 }, -- Resplendent Guardian
+				{ 12, 7729 }, -- Chesterfall Musket
+				{ 13, 7761 }, -- Steelclaw Reaver
+				{ 14, 7752 }, -- Dreamslayer
+				{ 15, 8226 }, -- The Butcher
+				{ 16, 7786 }, -- Headsplitter
+				{ 17, 5756 }, -- Sliverblade
+				{ 18, 7736 }, -- Fight Club
+				{ 19, 8225 }, -- Tainted Pierce
+				{ 20, 7753 }, -- Bloodspiller
+				{ 21, 7730 }, -- Cobalt Crusher
+				{ 22, 7758 }, -- Ruthless Shiv
+				{ 23, 7757 }, -- Windweaver Staff
+			},
+		},
+		KEYS,
+	},
+}
+
+data["ScarletMonasteryArmory"] = {
+	MapID = 796,
+	name = C_Map.GetAreaInfo(796) .." - ".. AL["Armory"],
+	AtlasMapID = "ScarletMonastery",
+	ContentType = DUNGEON_CONTENT,
+	LoadDifficulty = NORMAL_DIFF,
+	LevelRange = {20, 32, 42},
+	items = {
+		-- Armory
+		{ -- SMHerod
+			name = AL["Herod"],
+			npcId = 3975,
+			DisplayIDs = {{2041}},
+			[NORMAL_DIFF] = {
+				{ 1,  7719 }, -- Raging Berserker's Helm
+				{ 2,  7718 }, -- Herod's Shoulder
+				{ 3,  10330 }, -- Scarlet Leggings
+				{ 4,  7717 }, -- Ravager
+			},
+		},
+		{ -- SMATrash
+			name = AL["Armory"] .." ".. AL["Trash"],
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  5819 }, -- Sunblaze Coif
+				{ 2,  7755 }, -- Flintrock Shoulders
+				{ 3,  7727 }, -- Watchman Pauldrons
+				{ 4,  7728 }, -- Beguiler Robes
+				{ 5,  7759 }, -- Archon Chestpiece
+				{ 6,  7754 }, -- Harbinger Boots
+				{ 7,  10332 }, -- Scarlet Boots
+				{ 8,  1992 }, -- Swampchill Fetish
+				{ 9,  2262 }, -- Mark of Kern
+				{ 10, 7787 }, -- Resplendent Guardian
+				{ 11, 7729 }, -- Chesterfall Musket
+				{ 12, 7761 }, -- Steelclaw Reaver
+				{ 13, 7752 }, -- Dreamslayer
+				{ 14, 8226 }, -- The Butcher
+				{ 15, 7786 }, -- Headsplitter
+				{ 16, 5756 }, -- Sliverblade
+				{ 17, 7736 }, -- Fight Club
+				{ 18, 8225 }, -- Tainted Pierce
+				{ 19, 7753 }, -- Bloodspiller
+				{ 20, 7730 }, -- Cobalt Crusher
+				{ 21, 7757 }, -- Windweaver Staff
+				{ 23, 10333 }, -- Scarlet Wristguards
+				{ 24, 10329 }, -- Scarlet Belt
+				{ 26, 23192 }, -- Tabard of the Scarlet Crusade
+			},
+		},
+		KEYS,
+	},
+}
+
+data["ScarletMonasteryCathedral"] = {
+	MapID = 796,
+	name = C_Map.GetAreaInfo(796) .." - ".. AL["Cathedral"],
+	AtlasMapID = "ScarletMonastery",
+	ContentType = DUNGEON_CONTENT,
+	LoadDifficulty = NORMAL_DIFF,
+	LevelRange = {20, 35, 45},
+	items = {
+		-- Cathedral
+		{ -- SMFairbanks
+			name = AL["High Inquisitor Fairbanks"],
+			npcId = 4542,
+			DisplayIDs = {{2605}},
+			[NORMAL_DIFF] = {
+				{ 1,  19507 }, -- Inquisitor's Shawl
+				{ 2,  19508 }, -- Branded Leather Bracers
+				{ 3,  19509 }, -- Dusty Mail Boots
+			},
+		},
+		{ -- SMMograine
+			name = AL["Scarlet Commander Mograine"],
+			npcId = 3976,
+			DisplayIDs = {{2042}},
+			[NORMAL_DIFF] = {
+				{ 1,  7724 }, -- Gauntlets of Divinity
+				{ 2,  10330 }, -- Scarlet Leggings
+				{ 3,  7726 }, -- Aegis of the Scarlet Commander
+				{ 4,  7723 }, -- Mograine's Might
+			},
+		},
+		{ -- SMWhitemane
+			name = AL["High Inquisitor Whitemane"],
+			npcId = 3977,
+			DisplayIDs = {{2043}},
+			[NORMAL_DIFF] = {
+				{ 1,  7720 }, -- Whitemane's Chapeau
+				{ 2,  7722 }, -- Triune Amulet
+				{ 3,  7721 }, -- Hand of Righteousness
+			},
+		},
+		{ -- SMCTrash
+			name = AL["Cathedral"] .." ".. AL["Trash"],
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  5819 }, -- Sunblaze Coif
+				{ 2,  7755 }, -- Flintrock Shoulders
+				{ 3,  7727 }, -- Watchman Pauldrons
+				{ 4,  7728 }, -- Beguiler Robes
+				{ 5,  7759 }, -- Archon Chestpiece
+				{ 6,  7760 }, -- Warchief Kilt
+				{ 7,  7754 }, -- Harbinger Boots
+				{ 8,  10332 }, -- Scarlet Boots
+				{ 9,  1992 }, -- Swampchill Fetish
+				{ 10, 2262 }, -- Mark of Kern
+				{ 11, 7787 }, -- Resplendent Guardian
+				{ 12, 7729 }, -- Chesterfall Musket
+				{ 13, 7761 }, -- Steelclaw Reaver
+				{ 14, 7752 }, -- Dreamslayer
+				{ 15, 8226 }, -- The Butcher
+				{ 16, 7786 }, -- Headsplitter
+				{ 17, 5756 }, -- Sliverblade
+				{ 18, 7736 }, -- Fight Club
+				{ 19, 8225 }, -- Tainted Pierce
+				{ 20, 7753 }, -- Bloodspiller
+				{ 21, 7730 }, -- Cobalt Crusher
+				{ 22, 7758 }, -- Ruthless Shiv
+				{ 23, 7757 }, -- Windweaver Staff
+				{ 25, 10328 }, -- Scarlet Chestpiece
+				{ 26, 10331 }, -- Scarlet Gauntlets
+				{ 27, 10329 }, -- Scarlet Belt
+			},
+		},
+		KEYS,
+	},
+}
+
+--[[
 data["ScarletMonastery"] = {
 	MapID = 796,
 	AtlasMapID = "ScarletMonastery",
@@ -954,6 +1244,7 @@ data["ScarletMonastery"] = {
 			name = AL["Azshir the Sleepless"],
 			npcId = 6490,
 			DisplayIDs = {{5534}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  7709 }, -- Blighted Leggings
 				{ 2,  7708 }, -- Necrotic Wand
@@ -964,6 +1255,7 @@ data["ScarletMonastery"] = {
 			name = AL["Fallen Champion"],
 			npcId = 6488,
 			DisplayIDs = {{5230}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  7691 }, -- Embalmed Shroud
 				{ 2,  7690 }, -- Ebon Vise
@@ -974,6 +1266,7 @@ data["ScarletMonastery"] = {
 			name = AL["Ironspine"],
 			npcId = 6489,
 			DisplayIDs = {{5231}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  7688 }, -- Ironspine's Ribcage
 				{ 2,  7687 }, -- Ironspine's Fist
@@ -1171,6 +1464,7 @@ data["ScarletMonastery"] = {
 		KEYS,
 	},
 }
+]]--
 
 data["RazorfenDowns"] = {
 	MapID = 722,
@@ -1203,6 +1497,7 @@ data["RazorfenDowns"] = {
 			name = AL["Lady Falther'ess"],
 			npcId = 14686,
 			DisplayIDs = {{10698}},
+			ContentPhase = 6,
 			[NORMAL_DIFF] = {
 				{ 1,  23178 }, -- Mantle of Lady Falther'ess
 				{ 2,  23177 }, -- Lady Falther'ess' Finger
@@ -1516,6 +1811,7 @@ data["Zul'Farrak"] = {
 			name = AL["Dustwraith"],
 			npcId = 10081,
 			DisplayIDs = {{9292}},
+			ContentPhase = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  12471 }, -- Desertwalker Cane
 			},
@@ -1581,6 +1877,7 @@ data["Maraudon"] = {
 			name = AL["Meshlok the Harvester"],
 			npcId = 12237,
 			DisplayIDs = {{9014}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  17767 }, -- Bloomsprout Headpiece
 				{ 2,  17741 }, -- Nature's Embrace
@@ -2399,6 +2696,7 @@ data["LowerBlackrockSpire"] = {
 			name = AL["Bannok Grimaxe"],
 			npcId = 9596,
 			DisplayIDs = {{9668}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  12637 }, -- Backusarian Gauntlets
 				{ 2,  12634 }, -- Chiselbrand Girdle
@@ -2543,6 +2841,7 @@ data["LowerBlackrockSpire"] = {
 			npcId = 16080,
 			DisplayIDs = {{15997}},
 			ExtraList = true,
+			ContentPhase = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  22306 }, -- Ironweave Belt
 				{ 2,  22325 }, -- Belt of the Trickster
@@ -2684,8 +2983,7 @@ data["UpperBlackrockSpire"] = {
 				{ 9,  22253 }, -- Tome of the Lost
 				{ 10, 12602 }, -- Draconian Deflector
 				{ 12, 15730 }, -- Pattern: Red Dragonscale Breastplate
-				{ 13, 15047 }, -- Red Dragonscale Breastplate
-				{ 15, 13519 }, -- Recipe: Flask of the Titans
+				{ 14, 13519 }, -- Recipe: Flask of the Titans
 				{ 16, 16690 }, -- Devout Robe
 				{ 17, 16688 }, -- Magister's Robes
 				{ 18, 16700 }, -- Dreadmist Robe
@@ -2719,6 +3017,7 @@ data["UpperBlackrockSpire"] = {
 			npcId = 16042,
 			DisplayIDs = {{14308}},
 			ExtraList = true,
+			ContentPhase = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  22302 }, -- Ironweave Cowl
 				{ 2,  22340 }, -- Pendant of Celerity
@@ -2824,6 +3123,7 @@ data["DireMaulEast"] = {
 			npcId = 16097,
 			DisplayIDs = {{16000}},
 			ExtraList = true,
+			ContentPhase = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  22304 }, -- Ironweave Gloves
 				{ 2,  22472 }, -- Boots of Ferocity
@@ -3537,6 +3837,7 @@ data["Scholomance"] = {
 			npcId = 16118,
 			DisplayIDs = {{16020}},
 			ExtraList = true,
+			ContentPhase = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  22303 }, -- Ironweave Pants
 				{ 2,  22326 }, -- Amalgam's Band
@@ -3560,6 +3861,7 @@ data["Stratholme"] = {
 			name = AL["Skul"],
 			npcId = 10393,
 			DisplayIDs = {{2606}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  13395 }, -- Skul's Fingerbone Claws
 				{ 2,  13394 }, -- Skul's Cold Embrace
@@ -3595,6 +3897,7 @@ data["Stratholme"] = {
 			name = AL["Hearthsinger Forresten"],
 			npcId = 10558,
 			DisplayIDs = {{10482}},
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  16682 }, -- Magister's Boots
 				{ 3,  13378 }, -- Songbird Blouse
@@ -3628,6 +3931,7 @@ data["Stratholme"] = {
 			name = AL["Balzaphon"],
 			npcId = 14684,
 			DisplayIDs = {{7919}},
+			ContentPhase = 6,
 			[NORMAL_DIFF] = {
 				{ 1,  23125 }, -- Chains of the Lich
 				{ 2,  23126 }, -- Waistband of Balzaphon
@@ -3879,6 +4183,7 @@ data["Stratholme"] = {
 		{ -- STRATSothosJarien
 			name = AL["Sothos and Jarien's Heirlooms"].." - "..format(AL["Tier %s Sets"], "0.5"),
 			ExtraList = true,
+			ContentPhase = 5,
 			[NORMAL_DIFF] = {
 				{ 1,  22327 }, -- Amulet of the Redeemed
 				{ 2,  22301 }, -- Ironweave Robe

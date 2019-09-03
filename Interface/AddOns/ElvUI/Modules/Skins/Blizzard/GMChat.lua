@@ -1,12 +1,12 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
 --Lua functions
 local _G = _G
 local select = select
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.GMChat ~= true then return end
@@ -18,11 +18,11 @@ local function LoadSkin()
 
 	frame.buttonFrame:Hide()
 
-	local eb = frame.editBox
+	local eb = _G.GMChatFrameEditBox
 	eb:CreateBackdrop("Transparent")
 	eb.backdrop:Hide()
 	eb:SetAltArrowKeyMode(false)
-	for i = 3, 8 do
+	for i = 2, 7 do
 		select(i, eb:GetRegions()):SetAlpha(0)
 	end
 	eb:ClearAllPoints()

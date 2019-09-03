@@ -19,20 +19,14 @@ A default texture will be applied if the widget is a StatusBar and doesn't have 
 
 .frequentUpdates                  - Indicates whether to use UNIT_POWER_FREQUENT instead UNIT_POWER_UPDATE to update the
                                     bar (boolean)
-.displayAltPower                  - Use this to let the widget display alternate power if the unit has one. If no
-                                    alternate power the display will fall back to primary power (boolean)
 .useAtlas                         - Use this to let the widget use an atlas for its texture if an atlas is present in
                                     `self.colors.power` for the appropriate power type (boolean)
 .smoothGradient                   - 9 color values to be used with the .colorSmooth option (table)
-.considerSelectionInCombatHostile - Indicates whether selection should be considered hostile while the unit is in
-                                    combat with the player (boolean)
 
 The following options are listed by priority. The first check that returns true decides the color of the bar.
 
 .colorDisconnected - Use `self.colors.disconnected` to color the bar if the unit is offline (boolean)
 .colorTapping      - Use `self.colors.tapping` to color the bar if the unit isn't tapped by the player (boolean)
-.colorThreat       - Use `self.colors.threat[threat]` to color the bar based on the unit's threat status. `threat` is
-                     defined by the first return of [UnitThreatSituation](https://wow.gamepedia.com/API_UnitThreatSituation) (boolean)
 .colorPower        - Use `self.colors.power[token]` to color the bar based on the unit's power type. This method will
                      fall-back to `:GetAlternativeColor()` if it can't find a color matching the token. If this function
                      isn't defined, then it will attempt to color based upon the alternative power colors returned by
@@ -43,9 +37,6 @@ The following options are listed by priority. The first check that returns true 
 .colorClassNPC     - Use `self.colors.class[class]` to color the bar if the unit is a NPC (boolean)
 .colorClassPet     - Use `self.colors.class[class]` to color the bar if the unit is player controlled, but not a player
                      (boolean)
-.colorSelection    - Use `self.colors.selection[selection]` to color the bar based on the unit's selection color.
-                     `selection` is defined by the return value of Private.unitSelectionType, a wrapper function
-                     for [UnitSelectionType](https://wow.gamepedia.com/API_UnitSelectionType) (boolean)
 .colorReaction     - Use `self.colors.reaction[reaction]` to color the bar based on the player's reaction towards the
                      unit. `reaction` is defined by the return value of
                      [UnitReaction](http://wowprogramming.com/docs/api/UnitReaction.html) (boolean)
@@ -73,7 +64,7 @@ The following options are listed by priority. The first check that returns true 
     -- Add a background
     local Background = Power:CreateTexture(nil, 'BACKGROUND')
     Background:SetAllPoints(Power)
-    Background:SetTexture(1, 1, 1, .5)
+    Background:SetColorTexture(1, 1, 1, .5)
 
     -- Options
     Power.frequentUpdates = true
@@ -93,19 +84,6 @@ The following options are listed by priority. The first check that returns true 
 
 local _, ns = ...
 local oUF = ns.oUF
-local Private = oUF.Private
-
-local unitSelectionType = Private.unitSelectionType
-
--- sourced from FrameXML/UnitPowerBarAlt.lua
-local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
-
-local function getDisplayPower(unit)
-	local _, min, _, _, _, _, showOnRaid = UnitAlternatePowerInfo(unit)
-	if(showOnRaid) then
-		return ALTERNATE_POWER_INDEX, min
-	end
-end
 
 local function UpdateColor(self, event, unit)
 	if(self.unit ~= unit) then return end
@@ -118,24 +96,18 @@ local function UpdateColor(self, event, unit)
 		t = self.colors.disconnected
 	elseif(element.colorTapping and not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) then
 		t = self.colors.tapped
-	elseif(element.colorThreat and not UnitPlayerControlled(unit) and UnitThreatSituation('player', unit)) then
-		t =  self.colors.threat[UnitThreatSituation('player', unit)]
 	elseif(element.colorPower) then
-		if(element.displayType ~= ALTERNATE_POWER_INDEX) then
-			t = self.colors.power[ptoken or ptype]
-			if(not t) then
-				if(element.GetAlternativeColor) then
-					r, g, b = element:GetAlternativeColor(unit, ptype, ptoken, altR, altG, altB)
-				elseif(altR) then
-					r, g, b = altR, altG, altB
-					if(r > 1 or g > 1 or b > 1) then
-						-- BUG: As of 7.0.3, altR, altG, altB may be in 0-1 or 0-255 range.
-						r, g, b = r / 255, g / 255, b / 255
-					end
+		t = self.colors.power[ptoken or ptype]
+		if(not t) then
+			if(element.GetAlternativeColor) then
+				r, g, b = element:GetAlternativeColor(unit, ptype, ptoken, altR, altG, altB)
+			elseif(altR) then
+				r, g, b = altR, altG, altB
+				if(r > 1 or g > 1 or b > 1) then
+					-- BUG: As of 7.0.3, altR, altG, altB may be in 0-1 or 0-255 range.
+					r, g, b = r / 255, g / 255, b / 255
 				end
 			end
-		else
-			t = self.colors.power[ALTERNATE_POWER_INDEX]
 		end
 
 		if(element.useAtlas and t and t.atlas) then
@@ -146,8 +118,6 @@ local function UpdateColor(self, event, unit)
 		(element.colorClassPet and UnitPlayerControlled(unit) and not UnitIsPlayer(unit)) then
 		local _, class = UnitClass(unit)
 		t = self.colors.class[class]
-	elseif(element.colorSelection and unitSelectionType(unit, element.considerSelectionInCombatHostile)) then
-		t = self.colors.selection[unitSelectionType(unit, element.considerSelectionInCombatHostile)]
 	elseif(element.colorReaction and UnitReaction(unit, 'player')) then
 		t = self.colors.reaction[UnitReaction(unit, 'player')]
 	elseif(element.colorSmooth) then
@@ -206,15 +176,10 @@ local function Update(self, event, unit)
 		element:PreUpdate(unit)
 	end
 
-	local displayType, min
-	if(element.displayAltPower) then
-		displayType, min = getDisplayPower(unit)
-	end
-
-	local cur, max = UnitPower(unit, displayType), UnitPowerMax(unit, displayType)
+	local cur, max = UnitPower(unit), UnitPowerMax(unit)
 	local disconnected = not UnitIsConnected(unit)
 
-	element:SetMinMaxValues(min or 0, max)
+	element:SetMinMaxValues(0, max)
 
 	if(disconnected) then
 		element:SetValue(max)
@@ -223,9 +188,8 @@ local function Update(self, event, unit)
 	end
 
 	element.cur = cur
-	element.min = min
+	element.min = 0
 	element.max = max
-	element.displayType = displayType
 	element.disconnected = disconnected
 
 	--[[ Callback: Power:PostUpdate(unit, cur, min, max)
@@ -238,7 +202,7 @@ local function Update(self, event, unit)
 	* max  - the unit's maximum possible power value (number)
 	--]]
 	if(element.PostUpdate) then
-		element:PostUpdate(unit, cur, min, max)
+		element:PostUpdate(unit, cur, 0, max)
 	end
 end
 
@@ -277,23 +241,6 @@ local function SetColorDisconnected(element, state)
 	end
 end
 
---[[ Power:SetColorSelection(state)
-Used to toggle coloring by the unit's selection.
-
-* self  - the Power element
-* state - the desired state (boolean)
---]]
-local function SetColorSelection(element, state)
-	if(element.colorSelection ~= state) then
-		element.colorSelection = state
-		if(element.colorSelection) then
-			element.__owner:RegisterEvent('UNIT_FLAGS', ColorPath)
-		else
-			element.__owner:UnregisterEvent('UNIT_FLAGS', ColorPath)
-		end
-	end
-end
-
 --[[ Power:SetColorTapping(state)
 Used to toggle coloring if the unit isn't tapped by the player.
 
@@ -307,23 +254,6 @@ local function SetColorTapping(element, state)
 			element.__owner:RegisterEvent('UNIT_FACTION', ColorPath)
 		else
 			element.__owner:UnregisterEvent('UNIT_FACTION', ColorPath)
-		end
-	end
-end
-
---[[ Power:SetColorThreat(state)
-Used to toggle coloring by the unit's threat status.
-
-* self  - the Power element
-* state - the desired state (boolean)
---]]
-local function SetColorThreat(element, state)
-	if(element.colorThreat ~= state) then
-		element.colorThreat = state
-		if(element.colorThreat) then
-			element.__owner:RegisterEvent('UNIT_THREAT_LIST_UPDATE', ColorPath)
-		else
-			element.__owner:UnregisterEvent('UNIT_THREAT_LIST_UPDATE', ColorPath)
 		end
 	end
 end
@@ -353,9 +283,7 @@ local function Enable(self)
 		element.__owner = self
 		element.ForceUpdate = ForceUpdate
 		element.SetColorDisconnected = SetColorDisconnected
-		element.SetColorSelection = SetColorSelection
 		element.SetColorTapping = SetColorTapping
-		element.SetColorThreat = SetColorThreat
 		element.SetFrequentUpdates = SetFrequentUpdates
 
 		if(element.colorDisconnected) then
@@ -368,10 +296,6 @@ local function Enable(self)
 
 		if(element.colorTapping) then
 			self:RegisterEvent('UNIT_FACTION', ColorPath)
-		end
-
-		if(element.colorThreat) then
-			self:RegisterEvent('UNIT_THREAT_LIST_UPDATE', ColorPath)
 		end
 
 		if(element.frequentUpdates) then
@@ -410,7 +334,6 @@ local function Disable(self)
 		self:UnregisterEvent('UNIT_CONNECTION', ColorPath)
 		self:UnregisterEvent('UNIT_FACTION', ColorPath)
 		self:UnregisterEvent('UNIT_FLAGS', ColorPath)
-		self:UnregisterEvent('UNIT_THREAT_LIST_UPDATE', ColorPath)
 	end
 end
 

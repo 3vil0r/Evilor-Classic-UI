@@ -27,7 +27,7 @@ function UF:Construct_Raid40Frames()
 	self.Power = UF:Construct_PowerBar(self, true, true, 'LEFT')
 	self.Power.frequentUpdates = false;
 
-	self.PowerPrediction = UF:Construct_PowerPrediction(self)
+	--self.PowerPrediction = UF:Construct_PowerPrediction(self)
 
 	self.Portrait3D = UF:Construct_Portrait(self, 'model')
 	self.Portrait2D = UF:Construct_Portrait(self, 'texture')
@@ -37,15 +37,15 @@ function UF:Construct_Raid40Frames()
 	self.Debuffs = UF:Construct_Debuffs(self)
 	self.AuraWatch = UF:Construct_AuraWatch(self)
 	self.RaidDebuffs = UF:Construct_RaidDebuffs(self)
-	self.DebuffHighlight = UF:Construct_DebuffHighlight(self)
-	self.ResurrectIndicator = UF:Construct_ResurrectionIcon(self)
+	--self.DebuffHighlight = UF:Construct_DebuffHighlight(self)
+	self.RaidRoleFramesAnchor = UF:Construct_RaidRoleFrames(self)
+	self.PhaseIndicator = UF:Construct_PhaseIcon(self)
 	self.MouseGlow = UF:Construct_MouseGlow(self)
 	self.TargetGlow = UF:Construct_TargetGlow(self)
 	self.InfoPanel = UF:Construct_InfoPanel(self)
 	self.RaidTargetIndicator = UF:Construct_RaidIcon(self)
 	self.ReadyCheckIndicator = UF:Construct_ReadyCheckIcon(self)
-	self.HealthPrediction = UF:Construct_HealComm(self)
-	self.Fader = UF:Construct_Fader()
+	--self.Fader = UF:Construct_Fader()
 	self.Cutaway = UF:Construct_Cutaway(self)
 
 	self.customTexts = {}
@@ -185,7 +185,7 @@ function UF:Update_Raid40Frames(frame, db)
 	UF:Configure_Power(frame)
 
 	-- Power Predicition
-	UF:Configure_PowerPrediction(frame)
+	--UF:Configure_PowerPrediction(frame)
 
 	--Portrait
 	UF:Configure_Portrait(frame)
@@ -201,17 +201,17 @@ function UF:Update_Raid40Frames(frame, db)
 	--Raid Icon
 	UF:Configure_RaidIcon(frame)
 
-	-- Resurrect Icon
-	UF:Configure_ResurrectionIcon(frame)
-
 	--Debuff Highlight
-	UF:Configure_DebuffHighlight(frame)
+	--UF:Configure_DebuffHighlight(frame)
 
 	--OverHealing
-	UF:Configure_HealComm(frame)
+	--UF:Configure_HealComm(frame)
+
+	--Raid Roles
+	UF:Configure_RaidRoleIcons(frame)
 
 	--Fader
-	UF:Configure_Fader(frame)
+	--UF:Configure_Fader(frame)
 
 	--Buff Indicators
 	UF:UpdateAuraWatch(frame)
@@ -221,6 +221,9 @@ function UF:Update_Raid40Frames(frame, db)
 
 	--CustomTexts
 	UF:Configure_CustomTexts(frame)
+
+	-- PhaseIndicator
+	UF:Configure_PhaseIcon(frame)
 
 	--Cutaway
 	UF:Configure_Cutaway(frame)

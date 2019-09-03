@@ -1,0 +1,4 @@
+
+IsTalentSequenceExpanded = false
+TalentSequenceTalents = {
+}

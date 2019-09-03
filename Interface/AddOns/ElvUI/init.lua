@@ -10,16 +10,17 @@
 --Lua functions
 local _G, min, format, pairs, gsub, strsplit, unpack, wipe, type, tcopy = _G, min, format, pairs, gsub, strsplit, unpack, wipe, type, table.copy
 --WoW API / Variables
-local hooksecurefunc = hooksecurefunc
-local issecurevariable = issecurevariable
 local CreateFrame = CreateFrame
+local GetAddOnEnableState = GetAddOnEnableState
 local GetAddOnInfo = GetAddOnInfo
 local GetAddOnMetadata = GetAddOnMetadata
+local GetLocale = GetLocale
 local GetTime = GetTime
 local HideUIPanel = HideUIPanel
-local GetAddOnEnableState = GetAddOnEnableState
+local hooksecurefunc = hooksecurefunc
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
+local issecurevariable = issecurevariable
 local LoadAddOn = LoadAddOn
 local ReloadUI = ReloadUI
 
@@ -46,6 +47,16 @@ Engine[3] = AddOn.privateVars.profile
 Engine[4] = AddOn.DF.profile
 Engine[5] = AddOn.DF.global
 _G[AddOnName] = Engine
+
+do
+	local locale = GetLocale()
+	local convert = {enGB = 'enUS', esES = 'esMX', itIT = 'enUS'}
+	local gameLocale = convert[locale] or locale or 'enUS'
+
+	function AddOn:GetLocale()
+		return gameLocale
+	end
+end
 
 do
 	AddOn.Libs = {}
@@ -76,12 +87,18 @@ do
 	AddOn:AddLib('Base64', 'LibBase64-1.0-ElvUI')
 	AddOn:AddLib('Masque', 'Masque', true)
 	AddOn:AddLib('Translit', 'LibTranslit-1.0')
+	AddOn:AddLib('LCD', 'LibClassicDurations')
+	AddOn:AddLib('LCC', 'LibClassicCasterino')
+
 	-- added on ElvUI_OptionsUI load: AceGUI, AceConfig, AceConfigDialog, AceConfigRegistry, AceDBOptions
 
 	-- backwards compatible for plugins
 	AddOn.LSM = AddOn.Libs.LSM
 	AddOn.Masque = AddOn.Libs.Masque
 end
+
+-- Register LibClassicDurations
+AddOn.Libs.LCD:Register(AddOnName)
 
 AddOn.oUF = Engine.oUF
 AddOn.ActionBars = AddOn:NewModule('ActionBars','AceHook-3.0','AceEvent-3.0')
@@ -420,25 +437,6 @@ if (_G.UIDROPDOWNMENU_VALUE_PATCH_VERSION or 0) < 2 then
 					until issecurevariable(b, "value")
 				end
 			end
-		end
-	end)
-end
-
---CommunitiesUI taint workaround
---credit: https://www.townlong-yak.com/bugs/Kjq4hm-DisplayModeTaint
-if (_G.UIDROPDOWNMENU_OPEN_PATCH_VERSION or 0) < 1 then
-	_G.UIDROPDOWNMENU_OPEN_PATCH_VERSION = 1
-	hooksecurefunc("UIDropDownMenu_InitializeHelper", function(frame)
-		if _G.UIDROPDOWNMENU_OPEN_PATCH_VERSION ~= 1 then
-			return
-		end
-		if _G.UIDROPDOWNMENU_OPEN_MENU and _G.UIDROPDOWNMENU_OPEN_MENU ~= frame
-		   and not issecurevariable(_G.UIDROPDOWNMENU_OPEN_MENU, "displayMode") then
-			_G.UIDROPDOWNMENU_OPEN_MENU = nil
-			local t, f, prefix, i = _G, issecurevariable, " \0", 1
-			repeat
-				i, t[prefix .. i] = i + 1, nil
-			until f("UIDROPDOWNMENU_OPEN_MENU")
 		end
 	end)
 end

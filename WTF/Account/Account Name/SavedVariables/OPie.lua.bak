@@ -2,7 +2,7 @@
 OneRing_Config = {
 	["CharProfiles"] = {
 	},
-	["_GameVersion"] = "1.13.2",
+	["_GameLocale"] = "enUS",
 	["_OPieVersion"] = "Walnut 3 (3.100)",
 	["ProfileStorage"] = {
 		["default"] = {
@@ -15,5 +15,5 @@ OneRing_Config = {
 			},
 		},
 	},
-	["_GameLocale"] = "enUS",
+	["_GameVersion"] = "1.13.2",
 }

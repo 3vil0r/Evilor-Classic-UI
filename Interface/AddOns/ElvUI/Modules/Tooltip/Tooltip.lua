@@ -19,7 +19,6 @@ local GetInspectSpecialization = GetInspectSpecialization
 local GetItemCount = GetItemCount
 local GetMouseFocus = GetMouseFocus
 local GetNumGroupMembers = GetNumGroupMembers
-local GetRelativeDifficultyColor = GetRelativeDifficultyColor
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsAltKeyDown = IsAltKeyDown
@@ -30,8 +29,6 @@ local IsShiftKeyDown = IsShiftKeyDown
 local NotifyInspect = NotifyInspect
 local SetTooltipMoney = SetTooltipMoney
 local UnitAura = UnitAura
-local UnitBattlePetLevel = UnitBattlePetLevel
-local UnitBattlePetType = UnitBattlePetType
 local UnitBuff = UnitBuff
 local UnitClass = UnitClass
 local UnitClassification = UnitClassification
@@ -187,10 +184,9 @@ function TT:SetUnitText(tt, unit, level, isShiftKeyDown)
 		local localeClass, class = UnitClass(unit)
 		if not localeClass or not class then return end
 
-		local name, realm = UnitName(unit)
+		local name = UnitName(unit)
 		local guildName, guildRankName, _, guildRealm = GetGuildInfo(unit)
 		local pvpName = UnitPVPName(unit)
-		local relationship = UnitRealmRelationship(unit)
 
 		color = _G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class] or _G.RAID_CLASS_COLORS[class]
 
@@ -200,16 +196,6 @@ function TT:SetUnitText(tt, unit, level, isShiftKeyDown)
 
 		if self.db.playerTitles and pvpName then
 			name = pvpName
-		end
-
-		if realm and realm ~= "" then
-			if(isShiftKeyDown) or self.db.alwaysShowRealm then
-				name = name.."-"..realm
-			elseif(relationship == _G.LE_REALM_RELATION_COALESCED) then
-				name = name.._G.FOREIGN_SERVER_LABEL
-			elseif(relationship == _G.LE_REALM_RELATION_VIRTUAL) then
-				name = name.._G.INTERACTIVE_SERVER_LABEL
-			end
 		end
 
 		if UnitIsAFK(unit) then
@@ -236,14 +222,15 @@ function TT:SetUnitText(tt, unit, level, isShiftKeyDown)
 		end
 
 		local levelLine = self:GetLevelLine(tt, lineOffset)
+
+		local diffColor = GetCreatureDifficultyColor(level)
+		local race = UnitRace(unit)
+		local levelString = format("|cff%02x%02x%02x%s|r %s |c%s%s|r", diffColor.r * 255, diffColor.g * 255, diffColor.b * 255, level > 0 and level or "??", race or '', color.colorStr, localeClass)
+
 		if levelLine then
-			local diffColor = GetCreatureDifficultyColor(level)
-			local race, englishRace = UnitRace(unit)
-			local _, factionGroup = UnitFactionGroup(unit)
-			if(factionGroup and englishRace == "Pandaren") then
-				race = factionGroup.." "..race
-			end
-			levelLine:SetFormattedText("|cff%02x%02x%02x%s|r %s |c%s%s|r", diffColor.r * 255, diffColor.g * 255, diffColor.b * 255, level > 0 and level or "??", race or '', color.colorStr, localeClass)
+			levelLine:SetText(levelString)
+		else
+			GameTooltip:AddLine(levelString)
 		end
 	else
 		if UnitIsTapDenied(unit) then
@@ -424,11 +411,13 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 			end
 		end
 	end
+
 --[[
 	if isShiftKeyDown and isPlayerUnit then
 		self:AddInspectInfo(tt, unit, 0, color.r, color.g, color.b)
 	end
 ]]
+
 	-- NPC ID's
 	if unit and self.db.npcID and not isPlayerUnit then
 		local guid = UnitGUID(unit) or ""

@@ -1,26 +1,12 @@
-# AtlasLootClassic [Core]
+# AtlasLootClassic
 
-## [v1.1.2-beta](https://github.com/Hoizame/AtlasLootClassic/tree/v1.1.2-beta) (2019-08-10)
-[Full Changelog](https://github.com/Hoizame/AtlasLootClassic/compare/v1.1.1-beta...v1.1.2-beta)
+This mod is distributed under Version 2 of the GPL.  A copy of the GPL is included in this zip file with links to non-english translations.
 
-- update release notes  
-- Gurubashi Mojo Madness is ZG/P4  
-- release note update  
-- remove xml tooltip  
-- atiesh token  
-- update toc files  
-- fix loading bug with factions and horde  
-- remove useless SetTexture  
-- add versionnumber into button tooltip  
-- fix bug with caching tooltips  
-- update readme  
-- content phase on lt is mostly done  
-- enable dressup for crafted items  
-- add readme  
-- fix bug with favourite icon in tooltip updating  
-- add ZG token dolls  
-- fix babelfish with < and > i hope  
-- allow alpha builds  
-- fix babelfish  
-- fix babelfish  
-- fix changelog path  
+[Changelog history](https://github.com/Hoizame/AtlasLootClassic/blob/master/AtlasLootClassic/Documentation/Release_Notes.md)
+
+## v1.1.8-beta (Aug. 31, 2019)
+
+- Split Scarlet Monastery into wings
+- Add Rare indicator for some bosses
+- Add support for WoW-Head links ( Shift + Right Click )
+- Some content phase fixes

@@ -5,18 +5,19 @@ local Private = oUF.Private
 local frame_metatable = Private.frame_metatable
 
 local colors = {
-	smooth = {
-		1, 0, 0,
-		1, 1, 0,
-		0, 1, 0
-	},
+	smooth = { 1, 0, 0, 1, 1, 0, 0, 1, 0 },
 	health = {49 / 255, 207 / 255, 37 / 255},
-	disconnected = {0.6, 0.6, 0.6},
+	disconnected = { 0.6, 0.6, 0.6 },
 	tapped = {0.6, 0.6, 0.6},
 	class = {},
 	debuff = {},
 	reaction = {},
 	power = {},
+	happiness = {
+		[1] = {.69, .31, .31},
+		[2] = {.65, .63, .35},
+		[3] = {.33, .59, .33},
+	}
 }
 
 -- We do this because people edit the vars directly, and changing the default
@@ -83,17 +84,6 @@ colors.power[1] = colors.power.RAGE
 colors.power[2] = colors.power.FOCUS
 colors.power[3] = colors.power.ENERGY
 colors.power[4] = colors.power.COMBO_POINTS
-colors.power[5] = colors.power.RUNES
-colors.power[6] = colors.power.RUNIC_POWER
-colors.power[7] = colors.power.SOUL_SHARDS
-colors.power[8] = colors.power.LUNAR_POWER
-colors.power[9] = colors.power.HOLY_POWER
-colors.power[11] = colors.power.MAELSTROM
-colors.power[12] = colors.power.CHI
-colors.power[13] = colors.power.INSANITY
-colors.power[16] = colors.power.ARCANE_CHARGES
-colors.power[17] = colors.power.FURY
-colors.power[18] = colors.power.PAIN
 
 local function colorsAndPercent(a, b, ...)
 	if(a <= 0 or b == 0) then

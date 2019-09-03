@@ -5,6 +5,8 @@ local AtlasLoot = _G.AtlasLoot
 local Options = AtlasLoot.Options
 local AL = AtlasLoot.Locales
 
+local format = format
+
 local function UpdateItemFrame()
     if AtlasLoot.GUI.frame and AtlasLoot.GUI.frame:IsShown() then
         AtlasLoot.GUI.ItemFrame:Refresh(true)
@@ -17,6 +19,8 @@ Options.config.args.atlasloot = {
 	type = "group",
 	name = AL["AtlasLoot"],
 	order = Options.orderNumber,
+	get = function(info) return AtlasLoot.db[info[#info]] end,
+    set = function(info, value) AtlasLoot.db[info[#info]] = value end,
 	args = {
 		ignoreScalePopup = {
 			order = 1,
@@ -32,8 +36,6 @@ Options.config.args.atlasloot = {
 			type = "toggle",
 			width = "full",
 			name = AL["Show ID's in tooltip."],
-			get = function(info) return AtlasLoot.db.showIDsInTT end,
-			set = function(info, value) AtlasLoot.db.showIDsInTT = value end,
 		},
 		showLvlRange = {
 			order = 3,
@@ -52,16 +54,33 @@ Options.config.args.atlasloot = {
 			get = function(info) return AtlasLoot.db.showMinEnterLvl end,
 			set = function(info, value) AtlasLoot.db.showMinEnterLvl = value AtlasLoot.GUI.OnLevelRangeRefresh() end,
 		},
-		showContentPhaseInTT = {
+		enableWoWHeadIntegration = {
 			order = 5,
 			type = "toggle",
+			name = AL["Enable WoWHead links."],
+			desc = format("|cFFCFCFCF%s:|r %s", AL["Shift + Right Click"], AL["Shows a copyable link for WoWHead"])
+		},
+		useEnglishWoWHead = {
+			order = 6,
+			type = "toggle",
+			hidden = AtlasLoot.Button:GetWoWHeadLocale() and false or true,
+			name = AL["Use english WoWHead."],
+		},
+		headerSetting = {
+			order = 10,
+			type = "header",
+			name = AL["Content phase settings"],
+		},
+		showContentPhaseInTT = {
+			order = 11,
+			type = "toggle",
 			width = "full",
-			name = "|cffff0000<WIP>:|r "..AL["Show content phase in tooltip."],
+			name = AL["Show content phase in tooltip."],
 			get = function(info) return AtlasLoot.db.ContentPhase.enableTT end,
 			set = function(info, value) AtlasLoot.db.ContentPhase.enableTT = value end,
 		},
 		enableContentPhaseOnLootTable = {
-			order = 6,
+			order = 12,
 			type = "toggle",
 			width = "full",
 			name = AL["Show content phase indicator for loottables."],
@@ -69,12 +88,28 @@ Options.config.args.atlasloot = {
 			set = function(info, value) AtlasLoot.db.ContentPhase.enableOnLootTable = value AtlasLoot.GUI.OnLevelRangeRefresh() end,
 		},
 		enableContentPhaseOnItems = {
-			order = 7,
+			order = 13,
 			type = "toggle",
 			width = "full",
-			name = "|cffff0000<WIP>:|r "..AL["Show content phase indicator for items."],
+			name = AL["Show content phase indicator for items."],
 			get = function(info) return AtlasLoot.db.ContentPhase.enableOnItems end,
 			set = function(info, value) AtlasLoot.db.ContentPhase.enableOnItems = value UpdateItemFrame() end,
+		},
+		enableContentPhaseOnCrafting = {
+			order = 14,
+			type = "toggle",
+			width = "full",
+			name = AL["Show content phase indicator for crafting."],
+			get = function(info) return AtlasLoot.db.ContentPhase.enableOnCrafting end,
+			set = function(info, value) AtlasLoot.db.ContentPhase.enableOnCrafting = value UpdateItemFrame() end,
+		},
+		enableContentPhaseOnSets = {
+			order = 15,
+			type = "toggle",
+			width = "full",
+			name = AL["Show content phase indicator for sets."],
+			get = function(info) return AtlasLoot.db.ContentPhase.enableOnSets end,
+			set = function(info, value) AtlasLoot.db.ContentPhase.enableOnSets = value UpdateItemFrame() end,
 		},
 	},
 }

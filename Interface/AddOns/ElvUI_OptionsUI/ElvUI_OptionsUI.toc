@@ -18,10 +18,10 @@ Cooldown.lua
 DataTexts.lua
 DataBars.lua
 Filters.lua
-Skins.lua
 Tooltip.lua
 UnitFrames.lua
 Nameplates.lua
+Skins.lua
 Profiles.lua
 Maps.lua
 ModuleControl.lua

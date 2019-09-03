@@ -4,7 +4,7 @@ local AtlasLoot = _G.AtlasLoot
 local Item = AtlasLoot.Button:AddType("Item", "i")
 local Query = {}
 Item.Query = Query
-local AL = AtlasLoot.Locales
+local AL, ALIL = AtlasLoot.Locales, AtlasLoot.IngameLocales
 local ClickHandler = AtlasLoot.ClickHandler
 local Token = AtlasLoot.Data.Token
 local Recipe = AtlasLoot.Data.Recipe
@@ -30,7 +30,6 @@ local GetItemDescInfo = AtlasLoot.ItemInfo.GetDescription
 local GetItemString = AtlasLoot.ItemString.Create
 
 local ITEM_COLORS = {}
-local WHITE_ICON_FRAME = "Interface\\Common\\WhiteIconFrame"
 local DUMMY_ITEM_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 local SET_ITEM = "|cff00ff00"..AL["Set item"]..":|r "
 
@@ -44,11 +43,13 @@ ClickHandler:Add(
 		DressUp = { "LeftButton", "Ctrl" },
 		SetFavourite = { "LeftButton", "Alt" },
 		ShowExtraItems = { "LeftButton", "None" },
+		WoWHeadLink = { "RightButton", "Shift" },
 		types = {
 			ChatLink = true,
 			DressUp = true,
 			ShowExtraItems = true,
 			SetFavourite = true,
+			WoWHeadLink = true,
 		},
 	},
 	{
@@ -56,6 +57,7 @@ ClickHandler:Add(
 		{ "DressUp", 		AL["Dress up"], 			AL["Shows the item in the Dressing room"] },
 		{ "SetFavourite", 	AL["Set Favourite"], 		AL["Set the item as favourite"] },
 		{ "ShowExtraItems", AL["Show extra items"], 	AL["Shows extra items (tokens,mats)"] },
+		{ "WoWHeadLink", 	AL["Show WowHead link"], 	AL["Shows a copyable link for WoWHead"] },
 	}
 )
 
@@ -63,8 +65,7 @@ local function OnFavouritesAddonLoad(addon, enabled)
 	Favourites = enabled and addon or nil
 end
 
-
-function Item.OnSet(button, second)
+local function OnInit()
 	if not ItemClickHandler then
 		ItemClickHandler = ClickHandler:GetHandler("Item")
 		AtlasLoot.Addons:GetAddon("Favourites", OnFavouritesAddonLoad)
@@ -75,6 +76,11 @@ function Item.OnSet(button, second)
 		end
 		ItemFrame = AtlasLoot.GUI.ItemFrame
 	end
+	Item.ItemClickHandler = ItemClickHandler
+end
+AtlasLoot:AddInitFunc(OnInit)
+
+function Item.OnSet(button, second)
 	if not button then return end
 	if second and button.__atlaslootinfo.secType then
 		if type(button.__atlaslootinfo.secType[2]) == "table" then
@@ -114,6 +120,8 @@ function Item.OnMouseAction(button, mouseButton)
 		local itemInfo, itemLink = GetItemInfo(button.ItemString or button.ItemID)
 		itemLink = itemLink or button.ItemString
 		AtlasLoot.Button:AddChatLink(itemLink or "item:"..button.ItemID)
+	elseif mouseButton == "WoWHeadLink" then
+		AtlasLoot.Button:OpenWoWHeadLink(button, "item", button.ItemID)
 	elseif mouseButton == "DressUp" then
 		local itemInfo, itemLink = GetItemInfo(button.ItemString or button.ItemID)
 		itemLink = itemLink or button.ItemString
@@ -141,15 +149,19 @@ function Item.OnMouseAction(button, mouseButton)
 				if Favourites:IsFavouriteItemID(button.ItemID) then
 					Favourites:SetFavouriteIcon(button.ItemID, button.favourite)
 				else
-					button.favourite:Hide()
+					if button.favourite then
+						button.favourite:Hide()
+					end
 				end
 			else
 				if Favourites:AddItemID(button.ItemID) then
 					Favourites:SetFavouriteIcon(button.ItemID, button.favourite)
-					button.favourite:Show()
+					if button.favourite then
+						button.favourite:Show()
+					end
 				end
 			end
-			if Favourites.db.showInTT then
+			if Favourites:TooltipHookEnabled() then
 				Item.OnLeave(button)
 				Item.OnEnter(button)
 			end
@@ -178,6 +190,7 @@ function Item.OnMouseAction(button, mouseButton)
 end
 
 function Item.OnEnter(button, owner)
+	if not button.ItemID then return end
 	local tooltip = GetAlTooltip()
 	local db = ItemClickHandler:GetDB()
 	tooltip:ClearLines()
@@ -207,12 +220,10 @@ function Item.OnEnter(button, owner)
 	if IsShiftKeyDown() or db.alwaysShowCompareTT then
 		GameTooltip_ShowCompareItem(tooltip)
 	end
-	if IsControlKeyDown() or db.alwaysShowPreviewTT then
-		if Mount.IsMount(button.ItemID) then
-			Item.ShowQuickDressUp(button.ItemID, tooltip)
-		else
-			Item.ShowQuickDressUp(button.ItemID, tooltip)
-		end
+	if Mount.IsMount(button.ItemID) then
+		Item.ShowQuickDressUp(button.ItemID, tooltip)
+	elseif IsControlKeyDown() or db.alwaysShowPreviewTT then
+		Item.ShowQuickDressUp(button.ItemID, tooltip)
 	end
 end
 
@@ -240,12 +251,7 @@ function Item.OnClear(button)
 	button.secButton.SetData = nil
 	button.secButton.RawName = nil
 
-	if button.overlay then
-		button.overlay:SetDesaturated(false)
-		button.overlay:Hide()
-	end
 	button.secButton.overlay:Hide()
-	button.secButton.overlay:SetDesaturated(false)
 	if button.ExtraFrameShown then
 		AtlasLoot.Button:ExtraItemFrame_ClearFrame()
 		button.ExtraFrameShown = false
@@ -263,11 +269,7 @@ function Item.Refresh(button)
 	button.RawName = itemName
 
 	button.overlay:Show()
-
-	button.overlay:SetAtlas(LOOT_BORDER_BY_QUALITY[itemQuality] or LOOT_BORDER_BY_QUALITY[LE_ITEM_QUALITY_UNCOMMON])
-	if not LOOT_BORDER_BY_QUALITY[itemQuality] then
-		button.overlay:SetDesaturated(true)
-	end
+	button.overlay:SetQualityBorder(itemQuality)
 
 	if button.type == "secButton" then
 		button:SetNormalTexture(itemTexture or DUMMY_ITEM_ICON)
@@ -289,6 +291,7 @@ function Item.Refresh(button)
 			Token.GetTokenDescription(itemID) or
 			Recipe.GetRecipeDescriptionWithRank(itemID) or
 			Profession.GetColorSkillRankItem(itemID) or
+			(Mount.IsMount(button.ItemID) and ALIL["Mount"] or nil) or
 			( Sets:GetItemSetForItemID(itemID) and AL["|cff00ff00Set item:|r "] or "")..GetItemDescInfo(itemEquipLoc, itemType, itemSubType)
 		)
 	end
@@ -329,15 +332,18 @@ function Item.ShowQuickDressUp(itemLink, ttFrame)
 		local frame = CreateFrame("Frame", name)
 		frame:SetClampedToScreen(true)
 		frame:SetSize(230, 280)
+		frame:SetBackdrop(ALPrivate.BOX_BORDER_BACKDROP)
+		frame:SetBackdropColor(0,0,0,1)
 
 		frame.modelFrame = CreateFrame("DressUpModel", name.."-ModelFrame", frame)
 		frame.modelFrame:ClearAllPoints()
 		frame.modelFrame:SetParent(frame)
-		frame.modelFrame:SetAllPoints(frame)
+		frame.modelFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -5)
+		frame.modelFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -5, 5)
 		frame.modelFrame.defaultRotation = MODELFRAME_DEFAULT_ROTATION
 		frame.modelFrame:SetRotation(MODELFRAME_DEFAULT_ROTATION)
-		frame.modelFrame:SetBackdrop(ALPrivate.BOX_BORDER_BACKDROP)
-		frame.modelFrame:SetBackdropColor(0,0,0,1)
+		--frame.modelFrame:SetBackdrop(ALPrivate.BOX_BORDER_BACKDROP)
+		--frame.modelFrame:SetBackdropColor(0,0,0,1)
 		frame.modelFrame:SetUnit("player")
 		frame.modelFrame.minZoom = 0
 		frame.modelFrame.maxZoom = 1.0
@@ -438,7 +444,7 @@ local function EventFrame_OnEvent(frame, event, arg1, arg2)
 					GameTooltip_ShowCompareItem(itemIsOnEnter)
 				elseif arg1 == "LCTRL" or arg1 == "RCTRL" then
 					if Mount.IsMount(buttonOnEnter.ItemID) then
-						Item.ShowQuickDressUp(buttonOnEnter.ItemID, itemIsOnEnter)
+						--Item.ShowQuickDressUp(buttonOnEnter.ItemID, itemIsOnEnter)
 					else
 						--local _, link = itemIsOnEnter:GetItem()
 						Item.ShowQuickDressUp(buttonOnEnter.ItemID, itemIsOnEnter)
@@ -450,7 +456,7 @@ local function EventFrame_OnEvent(frame, event, arg1, arg2)
 					ShoppingTooltip2:Hide()
 					--ShoppingTooltip3:Hide()
 				elseif arg1 == "LCTRL" or arg1 == "RCTRL" then
-					if Item.previewTooltipFrame and Item.previewTooltipFrame:IsShown() then Item.previewTooltipFrame:Hide() end
+					if Item.previewTooltipFrame and not Mount.IsMount(buttonOnEnter.ItemID) and Item.previewTooltipFrame:IsShown() then Item.previewTooltipFrame:Hide() end
 				end
 			end
 		end

@@ -1,10 +1,10 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
 --Lua functions
 local _G = _G
 local select, unpack = select, unpack
---WoW API / Variables
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.help ~= true then return end
@@ -29,7 +29,7 @@ local function LoadSkin()
 
 	for i = 1, #frames do
 		frames[i]:StripTextures(true)
-		frames[i]:CreateBackdrop("Transparent")
+		frames[i]:CreateBackdrop('Transparent')
 	end
 
 	local HelpFrameHeader = _G.HelpFrameHeader
@@ -40,9 +40,9 @@ local function LoadSkin()
 
 	local HelpFrameReportBugScrollFrame = _G.HelpFrameReportBugScrollFrame
 	HelpFrameReportBugScrollFrame:StripTextures()
-	HelpFrameReportBugScrollFrame:CreateBackdrop("Transparent")
-	HelpFrameReportBugScrollFrame.backdrop:Point("TOPLEFT", -4, 4)
-	HelpFrameReportBugScrollFrame.backdrop:Point("BOTTOMRIGHT", 6, -4)
+	HelpFrameReportBugScrollFrame:CreateBackdrop('Transparent')
+	HelpFrameReportBugScrollFrame.backdrop:Point('TOPLEFT', -4, 4)
+	HelpFrameReportBugScrollFrame.backdrop:Point('BOTTOMRIGHT', 6, -4)
 
 	for i = 1, _G.HelpFrameReportBug:GetNumChildren() do
 		local child = select(i, _G.HelpFrameReportBug:GetChildren())
@@ -55,9 +55,9 @@ local function LoadSkin()
 
 	local HelpFrameSubmitSuggestionScrollFrame = _G.HelpFrameSubmitSuggestionScrollFrame
 	HelpFrameSubmitSuggestionScrollFrame:StripTextures()
-	HelpFrameSubmitSuggestionScrollFrame:CreateBackdrop("Transparent")
-	HelpFrameSubmitSuggestionScrollFrame.backdrop:Point("TOPLEFT", -4, 4)
-	HelpFrameSubmitSuggestionScrollFrame.backdrop:Point("BOTTOMRIGHT", 6, -4)
+	HelpFrameSubmitSuggestionScrollFrame:CreateBackdrop('Transparent')
+	HelpFrameSubmitSuggestionScrollFrame.backdrop:Point('TOPLEFT', -4, 4)
+	HelpFrameSubmitSuggestionScrollFrame.backdrop:Point('BOTTOMRIGHT', 6, -4)
 	for i=1, _G.HelpFrameSubmitSuggestion:GetNumChildren() do
 		local child = select(i, _G.HelpFrameSubmitSuggestion:GetChildren())
 		if not child:GetName() then
@@ -75,23 +75,23 @@ local function LoadSkin()
 
 		if buttons[i].text then
 			buttons[i].text:ClearAllPoints()
-			buttons[i].text:Point("CENTER")
-			buttons[i].text:SetJustifyH("CENTER")
+			buttons[i].text:Point('CENTER')
+			buttons[i].text:SetJustifyH('CENTER')
 		end
 	end
 
 	-- skin main buttons
 	for i = 1, 6 do
-		local b = _G["HelpFrameButton"..i]
+		local b = _G['HelpFrameButton'..i]
 		S:HandleButton(b, true)
 		b.text:ClearAllPoints()
-		b.text:Point("CENTER")
-		b.text:SetJustifyH("CENTER")
+		b.text:Point('CENTER')
+		b.text:SetJustifyH('CENTER')
 	end
 
 	-- skin table options
 	for i = 1, _G.HelpFrameKnowledgebaseScrollFrameScrollChild:GetNumChildren() do
-		local b = _G["HelpFrameKnowledgebaseScrollFrameButton"..i]
+		local b = _G['HelpFrameKnowledgebaseScrollFrameButton'..i]
 		b:StripTextures(true)
 		S:HandleButton(b, true)
 	end
@@ -101,7 +101,7 @@ local function LoadSkin()
 	S:HandleButton(HelpBrowserNavHome)
 	HelpBrowserNavHome:Size(26)
 	HelpBrowserNavHome:ClearAllPoints()
-	HelpBrowserNavHome:Point("BOTTOMLEFT", _G.HelpBrowser, "TOPLEFT", -5, 9)
+	HelpBrowserNavHome:Point('BOTTOMLEFT', _G.HelpBrowser, 'TOPLEFT', -5, 9)
 	S:HandleNextPrevButton(_G.HelpBrowserNavBack)
 	_G.HelpBrowserNavBack:Size(26)
 	S:HandleNextPrevButton(_G.HelpBrowserNavForward)
@@ -113,16 +113,16 @@ local function LoadSkin()
 	S:HandleButton(_G.HelpBrowserBrowserSettings)
 	_G.HelpBrowserBrowserSettings:Size(26)
 	_G.HelpBrowserBrowserSettings:ClearAllPoints()
-	_G.HelpBrowserBrowserSettings:Point("TOPRIGHT", _G.HelpFrameCloseButton, "TOPLEFT", -3, -8)
+	_G.HelpBrowserBrowserSettings:Point('TOPRIGHT', _G.HelpFrameCloseButton, 'TOPLEFT', -3, -8)
 
 	-- skin misc items
 	_G.HelpFrameKnowledgebaseSearchBox:ClearAllPoints()
-	_G.HelpFrameKnowledgebaseSearchBox:Point("TOPLEFT", _G.HelpFrameMainInset, "TOPLEFT", 13, -10)
+	_G.HelpFrameKnowledgebaseSearchBox:Point('TOPLEFT', _G.HelpFrameMainInset, 'TOPLEFT', 13, -10)
 	_G.HelpFrameKnowledgebaseNavBar:StripTextures()
 
 	local HelpFrame = _G.HelpFrame
 	HelpFrame:StripTextures(true)
-	HelpFrame:CreateBackdrop("Transparent")
+	HelpFrame:CreateBackdrop('Transparent')
 	S:HandleEditBox(_G.HelpFrameKnowledgebaseSearchBox)
 	S:HandleScrollBar(_G.HelpFrameKnowledgebaseScrollFrameScrollBar, 5)
 	S:HandleCloseButton(_G.HelpFrameCloseButton, HelpFrame.backdrop)
@@ -145,4 +145,4 @@ local function LoadSkin()
 	end
 end
 
-S:AddCallback("Help", LoadSkin)
+S:AddCallback('Help', LoadSkin)

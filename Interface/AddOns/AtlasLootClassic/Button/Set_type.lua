@@ -9,36 +9,47 @@ local Sets
 --local db
 
 -- lua
-local tonumber, type = tonumber, type
-local split = string.split
+local tonumber, type = _G.tonumber, _G.type
+local pairs = _G.pairs
+local split, format = string.split, _G.format
 
 -- AL
 local GetAlTooltip = AtlasLoot.Tooltip.GetTooltip
-
 local SetClickHandler = nil
+
+local CLASS_COLOR_FORMAT = "|c%s%s|r"
+local CLASS_NAMES_WITH_COLORS = {}
 
 ClickHandler:Add(
 	"Set",
 	{
 		OpenSet = { "LeftButton", "None" },
 		DressUp = { "LeftButton", "Ctrl" },
+		WoWHeadLink = { "RightButton", "Shift" },
 		--ChatLink = { "LeftButton", "Shift" },
 		types = {
 			OpenSet = true,
 			DressUp = true,
 			--ChatLink = true,
+			WoWHeadLink = true,
 		},
 	},
 	{
 		{ "OpenSet", 	"OpenSet", 	"OpenSet desc" },
 		{ "DressUp", 	AL["Dress up"], 	AL["Shows the item in the Dressing room"] },
 		--{ "ChatLink", 	AL["Chat Link"], 	AL["Add item into chat"] },
+		{ "WoWHeadLink", 	AL["Show WowHead link"], 	AL["Shows a copyable link for WoWHead"] },
 	}
 )
 
 function Set.OnSet(button, second)
 	if not SetClickHandler then
 		SetClickHandler = ClickHandler:GetHandler("Set")
+
+		for k,v in pairs(RAID_CLASS_COLORS) do
+			CLASS_NAMES_WITH_COLORS[k] = format(CLASS_COLOR_FORMAT,  v.colorStr, ALIL[k])
+		end
+		CLASS_COLOR_FORMAT = nil
 
 		Sets = AtlasLoot.Data.Sets
 	end
@@ -73,6 +84,8 @@ function Set.OnMouseAction(button, mouseButton)
 		--local itemInfo, itemLink = GetItemInfo(button.ItemString or button.ItemID)
 		--itemLink = itemLink or button.ItemString
 		--AtlasLoot.Button:AddChatLink(itemLink or "item:"..button.ItemID)
+	elseif mouseButton == "WoWHeadLink" then
+		AtlasLoot.Button:OpenWoWHeadLink(button, "item-set", button.SetID)
 	elseif mouseButton == "DressUp" then
 		for i = 1, #button.Items do
 			DressUpItemLink(type(button.Items[i]) == "string" and button.Items[i] or "item:"..button.Items[i])
@@ -113,11 +126,13 @@ function Set.OnClear(button)
 	button.Items = nil
 	button.SetIcon = nil
 	button.SetClassName = nil
+	button.SetID = nil
 
 	button.secButton.SetName = nil
 	button.secButton.Items = nil
 	button.secButton.SetIcon = nil
 	button.secButton.SetClassName = nil
+	button.secButton.SetID = nil
 	AtlasLoot.Button:ExtraItemFrame_ClearFrame()
 end
 
@@ -126,9 +141,16 @@ function Set.Refresh(button)
 		button:SetNormalTexture(button.SetIcon)
 	else
 		button.icon:SetTexture(button.SetIcon)
-		button.name:SetText(button.SetName)
+		button.name:SetText(Sets:GetSetColor(button.SetID)..button.SetName)
 		if button.SetClassName then
-			button.extra:SetText(ALIL[button.SetClassName])
+			button.extra:SetText(CLASS_NAMES_WITH_COLORS[button.SetClassName])
+		end
+	end
+	if AtlasLoot.db.ContentPhase.enableOnSets then
+		local phaseT = Sets:GetPhaseTextureForSetID(button.SetID)
+		if phaseT then
+			button.phaseIndicator:SetTexture(phaseT)
+			button.phaseIndicator:Show()
 		end
 	end
 

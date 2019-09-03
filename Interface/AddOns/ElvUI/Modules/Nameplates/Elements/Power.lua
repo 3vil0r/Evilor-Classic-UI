@@ -9,7 +9,6 @@ local unpack = unpack
 -- WoW API / Variables
 local UnitPlayerControlled = UnitPlayerControlled
 local UnitIsTapDenied = UnitIsTapDenied
-local UnitThreatSituation = UnitThreatSituation
 local UnitIsPlayer = UnitIsPlayer
 local UnitClass = UnitClass
 local UnitReaction = UnitReaction
@@ -24,7 +23,6 @@ function NP:Power_UpdateColor(event, unit)
 	element.token = ptoken
 
 	if self.PowerColorChanged then return end
-	local Selection = element.colorSelection and NP:UnitSelectionType(unit, element.considerSelectionInCombatHostile)
 
 	local r, g, b, t, atlas
 	if(element.colorDead and element.dead) then
@@ -33,24 +31,18 @@ function NP:Power_UpdateColor(event, unit)
 		t = self.colors.disconnected
 	elseif(element.colorTapping and not UnitPlayerControlled(unit) and UnitIsTapDenied(unit)) then
 		t = self.colors.tapped
-	elseif(element.colorThreat and not UnitPlayerControlled(unit) and UnitThreatSituation('player', unit)) then
-		t =  self.colors.threat[UnitThreatSituation('player', unit)]
 	elseif(element.colorPower) then
-		if(element.displayType ~= _G.ALTERNATE_POWER_INDEX) then
-			t = NP.db.colors.power[ptoken or ptype]
-			if(not t) then
-				if(element.GetAlternativeColor) then
-					r, g, b = element:GetAlternativeColor(unit, ptype, ptoken, altR, altG, altB)
-				elseif(altR) then
-					r, g, b = altR, altG, altB
-					if(r > 1 or g > 1 or b > 1) then
-						-- BUG: As of 7.0.3, altR, altG, altB may be in 0-1 or 0-255 range.
-						r, g, b = r / 255, g / 255, b / 255
-					end
+		t = NP.db.colors.power[ptoken or ptype]
+		if(not t) then
+			if(element.GetAlternativeColor) then
+				r, g, b = element:GetAlternativeColor(unit, ptype, ptoken, altR, altG, altB)
+			elseif(altR) then
+				r, g, b = altR, altG, altB
+				if(r > 1 or g > 1 or b > 1) then
+					-- BUG: As of 7.0.3, altR, altG, altB may be in 0-1 or 0-255 range.
+					r, g, b = r / 255, g / 255, b / 255
 				end
 			end
-		else
-			t = self.colors.power[_G.ALTERNATE_POWER_INDEX]
 		end
 
 		if(element.useAtlas and t and t.atlas) then
@@ -61,8 +53,6 @@ function NP:Power_UpdateColor(event, unit)
 		(element.colorClassPet and UnitPlayerControlled(unit) and not UnitIsPlayer(unit)) then
 		local _, class = UnitClass(unit)
 		t = self.colors.class[class]
-	elseif Selection then
-		t = NP.db.colors.selection[Selection]
 	elseif(element.colorReaction and UnitReaction(unit, 'player')) then
 		local reaction = UnitReaction(unit, 'player')
 		if reaction <= 3 then reaction = 'bad' elseif reaction == 4 then reaction = 'neutral' else reaction = 'good' end
@@ -158,7 +148,6 @@ function NP:Update_Power(nameplate)
 
 	nameplate:Tag(nameplate.Power.Text, db.power.text.format)
 
-	nameplate.Power.displayAltPower = db.power.displayAltPower
 	nameplate.Power.useAtlas = db.power.useAtlas
 	nameplate.Power.colorClass = db.power.useClassColor
 	nameplate.Power.colorPower = not db.power.useClassColor

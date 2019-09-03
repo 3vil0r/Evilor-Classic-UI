@@ -1160,7 +1160,6 @@ local function BFrame_scripts (baseframe, instancia)
 end
 
 local function backgrounddisplay_scripts (backgrounddisplay, baseframe, instancia)
-
 	backgrounddisplay:SetScript ("OnEnter", function (self)
 		OnEnterMainWindow (instancia, self)
 	end)
@@ -3478,7 +3477,8 @@ function gump:CriaJanelaPrincipal (ID, instancia, criando)
 	backgrounddisplay:SetFrameLevel (3)
 	backgroundframe.instance = instancia
 	backgrounddisplay.instance = instancia
-
+	instancia.windowBackgroundDisplay = backgrounddisplay
+	
 	--> row frame is the parent of rows, it have setallpoints on baseframe
 	local rowframe = CreateFrame ("frame", "DetailsRowFrame"..ID, _UIParent)
 	rowframe:SetAllPoints (baseframe)
@@ -3493,6 +3493,8 @@ function gump:CriaJanelaPrincipal (ID, instancia, criando)
 	switchbutton:SetPoint ("topleft", backgrounddisplay, "topleft")
 	switchbutton:SetPoint ("bottomright", backgrounddisplay, "bottomright")
 	switchbutton:SetFrameLevel (backgrounddisplay:GetFrameLevel()+1)
+	
+	instancia.windowSwitchButton = switchbutton
 	
 	--> avoid mouse hover over a high window when the menu is open for a lower instance.
 	local anti_menu_overlap = CreateFrame ("frame", "Details_WindowFrameAntiMenuOverlap" .. ID, UIParent)
@@ -4282,6 +4284,9 @@ end
 -- ~spec ~icons
 function _detalhes:SetBarSpecIconSettings (enabled, iconfile, fulltrack)
 	
+	--> disabled at the moment 
+	--enabled =  false
+
 	if (type (enabled) ~= "boolean") then
 		enabled = self.row_info.use_spec_icons
 	end
@@ -4829,6 +4834,9 @@ function _detalhes:InstanceRefreshRows (instancia)
 	end
 	
 	self:SetBarGrowDirection()
+	
+	self:UpdateClickThrough()
+	
 
 end
 
@@ -7028,13 +7036,14 @@ function _detalhes:ChangeSkin (skin_name)
 		self.break_snap_button:SetPushedTexture (skin_file)
 
 	--> update toolbar icons
+	local toolbar_buttons = {}
+	
 	do
 		local toolbar_icon_file = self.toolbar_icon_file
 		if (not toolbar_icon_file) then
 			toolbar_icon_file = [[Interface\AddOns\Details\images\toolbar_icons]]
 		end
 
-		local toolbar_buttons = {}
 		toolbar_buttons [1] = self.baseframe.cabecalho.modo_selecao
 		toolbar_buttons [2] = self.baseframe.cabecalho.segmento
 		toolbar_buttons [3] = self.baseframe.cabecalho.atributo
@@ -7210,8 +7219,182 @@ function _detalhes:ChangeSkin (skin_name)
 			self.bgframe.skin = this_skin
 		end
 	end
-
+	
+	self:UpdateClickThrough()
 end
+
+--update the window click through state
+local updateClickThroughListener = _detalhes:CreateEventListener()
+function updateClickThroughListener:EnterCombat()
+	_detalhes:InstanceCall (function (instance)
+		C_Timer.After (1.5, function()
+			instance:UpdateClickThrough()
+		end)
+	end)
+end
+
+function updateClickThroughListener:LeaveCombat()
+	_detalhes:InstanceCall (function (instance)
+		C_Timer.After (1.5, function()
+			instance:UpdateClickThrough()
+		end)
+	end)
+end
+
+updateClickThroughListener:RegisterEvent ("COMBAT_PLAYER_ENTER", "EnterCombat")
+updateClickThroughListener:RegisterEvent ("COMBAT_PLAYER_LEAVE", "EnterCombat")
+
+function _detalhes:UpdateClickThroughSettings (inCombat, window, bars, toolbaricons)
+	if (inCombat ~= nil) then
+		self.clickthrough_incombatonly = inCombat
+	end
+	
+	if (window ~= nil) then
+		self.clickthrough_window = window
+	end
+	
+	if (bars ~= nil) then
+		self.clickthrough_rows = bars
+	end
+	
+	if (toolbaricons ~= nil) then
+		self.clickthrough_toolbaricons = toolbaricons
+	end
+	
+	self:UpdateClickThrough()
+end
+
+function _detalhes:UpdateClickThrough()
+	
+	local barsClickThrough = self.clickthrough_rows
+	local windowClickThrough = self.clickthrough_window
+	local onlyInCombat = self.clickthrough_incombatonly
+	local toolbarIcons = not self.clickthrough_toolbaricons
+
+	if (onlyInCombat) then
+
+		if (InCombatLockdown()) then
+			--player bars
+			if (barsClickThrough) then
+				for barIndex, barObject in _ipairs (self.barras) do 
+					barObject:EnableMouse (false)
+				end
+			else
+				for barIndex, barObject in _ipairs (self.barras) do 
+					barObject:EnableMouse (true)
+				end
+			end
+			
+			--window frames
+			if (windowClickThrough) then
+				self.baseframe:EnableMouse (false)
+				self.bgframe:EnableMouse (false)
+				self.rowframe:EnableMouse (false)
+				self.floatingframe:EnableMouse (false)
+				self.windowSwitchButton:EnableMouse (false)
+				self.windowBackgroundDisplay:EnableMouse (false)
+				self.baseframe.UPFrame:EnableMouse (false)
+
+			else
+				self.baseframe:EnableMouse (true)
+				self.bgframe:EnableMouse (true)
+				self.rowframe:EnableMouse (true)
+				self.floatingframe:EnableMouse (true)
+				self.windowSwitchButton:EnableMouse (true)
+				self.windowBackgroundDisplay:EnableMouse (true)
+				self.baseframe.UPFrame:EnableMouse (true)
+			end
+			
+			--titlebar icons
+			local toolbar_buttons = {}
+			toolbar_buttons [1] = self.baseframe.cabecalho.modo_selecao
+			toolbar_buttons [2] = self.baseframe.cabecalho.segmento
+			toolbar_buttons [3] = self.baseframe.cabecalho.atributo
+			toolbar_buttons [4] = self.baseframe.cabecalho.report
+			toolbar_buttons [5] = self.baseframe.cabecalho.reset
+			toolbar_buttons [6] = self.baseframe.cabecalho.fechar
+			
+			for i, button in ipairs (toolbar_buttons) do
+				button:EnableMouse (toolbar_buttons)
+			end
+			
+		else
+			--player bars
+			for barIndex, barObject in _ipairs (self.barras) do
+				barObject:EnableMouse (true)
+			end
+			
+			--window frames
+			self.baseframe:EnableMouse (true)
+			self.bgframe:EnableMouse (true)
+			self.rowframe:EnableMouse (true)
+			self.floatingframe:EnableMouse (true)
+			self.windowSwitchButton:EnableMouse (true)
+			self.windowBackgroundDisplay:EnableMouse (true)
+			self.baseframe.UPFrame:EnableMouse (true)
+			
+			--titlebar icons, forcing true because the player isn't in combat and the inCombat setting is enabled
+			local toolbar_buttons = {}
+			toolbar_buttons [1] = self.baseframe.cabecalho.modo_selecao
+			toolbar_buttons [2] = self.baseframe.cabecalho.segmento
+			toolbar_buttons [3] = self.baseframe.cabecalho.atributo
+			toolbar_buttons [4] = self.baseframe.cabecalho.report
+			toolbar_buttons [5] = self.baseframe.cabecalho.reset
+			toolbar_buttons [6] = self.baseframe.cabecalho.fechar
+			
+			for i, button in ipairs (toolbar_buttons) do
+				button:EnableMouse (true)
+			end
+		end
+	else
+
+		--player bars
+		if (barsClickThrough) then
+			for barIndex, barObject in _ipairs (self.barras) do 
+				barObject:EnableMouse (false)
+			end
+		else
+			for barIndex, barObject in _ipairs (self.barras) do 
+				barObject:EnableMouse (true)
+			end
+		end
+		
+		--window frame
+		if (windowClickThrough) then
+			self.baseframe:EnableMouse (false)
+			self.bgframe:EnableMouse (false)
+			self.rowframe:EnableMouse (false)
+			self.floatingframe:EnableMouse (false)
+			self.windowSwitchButton:EnableMouse (false)
+			self.windowBackgroundDisplay:EnableMouse (false)
+			self.baseframe.UPFrame:EnableMouse (false)
+
+		else
+			self.baseframe:EnableMouse (true)
+			self.bgframe:EnableMouse (true)
+			self.rowframe:EnableMouse (true)
+			self.floatingframe:EnableMouse (true)
+			self.windowSwitchButton:EnableMouse (true)
+			self.windowBackgroundDisplay:EnableMouse (true)
+			self.baseframe.UPFrame:EnableMouse (true)
+		end
+		
+		--titlebar icons
+		local toolbar_buttons = {}
+		toolbar_buttons [1] = self.baseframe.cabecalho.modo_selecao
+		toolbar_buttons [2] = self.baseframe.cabecalho.segmento
+		toolbar_buttons [3] = self.baseframe.cabecalho.atributo
+		toolbar_buttons [4] = self.baseframe.cabecalho.report
+		toolbar_buttons [5] = self.baseframe.cabecalho.reset
+		toolbar_buttons [6] = self.baseframe.cabecalho.fechar
+		
+		for i, button in ipairs (toolbar_buttons) do
+			button:EnableMouse (toolbarIcons)
+		end
+	end
+end
+
+--endd
 
 function _detalhes:DelayedCheckCombatAlpha (instance)
 	if (UnitAffectingCombat ("player") or InCombatLockdown()) then

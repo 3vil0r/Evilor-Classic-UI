@@ -1,6 +1,6 @@
 ﻿## Interface: 11302
-## Author: Lag, Proteyer, Arith	
-## Version: v1.1.2-beta
+## Author: Lag
+## Version: v1.1.8-beta
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 
@@ -16,15 +16,15 @@
 ## Title-zhCN: AtlasLootClassic |cFF0099FF[PvP]|r
 ## Title-zhTW: AtlasLootClassic |cFF0099FF[PvP]|r
 ## Notes: AtlasLoot loot tables from PvP
-## Notes-deDE: AtlasLoot loot tables from PvP
+## Notes-deDE: PvP Modul
 ## Notes-esES: AtlasLoot loot tables from PvP
 ## Notes-esMX: AtlasLoot loot tables from PvP
 ## Notes-frFR: AtlasLoot loot tables from PvP
 ## Notes-itIT: AtlasLoot loot tables from PvP
 ## Notes-koKR: AtlasLoot loot tables from PvP
 ## Notes-ptBR: AtlasLoot loot tables from PvP
-## Notes-ruRU: AtlasLoot loot tables from PvP
-## Notes-zhCN: AtlasLoot loot tables from PvP
+## Notes-ruRU: Таблицы добычи AtlasLoot с PvP
+## Notes-zhCN: AtlasLoot  PvP掉落列表
 ## Notes-zhTW: AtlasLoot loot tables from PvP
 
 ## X-Category: Map

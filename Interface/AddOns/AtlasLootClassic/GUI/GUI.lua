@@ -146,6 +146,7 @@ local function UpdateFrames(noPageUpdate)
 		end
 	end
 	GUI:RefreshNextPrevButtons()
+	AtlasLoot.Button:CopyBox_Hide()
 end
 
 -- ################################
@@ -827,6 +828,15 @@ function GUI:Create()
 	frame.titleFrame:SetPoint("TOPLEFT", frame, 10, -7)
 	frame.titleFrame:SetPoint("BOTTOMRIGHT", frame, "TOPRIGHT", -30, -25)
 	frame.titleFrame.text:SetText(AL["AtlasLoot"])
+
+	frame.titleFrame.version = frame.titleFrame:CreateFontString(nil, "ARTWORK")
+	frame.titleFrame.version:SetPoint("BOTTOMRIGHT", frame.titleFrame, "BOTTOMRIGHT", -2, 1)
+	frame.titleFrame.version:SetTextColor(1, 1, 1, 0.5)
+	frame.titleFrame.version:SetSize(150, 10)
+	frame.titleFrame.version:SetFont(_G["SystemFont_Tiny"]:GetFont(), 10)
+	frame.titleFrame.version:SetJustifyH("RIGHT")
+	frame.titleFrame.version:SetJustifyV("BOTTOM")
+	frame.titleFrame.version:SetText(AtlasLoot.__addonversion)
 
 	frame.moduleSelect = GUI:CreateDropDown()
 	frame.moduleSelect:SetParPoint("TOPLEFT", frame, "TOPLEFT", 10, -40)
